@@ -9,6 +9,8 @@
 #import "LEAppDelegate.h"
 
 #import "LEMasterViewController.h"
+#import <UAGithubEngine/UAGithubEngine.h>
+#import <UICKeyChainStore/UICKeyChainStore.h>
 
 @implementation LEAppDelegate
 
