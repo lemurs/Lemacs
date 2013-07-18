@@ -7,12 +7,17 @@
 //
 
 #import "APPAppDelegate.h"
+#import <UAGithubEngine/UAGithubEngine.h>
+#import <UICKeyChainStore/UICKeyChainStore.h>
 
 @implementation APPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+//    KeychainItemWrapper *keychainItem =[[KeychainItemWrapper alloc] initWithIdentifier:@"Github" accessGroup:nil];
+    
+    
     return YES;
 }
 							
