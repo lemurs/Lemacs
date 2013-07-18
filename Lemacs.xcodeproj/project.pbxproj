@@ -7,155 +7,164 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D8A8C3AE17982B54009B1300 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3AD17982B54009B1300 /* Foundation.framework */; };
-		D8A8C3B017982B54009B1300 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3AF17982B54009B1300 /* CoreGraphics.framework */; };
-		D8A8C3B217982B54009B1300 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3B117982B54009B1300 /* UIKit.framework */; };
-		D8A8C3B817982B55009B1300 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8A8C3B617982B55009B1300 /* InfoPlist.strings */; };
-		D8A8C3BA17982B55009B1300 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A8C3B917982B55009B1300 /* main.m */; };
-		D8A8C3BE17982B55009B1300 /* LEAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A8C3BD17982B55009B1300 /* LEAppDelegate.m */; };
-		D8A8C3C117982B55009B1300 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8A8C3BF17982B55009B1300 /* Main_iPhone.storyboard */; };
-		D8A8C3C417982B55009B1300 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8A8C3C217982B55009B1300 /* Main_iPad.storyboard */; };
-		D8A8C3C717982B55009B1300 /* LEFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A8C3C617982B55009B1300 /* LEFirstViewController.m */; };
-		D8A8C3CA17982B55009B1300 /* LESecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A8C3C917982B55009B1300 /* LESecondViewController.m */; };
-		D8A8C3CC17982B55009B1300 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8A8C3CB17982B55009B1300 /* Images.xcassets */; };
-		D8A8C3D317982B55009B1300 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3D217982B55009B1300 /* XCTest.framework */; };
-		D8A8C3D417982B55009B1300 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3AD17982B54009B1300 /* Foundation.framework */; };
-		D8A8C3D517982B55009B1300 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3B117982B54009B1300 /* UIKit.framework */; };
-		D8A8C3DD17982B55009B1300 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8A8C3DB17982B55009B1300 /* InfoPlist.strings */; };
-		D8A8C3DF17982B55009B1300 /* LemacsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A8C3DE17982B55009B1300 /* LemacsTests.m */; };
+		D8A8C3F517982FDE009B1300 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F417982FDE009B1300 /* Foundation.framework */; };
+		D8A8C3F717982FDE009B1300 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F617982FDE009B1300 /* CoreGraphics.framework */; };
+		D8A8C3F917982FDE009B1300 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F817982FDE009B1300 /* UIKit.framework */; };
+		D8A8C3FB17982FDE009B1300 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3FA17982FDE009B1300 /* CoreData.framework */; };
+		D8A8C40117982FDE009B1300 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8A8C3FF17982FDE009B1300 /* InfoPlist.strings */; };
+		D8A8C40317982FDE009B1300 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A8C40217982FDE009B1300 /* main.m */; };
+		D8A8C40717982FDE009B1300 /* LEAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A8C40617982FDE009B1300 /* LEAppDelegate.m */; };
+		D8A8C40A17982FDE009B1300 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8A8C40817982FDE009B1300 /* Main_iPhone.storyboard */; };
+		D8A8C40D17982FDE009B1300 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8A8C40B17982FDE009B1300 /* Main_iPad.storyboard */; };
+		D8A8C41017982FDF009B1300 /* Lemacs.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D8A8C40E17982FDF009B1300 /* Lemacs.xcdatamodeld */; };
+		D8A8C41317982FDF009B1300 /* LEMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A8C41217982FDF009B1300 /* LEMasterViewController.m */; };
+		D8A8C41617982FDF009B1300 /* LEDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A8C41517982FDF009B1300 /* LEDetailViewController.m */; };
+		D8A8C41817982FDF009B1300 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8A8C41717982FDF009B1300 /* Images.xcassets */; };
+		D8A8C41F17982FDF009B1300 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C41E17982FDF009B1300 /* XCTest.framework */; };
+		D8A8C42017982FDF009B1300 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F417982FDE009B1300 /* Foundation.framework */; };
+		D8A8C42117982FDF009B1300 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F817982FDE009B1300 /* UIKit.framework */; };
+		D8A8C42217982FDF009B1300 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3FA17982FDE009B1300 /* CoreData.framework */; };
+		D8A8C42A17982FDF009B1300 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8A8C42817982FDF009B1300 /* InfoPlist.strings */; };
+		D8A8C42C17982FDF009B1300 /* LemacsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A8C42B17982FDF009B1300 /* LemacsTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D8A8C3D617982B55009B1300 /* PBXContainerItemProxy */ = {
+		D8A8C42317982FDF009B1300 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D8A8C3A217982B54009B1300 /* Project object */;
+			containerPortal = D8A8C3E917982FDE009B1300 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D8A8C3A917982B54009B1300;
+			remoteGlobalIDString = D8A8C3F017982FDE009B1300;
 			remoteInfo = Lemacs;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D8A8C3AA17982B54009B1300 /* Lemacs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lemacs.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8A8C3AD17982B54009B1300 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		D8A8C3AF17982B54009B1300 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		D8A8C3B117982B54009B1300 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		D8A8C3B517982B55009B1300 /* Lemacs-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Lemacs-Info.plist"; sourceTree = "<group>"; };
-		D8A8C3B717982B55009B1300 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D8A8C3B917982B55009B1300 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D8A8C3BB17982B55009B1300 /* Lemacs-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lemacs-Prefix.pch"; sourceTree = "<group>"; };
-		D8A8C3BC17982B55009B1300 /* LEAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEAppDelegate.h; sourceTree = "<group>"; };
-		D8A8C3BD17982B55009B1300 /* LEAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEAppDelegate.m; sourceTree = "<group>"; };
-		D8A8C3C017982B55009B1300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		D8A8C3C317982B55009B1300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		D8A8C3C517982B55009B1300 /* LEFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEFirstViewController.h; sourceTree = "<group>"; };
-		D8A8C3C617982B55009B1300 /* LEFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEFirstViewController.m; sourceTree = "<group>"; };
-		D8A8C3C817982B55009B1300 /* LESecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LESecondViewController.h; sourceTree = "<group>"; };
-		D8A8C3C917982B55009B1300 /* LESecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LESecondViewController.m; sourceTree = "<group>"; };
-		D8A8C3CB17982B55009B1300 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D8A8C3D117982B55009B1300 /* LemacsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LemacsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D8A8C3D217982B55009B1300 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		D8A8C3DA17982B55009B1300 /* LemacsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LemacsTests-Info.plist"; sourceTree = "<group>"; };
-		D8A8C3DC17982B55009B1300 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D8A8C3DE17982B55009B1300 /* LemacsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LemacsTests.m; sourceTree = "<group>"; };
+		D8A8C3F117982FDE009B1300 /* Lemacs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lemacs.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8A8C3F417982FDE009B1300 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D8A8C3F617982FDE009B1300 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D8A8C3F817982FDE009B1300 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D8A8C3FA17982FDE009B1300 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D8A8C3FE17982FDE009B1300 /* Lemacs-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Lemacs-Info.plist"; sourceTree = "<group>"; };
+		D8A8C40017982FDE009B1300 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D8A8C40217982FDE009B1300 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D8A8C40417982FDE009B1300 /* Lemacs-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lemacs-Prefix.pch"; sourceTree = "<group>"; };
+		D8A8C40517982FDE009B1300 /* LEAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEAppDelegate.h; sourceTree = "<group>"; };
+		D8A8C40617982FDE009B1300 /* LEAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEAppDelegate.m; sourceTree = "<group>"; };
+		D8A8C40917982FDE009B1300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		D8A8C40C17982FDE009B1300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		D8A8C40F17982FDF009B1300 /* Lemacs.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lemacs.xcdatamodel; sourceTree = "<group>"; };
+		D8A8C41117982FDF009B1300 /* LEMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEMasterViewController.h; sourceTree = "<group>"; };
+		D8A8C41217982FDF009B1300 /* LEMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEMasterViewController.m; sourceTree = "<group>"; };
+		D8A8C41417982FDF009B1300 /* LEDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEDetailViewController.h; sourceTree = "<group>"; };
+		D8A8C41517982FDF009B1300 /* LEDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEDetailViewController.m; sourceTree = "<group>"; };
+		D8A8C41717982FDF009B1300 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D8A8C41D17982FDF009B1300 /* LemacsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LemacsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8A8C41E17982FDF009B1300 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		D8A8C42717982FDF009B1300 /* LemacsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LemacsTests-Info.plist"; sourceTree = "<group>"; };
+		D8A8C42917982FDF009B1300 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D8A8C42B17982FDF009B1300 /* LemacsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LemacsTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D8A8C3A717982B54009B1300 /* Frameworks */ = {
+		D8A8C3EE17982FDE009B1300 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8A8C3B017982B54009B1300 /* CoreGraphics.framework in Frameworks */,
-				D8A8C3B217982B54009B1300 /* UIKit.framework in Frameworks */,
-				D8A8C3AE17982B54009B1300 /* Foundation.framework in Frameworks */,
+				D8A8C3F717982FDE009B1300 /* CoreGraphics.framework in Frameworks */,
+				D8A8C3FB17982FDE009B1300 /* CoreData.framework in Frameworks */,
+				D8A8C3F917982FDE009B1300 /* UIKit.framework in Frameworks */,
+				D8A8C3F517982FDE009B1300 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D8A8C3CE17982B55009B1300 /* Frameworks */ = {
+		D8A8C41A17982FDF009B1300 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8A8C3D317982B55009B1300 /* XCTest.framework in Frameworks */,
-				D8A8C3D517982B55009B1300 /* UIKit.framework in Frameworks */,
-				D8A8C3D417982B55009B1300 /* Foundation.framework in Frameworks */,
+				D8A8C41F17982FDF009B1300 /* XCTest.framework in Frameworks */,
+				D8A8C42217982FDF009B1300 /* CoreData.framework in Frameworks */,
+				D8A8C42117982FDF009B1300 /* UIKit.framework in Frameworks */,
+				D8A8C42017982FDF009B1300 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D8A8C3A117982B54009B1300 = {
+		D8A8C3E817982FDE009B1300 = {
 			isa = PBXGroup;
 			children = (
-				D8A8C3B317982B54009B1300 /* Lemacs */,
-				D8A8C3D817982B55009B1300 /* LemacsTests */,
-				D8A8C3AC17982B54009B1300 /* Frameworks */,
-				D8A8C3AB17982B54009B1300 /* Products */,
+				D8A8C3FC17982FDE009B1300 /* Lemacs */,
+				D8A8C42517982FDF009B1300 /* LemacsTests */,
+				D8A8C3F317982FDE009B1300 /* Frameworks */,
+				D8A8C3F217982FDE009B1300 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		D8A8C3AB17982B54009B1300 /* Products */ = {
+		D8A8C3F217982FDE009B1300 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D8A8C3AA17982B54009B1300 /* Lemacs.app */,
-				D8A8C3D117982B55009B1300 /* LemacsTests.xctest */,
+				D8A8C3F117982FDE009B1300 /* Lemacs.app */,
+				D8A8C41D17982FDF009B1300 /* LemacsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D8A8C3AC17982B54009B1300 /* Frameworks */ = {
+		D8A8C3F317982FDE009B1300 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D8A8C3AD17982B54009B1300 /* Foundation.framework */,
-				D8A8C3AF17982B54009B1300 /* CoreGraphics.framework */,
-				D8A8C3B117982B54009B1300 /* UIKit.framework */,
-				D8A8C3D217982B55009B1300 /* XCTest.framework */,
+				D8A8C3F417982FDE009B1300 /* Foundation.framework */,
+				D8A8C3F617982FDE009B1300 /* CoreGraphics.framework */,
+				D8A8C3F817982FDE009B1300 /* UIKit.framework */,
+				D8A8C3FA17982FDE009B1300 /* CoreData.framework */,
+				D8A8C41E17982FDF009B1300 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D8A8C3B317982B54009B1300 /* Lemacs */ = {
+		D8A8C3FC17982FDE009B1300 /* Lemacs */ = {
 			isa = PBXGroup;
 			children = (
-				D8A8C3BC17982B55009B1300 /* LEAppDelegate.h */,
-				D8A8C3BD17982B55009B1300 /* LEAppDelegate.m */,
-				D8A8C3BF17982B55009B1300 /* Main_iPhone.storyboard */,
-				D8A8C3C217982B55009B1300 /* Main_iPad.storyboard */,
-				D8A8C3C517982B55009B1300 /* LEFirstViewController.h */,
-				D8A8C3C617982B55009B1300 /* LEFirstViewController.m */,
-				D8A8C3C817982B55009B1300 /* LESecondViewController.h */,
-				D8A8C3C917982B55009B1300 /* LESecondViewController.m */,
-				D8A8C3CB17982B55009B1300 /* Images.xcassets */,
-				D8A8C3B417982B55009B1300 /* Supporting Files */,
+				D8A8C40517982FDE009B1300 /* LEAppDelegate.h */,
+				D8A8C40617982FDE009B1300 /* LEAppDelegate.m */,
+				D8A8C40817982FDE009B1300 /* Main_iPhone.storyboard */,
+				D8A8C40B17982FDE009B1300 /* Main_iPad.storyboard */,
+				D8A8C41117982FDF009B1300 /* LEMasterViewController.h */,
+				D8A8C41217982FDF009B1300 /* LEMasterViewController.m */,
+				D8A8C41417982FDF009B1300 /* LEDetailViewController.h */,
+				D8A8C41517982FDF009B1300 /* LEDetailViewController.m */,
+				D8A8C41717982FDF009B1300 /* Images.xcassets */,
+				D8A8C40E17982FDF009B1300 /* Lemacs.xcdatamodeld */,
+				D8A8C3FD17982FDE009B1300 /* Supporting Files */,
 			);
 			path = Lemacs;
 			sourceTree = "<group>";
 		};
-		D8A8C3B417982B55009B1300 /* Supporting Files */ = {
+		D8A8C3FD17982FDE009B1300 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D8A8C3B517982B55009B1300 /* Lemacs-Info.plist */,
-				D8A8C3B617982B55009B1300 /* InfoPlist.strings */,
-				D8A8C3B917982B55009B1300 /* main.m */,
-				D8A8C3BB17982B55009B1300 /* Lemacs-Prefix.pch */,
+				D8A8C3FE17982FDE009B1300 /* Lemacs-Info.plist */,
+				D8A8C3FF17982FDE009B1300 /* InfoPlist.strings */,
+				D8A8C40217982FDE009B1300 /* main.m */,
+				D8A8C40417982FDE009B1300 /* Lemacs-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D8A8C3D817982B55009B1300 /* LemacsTests */ = {
+		D8A8C42517982FDF009B1300 /* LemacsTests */ = {
 			isa = PBXGroup;
 			children = (
-				D8A8C3DE17982B55009B1300 /* LemacsTests.m */,
-				D8A8C3D917982B55009B1300 /* Supporting Files */,
+				D8A8C42B17982FDF009B1300 /* LemacsTests.m */,
+				D8A8C42617982FDF009B1300 /* Supporting Files */,
 			);
 			path = LemacsTests;
 			sourceTree = "<group>";
 		};
-		D8A8C3D917982B55009B1300 /* Supporting Files */ = {
+		D8A8C42617982FDF009B1300 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D8A8C3DA17982B55009B1300 /* LemacsTests-Info.plist */,
-				D8A8C3DB17982B55009B1300 /* InfoPlist.strings */,
+				D8A8C42717982FDF009B1300 /* LemacsTests-Info.plist */,
+				D8A8C42817982FDF009B1300 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -163,13 +172,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D8A8C3A917982B54009B1300 /* Lemacs */ = {
+		D8A8C3F017982FDE009B1300 /* Lemacs */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D8A8C3E217982B55009B1300 /* Build configuration list for PBXNativeTarget "Lemacs" */;
+			buildConfigurationList = D8A8C42F17982FDF009B1300 /* Build configuration list for PBXNativeTarget "Lemacs" */;
 			buildPhases = (
-				D8A8C3A617982B54009B1300 /* Sources */,
-				D8A8C3A717982B54009B1300 /* Frameworks */,
-				D8A8C3A817982B54009B1300 /* Resources */,
+				D8A8C3ED17982FDE009B1300 /* Sources */,
+				D8A8C3EE17982FDE009B1300 /* Frameworks */,
+				D8A8C3EF17982FDE009B1300 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -177,43 +186,43 @@
 			);
 			name = Lemacs;
 			productName = Lemacs;
-			productReference = D8A8C3AA17982B54009B1300 /* Lemacs.app */;
+			productReference = D8A8C3F117982FDE009B1300 /* Lemacs.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D8A8C3D017982B55009B1300 /* LemacsTests */ = {
+		D8A8C41C17982FDF009B1300 /* LemacsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D8A8C3E517982B55009B1300 /* Build configuration list for PBXNativeTarget "LemacsTests" */;
+			buildConfigurationList = D8A8C43217982FDF009B1300 /* Build configuration list for PBXNativeTarget "LemacsTests" */;
 			buildPhases = (
-				D8A8C3CD17982B55009B1300 /* Sources */,
-				D8A8C3CE17982B55009B1300 /* Frameworks */,
-				D8A8C3CF17982B55009B1300 /* Resources */,
+				D8A8C41917982FDF009B1300 /* Sources */,
+				D8A8C41A17982FDF009B1300 /* Frameworks */,
+				D8A8C41B17982FDF009B1300 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D8A8C3D717982B55009B1300 /* PBXTargetDependency */,
+				D8A8C42417982FDF009B1300 /* PBXTargetDependency */,
 			);
 			name = LemacsTests;
 			productName = LemacsTests;
-			productReference = D8A8C3D117982B55009B1300 /* LemacsTests.xctest */;
+			productReference = D8A8C41D17982FDF009B1300 /* LemacsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		D8A8C3A217982B54009B1300 /* Project object */ = {
+		D8A8C3E917982FDE009B1300 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = LE;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "New Lemurs";
 				TargetAttributes = {
-					D8A8C3D017982B55009B1300 = {
-						TestTargetID = D8A8C3A917982B54009B1300;
+					D8A8C41C17982FDF009B1300 = {
+						TestTargetID = D8A8C3F017982FDE009B1300;
 					};
 				};
 			};
-			buildConfigurationList = D8A8C3A517982B54009B1300 /* Build configuration list for PBXProject "Lemacs" */;
+			buildConfigurationList = D8A8C3EC17982FDE009B1300 /* Build configuration list for PBXProject "Lemacs" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -221,98 +230,99 @@
 				en,
 				Base,
 			);
-			mainGroup = D8A8C3A117982B54009B1300;
-			productRefGroup = D8A8C3AB17982B54009B1300 /* Products */;
+			mainGroup = D8A8C3E817982FDE009B1300;
+			productRefGroup = D8A8C3F217982FDE009B1300 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D8A8C3A917982B54009B1300 /* Lemacs */,
-				D8A8C3D017982B55009B1300 /* LemacsTests */,
+				D8A8C3F017982FDE009B1300 /* Lemacs */,
+				D8A8C41C17982FDF009B1300 /* LemacsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		D8A8C3A817982B54009B1300 /* Resources */ = {
+		D8A8C3EF17982FDE009B1300 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8A8C3C417982B55009B1300 /* Main_iPad.storyboard in Resources */,
-				D8A8C3CC17982B55009B1300 /* Images.xcassets in Resources */,
-				D8A8C3C117982B55009B1300 /* Main_iPhone.storyboard in Resources */,
-				D8A8C3B817982B55009B1300 /* InfoPlist.strings in Resources */,
+				D8A8C40D17982FDE009B1300 /* Main_iPad.storyboard in Resources */,
+				D8A8C41817982FDF009B1300 /* Images.xcassets in Resources */,
+				D8A8C40A17982FDE009B1300 /* Main_iPhone.storyboard in Resources */,
+				D8A8C40117982FDE009B1300 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D8A8C3CF17982B55009B1300 /* Resources */ = {
+		D8A8C41B17982FDF009B1300 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8A8C3DD17982B55009B1300 /* InfoPlist.strings in Resources */,
+				D8A8C42A17982FDF009B1300 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		D8A8C3A617982B54009B1300 /* Sources */ = {
+		D8A8C3ED17982FDE009B1300 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8A8C3BA17982B55009B1300 /* main.m in Sources */,
-				D8A8C3C717982B55009B1300 /* LEFirstViewController.m in Sources */,
-				D8A8C3BE17982B55009B1300 /* LEAppDelegate.m in Sources */,
-				D8A8C3CA17982B55009B1300 /* LESecondViewController.m in Sources */,
+				D8A8C41017982FDF009B1300 /* Lemacs.xcdatamodeld in Sources */,
+				D8A8C41617982FDF009B1300 /* LEDetailViewController.m in Sources */,
+				D8A8C40317982FDE009B1300 /* main.m in Sources */,
+				D8A8C40717982FDE009B1300 /* LEAppDelegate.m in Sources */,
+				D8A8C41317982FDF009B1300 /* LEMasterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D8A8C3CD17982B55009B1300 /* Sources */ = {
+		D8A8C41917982FDF009B1300 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8A8C3DF17982B55009B1300 /* LemacsTests.m in Sources */,
+				D8A8C42C17982FDF009B1300 /* LemacsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D8A8C3D717982B55009B1300 /* PBXTargetDependency */ = {
+		D8A8C42417982FDF009B1300 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D8A8C3A917982B54009B1300 /* Lemacs */;
-			targetProxy = D8A8C3D617982B55009B1300 /* PBXContainerItemProxy */;
+			target = D8A8C3F017982FDE009B1300 /* Lemacs */;
+			targetProxy = D8A8C42317982FDF009B1300 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D8A8C3B617982B55009B1300 /* InfoPlist.strings */ = {
+		D8A8C3FF17982FDE009B1300 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D8A8C3B717982B55009B1300 /* en */,
+				D8A8C40017982FDE009B1300 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		D8A8C3BF17982B55009B1300 /* Main_iPhone.storyboard */ = {
+		D8A8C40817982FDE009B1300 /* Main_iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D8A8C3C017982B55009B1300 /* Base */,
+				D8A8C40917982FDE009B1300 /* Base */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
 		};
-		D8A8C3C217982B55009B1300 /* Main_iPad.storyboard */ = {
+		D8A8C40B17982FDE009B1300 /* Main_iPad.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D8A8C3C317982B55009B1300 /* Base */,
+				D8A8C40C17982FDE009B1300 /* Base */,
 			);
 			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
-		D8A8C3DB17982B55009B1300 /* InfoPlist.strings */ = {
+		D8A8C42817982FDF009B1300 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D8A8C3DC17982B55009B1300 /* en */,
+				D8A8C42917982FDF009B1300 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -320,7 +330,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		D8A8C3E017982B55009B1300 /* Debug */ = {
+		D8A8C42D17982FDF009B1300 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -358,7 +368,7 @@
 			};
 			name = Debug;
 		};
-		D8A8C3E117982B55009B1300 /* Release */ = {
+		D8A8C42E17982FDF009B1300 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -390,7 +400,7 @@
 			};
 			name = Release;
 		};
-		D8A8C3E317982B55009B1300 /* Debug */ = {
+		D8A8C43017982FDF009B1300 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -403,7 +413,7 @@
 			};
 			name = Debug;
 		};
-		D8A8C3E417982B55009B1300 /* Release */ = {
+		D8A8C43117982FDF009B1300 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -416,7 +426,7 @@
 			};
 			name = Release;
 		};
-		D8A8C3E617982B55009B1300 /* Debug */ = {
+		D8A8C43317982FDF009B1300 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Lemacs.app/Lemacs";
@@ -438,7 +448,7 @@
 			};
 			name = Debug;
 		};
-		D8A8C3E717982B55009B1300 /* Release */ = {
+		D8A8C43417982FDF009B1300 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Lemacs.app/Lemacs";
@@ -459,32 +469,45 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D8A8C3A517982B54009B1300 /* Build configuration list for PBXProject "Lemacs" */ = {
+		D8A8C3EC17982FDE009B1300 /* Build configuration list for PBXProject "Lemacs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D8A8C3E017982B55009B1300 /* Debug */,
-				D8A8C3E117982B55009B1300 /* Release */,
+				D8A8C42D17982FDF009B1300 /* Debug */,
+				D8A8C42E17982FDF009B1300 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D8A8C3E217982B55009B1300 /* Build configuration list for PBXNativeTarget "Lemacs" */ = {
+		D8A8C42F17982FDF009B1300 /* Build configuration list for PBXNativeTarget "Lemacs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D8A8C3E317982B55009B1300 /* Debug */,
-				D8A8C3E417982B55009B1300 /* Release */,
+				D8A8C43017982FDF009B1300 /* Debug */,
+				D8A8C43117982FDF009B1300 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
-		D8A8C3E517982B55009B1300 /* Build configuration list for PBXNativeTarget "LemacsTests" */ = {
+		D8A8C43217982FDF009B1300 /* Build configuration list for PBXNativeTarget "LemacsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D8A8C3E617982B55009B1300 /* Debug */,
-				D8A8C3E717982B55009B1300 /* Release */,
+				D8A8C43317982FDF009B1300 /* Debug */,
+				D8A8C43417982FDF009B1300 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D8A8C40E17982FDF009B1300 /* Lemacs.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D8A8C40F17982FDF009B1300 /* Lemacs.xcdatamodel */,
+			);
+			currentVersion = D8A8C40F17982FDF009B1300 /* Lemacs.xcdatamodel */;
+			path = Lemacs.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
-	rootObject = D8A8C3A217982B54009B1300 /* Project object */;
+	rootObject = D8A8C3E917982FDE009B1300 /* Project object */;
 }
