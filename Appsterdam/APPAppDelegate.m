@@ -10,15 +10,44 @@
 #import <UAGithubEngine/UAGithubEngine.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
 
+@interface APPAppDelegate () <UIAlertViewDelegate>
+
+@end
+
+
 @implementation APPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-//    KeychainItemWrapper *keychainItem =[[KeychainItemWrapper alloc] initWithIdentifier:@"Github" accessGroup:nil];
     
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Account" message:@"Sign in to GitHub" delegate:self cancelButtonTitle:@"Nope" otherButtonTitles:@"Ok", nil];
+    alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+    [alert show];
     
     return YES;
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+{
+    NSString *username = [(UITextField*)[alertView textFieldAtIndex:0] text];
+    NSString *password = [(UITextField*)[alertView textFieldAtIndex:1] text];
+    
+    [UICKeyChainStore setString:username forKey:@"username" service:@"com.github"];
+    [UICKeyChainStore setString:password forKey:@"password" service:@"com.github"];
+    
+    UAGithubEngine *engine = [[UAGithubEngine alloc] initWithUsername:username password:password withReachability:YES];
+
+    NSDictionary *params = @{@"title": [NSString stringWithFormat:@"Issue %@", [NSDate new]],
+                             @"body": @"Issues from iOS dude"
+                             };
+    [engine addIssueForRepository:@"lemurs/Lemacs" withDictionary:params success:^(id issue) {
+        NSLog(@"success, %@", issue);
+    } failure:^(NSError *error) {
+        NSLog(@"failure %@", [error localizedDescription]);
+    }];
+
+    
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -49,3 +78,23 @@
 }
 
 @end
+
+
+
+// Github issue params
+
+// title
+// Required string
+
+// body
+// Optional string
+
+// assignee
+// Optional string - Login for the user that this issue should be assigned to. NOTE: Only users with push access can set the assignee for new issues. The assignee is silently dropped otherwise.
+
+//milestone
+//Optional number - Milestone to associate this issue with. NOTE: Only users with push access can set the milestone for new issues. The milestone is silently dropped otherwise.
+
+//labels
+//Optional array of strings - Labels to associate with this issue. NOTE: Only users with push access can set labels for new issues. Labels are silently dropped otherwise.
+
