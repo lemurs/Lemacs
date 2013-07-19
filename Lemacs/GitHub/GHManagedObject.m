@@ -27,9 +27,23 @@
 
 - (void)setValue:(id)value forKey:(NSString *)key;
 {
-    NSDictionary *properites = self.entity.propertiesByName;
-    NSAttributeDescription *attribute = properites[key];
-    NSAssert([attribute isKindOfClass:[NSAttributeDescription class]], @"Property %@ is not an attribute. It is: %@", key, attribute);
+    if (!value || !key)
+        return;
+
+    if ([value isEqual:[NSNull null]])
+        return; // We may wish to treat this differently in the future to for example delete a previously set value.
+
+    NSDictionary *properties = self.entity.propertiesByName;
+    NSAttributeDescription *attribute = properties[key];
+    if(![attribute isKindOfClass:[NSAttributeDescription class]]) {
+        return; // For now
+
+        NSRelationshipDescription *relationship = (NSRelationshipDescription *)attribute;
+        if (relationship.isToMany)
+            value = relationship.isOrdered ? [NSOrderedSet orderedSetWithArray:value] : [NSSet setWithArray:value];
+
+        return [super setValue:value forKey:key];
+    }
 
     switch (attribute.attributeType) {
         case NSInteger16AttributeType:
@@ -67,6 +81,11 @@
     }
     
     [super setValue:value forKey:key];
+}
+
+- (void)setToManyValue:(NSArray *)values forKey:(NSString *)key;
+{
+
 }
 
 @end

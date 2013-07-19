@@ -263,19 +263,15 @@
     abort();
 }
 
-- (void)addIssueWithDictionary:(NSDictionary *)issueDictionary;
+- (IBAction)reloadList;
 {
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:self.fetchedResultsController.fetchRequest.entity.name inManagedObjectContext:self.fetchedResultsController.managedObjectContext];
-
-    [newManagedObject setValuesForKeysWithDictionary:issueDictionary];
-
-    [self saveContext];
+    [self.tableView reloadData];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    cell.textLabel.text = [[object valueForKey:@"body"] description];
 }
 
 @end

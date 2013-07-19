@@ -216,16 +216,21 @@
 {
     [self removeContext];
 
-    LETalkListController *talkList = self.talkList;
+    NSManagedObjectContext *context = self.managedObjectContext;
+
     NSDictionary *parameters = @{};
     [self.GitHub openIssuesForRepository:self.repositoryPath withParameters:parameters success:^(id results) {
-        NSLog(@"Success, %@", results); // Returns an array of dictionaries
         [results enumerateObjectsUsingBlock:^(NSDictionary *issueDictionary, NSUInteger index, BOOL *stop) {
-            [talkList addIssueWithDictionary:issueDictionary];
+            NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:@"GHIssue" inManagedObjectContext:context];
+
+            [newManagedObject setValuesForKeysWithDictionary:issueDictionary];
         }];
     } failure:^(NSError *error) {
         NSLog(@"Failure %@", error.localizedDescription);
     }];
+
+    [self saveContext];
+    [self.talkList reloadList];
 }
 
 - (IBAction)removeContext;
