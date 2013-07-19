@@ -5,6 +5,7 @@
 //  Created by Mike Lee on 7/18/13.
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
+// http://developer.github.com/v3/issues/
 
 #import "LEAppDelegate.h"
 
@@ -124,16 +125,8 @@
     [UICKeyChainStore setString:username forKey:kLEGitHubUsernameKey service:kLEGitHubServiceName];
     [UICKeyChainStore setString:password forKey:kLEGitHubPasswordKey service:kLEGitHubServiceName];
 
-    UAGithubEngine *engine = [[UAGithubEngine alloc] initWithUsername:username password:password withReachability:YES];
-
-    NSDictionary *params = @{@"title": [NSString stringWithFormat:@"Issue %@", [NSDate new]],
-                             @"body": @"Issues from iOS dude"
-                             };
-    [engine addIssueForRepository:@"lemurs/Lemacs" withDictionary:params success:^(id issue) {
-        NSLog(@"success, %@", issue);
-    } failure:^(NSError *error) {
-        NSLog(@"failure %@", [error localizedDescription]);
-    }];
+    self.GitHub = [[UAGithubEngine alloc] initWithUsername:username password:password withReachability:YES];
+    [self loadIssues];
 }
 
 
@@ -145,6 +138,12 @@
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
+
+- (NSString *)repositoryPath;
+{
+    return @"lemurs/Lemacs";
+}
+
 
 #pragma mark Core Data stack
 
@@ -206,16 +205,29 @@
          Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
 
          */
-        NSLog(@"Unresolved error %@, %@", storeLoadingError, storeLoadingError.userInfo);
+        NSLog(@"Dumping store due to error %@, %@", storeLoadingError, storeLoadingError.userInfo);
+        [self removeContext];
         abort();
     }
 
     return _persistentStoreCoordinator;
 }
 
+- (IBAction)loadIssues;
+{
+    [self removeContext];
+
+    NSDictionary *parameters = @{};
+    [self.GitHub openIssuesForRepository:self.repositoryPath withParameters:parameters success:^(id results) {
+        NSLog(@"Success, %@", results); // Returns an array of dictionaries
+    } failure:^(NSError *error) {
+        NSLog(@"Failure %@", error.localizedDescription);
+    }];
+}
+
 - (IBAction)removeContext;
 {
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Lemacs.sqlite"]; // FIXME: Factor out inline constants
+    NSURL *storeURL = [self.applicationDocumentsDirectory URLByAppendingPathComponent:@"Lemacs.sqlite"]; // FIXME: Factor out inline constants
 
     NSError *storeDeletingError = nil;
     if (![[NSFileManager defaultManager] removeItemAtURL:storeURL error:&storeDeletingError])
@@ -264,9 +276,10 @@
 
     NSString *username = [UICKeyChainStore stringForKey:kLEGitHubUsernameKey service:kLEGitHubServiceName];
     NSString *password = [UICKeyChainStore stringForKey:kLEGitHubPasswordKey service:kLEGitHubServiceName];
-    if (username.length && password.length)
+    if (username.length && password.length) {
         self.GitHub = [[UAGithubEngine alloc] initWithUsername:username password:password withReachability:YES];
-    else
+        [self loadIssues];
+    } else
         [self showLogin];
 }
 

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		D83C35F617992BF20046D510 /* LETalkListController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C35F317992BF20046D510 /* LETalkListController.m */; };
 		D83C35F717992BF20046D510 /* LETalkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C35F517992BF20046D510 /* LETalkViewController.m */; };
+		D89DC2A11799DCE7000770EC /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2A01799DCE7000770EC /* GHUser.m */; };
+		D89DC2A21799DCEB000770EC /* GHPullRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC29E1799DBD2000770EC /* GHPullRequest.m */; };
+		D89DC2A31799DCF0000770EC /* GHIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC29C1799D006000770EC /* GHIssue.m */; };
+		D89DC2A61799DF11000770EC /* GHLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2A51799DF0D000770EC /* GHLabel.m */; };
 		D8A8C3F517982FDE009B1300 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F417982FDE009B1300 /* Foundation.framework */; };
 		D8A8C3F717982FDE009B1300 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F617982FDE009B1300 /* CoreGraphics.framework */; };
 		D8A8C3F917982FDE009B1300 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F817982FDE009B1300 /* UIKit.framework */; };
@@ -47,6 +51,14 @@
 		D83C35F317992BF20046D510 /* LETalkListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LETalkListController.m; sourceTree = "<group>"; };
 		D83C35F417992BF20046D510 /* LETalkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LETalkViewController.h; sourceTree = "<group>"; };
 		D83C35F517992BF20046D510 /* LETalkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LETalkViewController.m; sourceTree = "<group>"; };
+		D89DC29B1799D006000770EC /* GHIssue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHIssue.h; sourceTree = "<group>"; };
+		D89DC29C1799D006000770EC /* GHIssue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHIssue.m; sourceTree = "<group>"; };
+		D89DC29D1799DBD2000770EC /* GHPullRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHPullRequest.h; sourceTree = "<group>"; };
+		D89DC29E1799DBD2000770EC /* GHPullRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHPullRequest.m; sourceTree = "<group>"; };
+		D89DC29F1799DCE7000770EC /* GHUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUser.h; sourceTree = "<group>"; };
+		D89DC2A01799DCE7000770EC /* GHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUser.m; sourceTree = "<group>"; };
+		D89DC2A41799DF0D000770EC /* GHLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHLabel.h; sourceTree = "<group>"; };
+		D89DC2A51799DF0D000770EC /* GHLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHLabel.m; sourceTree = "<group>"; };
 		D8A8C3F117982FDE009B1300 /* Lemacs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lemacs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8A8C3F417982FDE009B1300 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D8A8C3F617982FDE009B1300 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -98,6 +110,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D89DC2971799CE98000770EC /* GitHub */ = {
+			isa = PBXGroup;
+			children = (
+				D89DC29B1799D006000770EC /* GHIssue.h */,
+				D89DC29C1799D006000770EC /* GHIssue.m */,
+				D89DC29D1799DBD2000770EC /* GHPullRequest.h */,
+				D89DC29E1799DBD2000770EC /* GHPullRequest.m */,
+				D89DC29F1799DCE7000770EC /* GHUser.h */,
+				D89DC2A01799DCE7000770EC /* GHUser.m */,
+				D89DC2A41799DF0D000770EC /* GHLabel.h */,
+				D89DC2A51799DF0D000770EC /* GHLabel.m */,
+			);
+			path = GitHub;
+			sourceTree = "<group>";
+		};
 		D8A8C3E817982FDE009B1300 = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +173,7 @@
 				D8A8C41517982FDF009B1300 /* LEWorkViewController.m */,
 				D8A8C41717982FDF009B1300 /* Images.xcassets */,
 				D8A8C40E17982FDF009B1300 /* Lemacs.xcdatamodeld */,
+				D89DC2971799CE98000770EC /* GitHub */,
 				D8A8C3FD17982FDE009B1300 /* Supporting Files */,
 			);
 			path = Lemacs;
@@ -315,11 +343,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8A8C41017982FDF009B1300 /* Lemacs.xcdatamodeld in Sources */,
+				D89DC2A61799DF11000770EC /* GHLabel.m in Sources */,
 				D8A8C41617982FDF009B1300 /* LEWorkViewController.m in Sources */,
 				D83C35F617992BF20046D510 /* LETalkListController.m in Sources */,
 				D83C35F717992BF20046D510 /* LETalkViewController.m in Sources */,
 				D8A8C40317982FDE009B1300 /* main.m in Sources */,
 				D8A8C40717982FDE009B1300 /* LEAppDelegate.m in Sources */,
+				D89DC2A31799DCF0000770EC /* GHIssue.m in Sources */,
+				D89DC2A11799DCE7000770EC /* GHUser.m in Sources */,
+				D89DC2A21799DCEB000770EC /* GHPullRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
