@@ -1,19 +1,19 @@
 //
-//  LEDetailViewController.m
+//  LEWorkViewController.m
 //  Lemacs
 //
 //  Created by Mike Lee on 7/18/13.
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-#import "LEDetailViewController.h"
+#import "LEWorkViewController.h"
 
-@interface LEDetailViewController ()
+@interface LEWorkViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 - (void)configureView;
 @end
 
-@implementation LEDetailViewController
+@implementation LEWorkViewController
 
 #pragma mark - Managing the detail item
 

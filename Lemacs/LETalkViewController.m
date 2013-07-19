@@ -1,20 +1,20 @@
 //
-//  LEMasterViewController.m
+//  LETalkViewController.m
 //  Lemacs
 //
 //  Created by Mike Lee on 7/18/13.
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-#import "LEMasterViewController.h"
+#import "LETalkViewController.h"
 
-#import "LEDetailViewController.h"
+#import "LEWorkViewController.h"
 
-@interface LEMasterViewController ()
+@interface LETalkViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
 
-@implementation LEMasterViewController
+@implementation LETalkViewController
 
 - (void)awakeFromNib
 {
@@ -33,7 +33,7 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
-    self.detailViewController = (LEDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    self.detailViewController = (LEWorkViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
 - (void)didReceiveMemoryWarning

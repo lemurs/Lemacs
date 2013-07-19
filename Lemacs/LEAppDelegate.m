@@ -8,7 +8,7 @@
 
 #import "LEAppDelegate.h"
 
-#import "LEMasterViewController.h"
+#import "LETalkListController.h"
 #import <UAGithubEngine/UAGithubEngine.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
 
@@ -27,11 +27,11 @@
         splitViewController.delegate = (id)navigationController.topViewController;
         
         UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
-        LEMasterViewController *controller = (LEMasterViewController *)masterNavigationController.topViewController;
+        LETalkListController *controller = (LETalkListController *)masterNavigationController.topViewController;
         controller.managedObjectContext = self.managedObjectContext;
     } else {
         UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-        LEMasterViewController *controller = (LEMasterViewController *)navigationController.topViewController;
+        LETalkListController *controller = (LETalkListController *)navigationController.topViewController;
         controller.managedObjectContext = self.managedObjectContext;
     }
     return YES;
