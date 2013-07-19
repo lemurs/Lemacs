@@ -18,9 +18,10 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSURL *applicationDocumentsDirectory;
 
-- (IBAction)reload;
+- (IBAction)removeContext;
 - (IBAction)saveContext;
 - (IBAction)showLogin;
+- (IBAction)showLoginIfNeeded;
 
 @end
 

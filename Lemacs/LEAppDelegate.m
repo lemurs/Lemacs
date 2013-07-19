@@ -33,7 +33,7 @@
         controller.managedObjectContext = self.managedObjectContext;
     }
 
-    [self showLogin];
+    [self showLoginIfNeeded];
 
     return YES;
 }
@@ -213,16 +213,13 @@
     return _persistentStoreCoordinator;
 }
 
-- (IBAction)reload;
+- (IBAction)removeContext;
 {
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Lemacs.sqlite"]; // FIXME: Factor out inline constants
 
     NSError *storeDeletingError = nil;
     if (![[NSFileManager defaultManager] removeItemAtURL:storeURL error:&storeDeletingError])
         NSLog(@"Store Deleting Error: %@, %@", storeDeletingError, storeDeletingError.userInfo);
-
-
-    // TODO: Load Data
 }
 
 - (IBAction)saveContext;
@@ -258,6 +255,14 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Account" message:@"Sign in to GitHub" delegate:self cancelButtonTitle:@"Nope" otherButtonTitles:@"Ok", nil];
     alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
     [alert show];
+}
+
+- (IBAction)showLoginIfNeeded;
+{
+    NSString *username = [UICKeyChainStore stringForKey:kLEGitHubUsernameKey service:kLEGitHubServiceName];
+    NSString *password = [UICKeyChainStore stringForKey:kLEGitHubPasswordKey service:kLEGitHubServiceName];
+    if (!username.length || !password.length)
+        [self showLogin];
 }
 
 @end
