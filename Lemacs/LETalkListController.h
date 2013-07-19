@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
-
 @class LEWorkViewController;
 
 @interface LETalkListController : UITableViewController <NSFetchedResultsControllerDelegate>
