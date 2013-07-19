@@ -224,7 +224,7 @@
 
 - (IBAction)saveContext;
 {
-    NSError *contextSavingError = nil;
+    NSError *contextSavingError;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (!managedObjectContext || !managedObjectContext.hasChanges)
         return; // Abort
@@ -259,9 +259,14 @@
 
 - (IBAction)showLoginIfNeeded;
 {
+    if (self.GitHub)
+        return;
+
     NSString *username = [UICKeyChainStore stringForKey:kLEGitHubUsernameKey service:kLEGitHubServiceName];
     NSString *password = [UICKeyChainStore stringForKey:kLEGitHubPasswordKey service:kLEGitHubServiceName];
-    if (!username.length || !password.length)
+    if (username.length && password.length)
+        self.GitHub = [[UAGithubEngine alloc] initWithUsername:username password:password withReachability:YES];
+    else
         [self showLogin];
 }
 
