@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-@interface GHLabel : NSManagedObject
+#import "GHManagedObject.h"
 
-+ (NSDictionary *)GitHubKeysToPropertyNames;
+@interface GHLabel : GHManagedObject
 
 @end

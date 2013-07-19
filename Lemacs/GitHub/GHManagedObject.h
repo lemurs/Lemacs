@@ -1,13 +1,13 @@
 //
-//  GHPullRequest.h
+//  GHManagedObject.h
 //  Lemacs
 //
 //  Created by Mike Lee on 7/19/13.
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-#import "GHManagedObject.h"
+@interface GHManagedObject : NSManagedObject
 
-@interface GHPullRequest : GHManagedObject
++ (NSDictionary *)GitHubKeysToPropertyNames;
 
 @end
