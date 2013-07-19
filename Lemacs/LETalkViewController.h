@@ -6,10 +6,11 @@
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-@class LEWorkViewController;
+@class GHIssue, LEWorkViewController;
 
 @interface LETalkViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
+@property (strong, nonatomic) GHIssue *issue;
 @property (strong, nonatomic) LEWorkViewController *detailViewController;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;

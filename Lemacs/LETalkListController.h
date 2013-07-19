@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-@class LEWorkViewController;
+@class LETalkViewController;
 
 @interface LETalkListController : UITableViewController <NSFetchedResultsControllerDelegate>
 
-@property (strong, nonatomic) LEWorkViewController *detailViewController;
+@property (strong, nonatomic) LETalkViewController *talkViewController;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
