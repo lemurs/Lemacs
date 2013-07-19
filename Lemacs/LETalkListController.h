@@ -15,4 +15,6 @@
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
+- (void)addIssueWithDictionary:(NSDictionary *)issueDictionary;
+
 @end

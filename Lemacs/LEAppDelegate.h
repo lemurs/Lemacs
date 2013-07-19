@@ -6,10 +6,11 @@
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-@class UAGithubEngine;
+@class LETalkListController, UAGithubEngine;
 
 @interface LEAppDelegate : UIResponder <UIApplicationDelegate>
 
+@property (strong, nonatomic) LETalkListController *talkList;
 @property (strong, nonatomic) UAGithubEngine *GitHub;
 @property (strong, nonatomic) UIWindow *window;
 

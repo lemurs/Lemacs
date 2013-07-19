@@ -19,22 +19,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [self showLoginIfNeeded];
+
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
         UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
         splitViewController.delegate = (id)navigationController.topViewController;
         
         UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
-        LETalkListController *controller = (LETalkListController *)masterNavigationController.topViewController;
-        controller.managedObjectContext = self.managedObjectContext;
+        self.talkList = (LETalkListController *)masterNavigationController.topViewController;
+        self.talkList.managedObjectContext = self.managedObjectContext;
     } else {
         UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-        LETalkListController *controller = (LETalkListController *)navigationController.topViewController;
-        controller.managedObjectContext = self.managedObjectContext;
+        self.talkList = (LETalkListController *)navigationController.topViewController;
+        self.talkList.managedObjectContext = self.managedObjectContext;
     }
-
-    [self showLoginIfNeeded];
 
     return YES;
 }
@@ -217,9 +216,13 @@
 {
     [self removeContext];
 
+    LETalkListController *talkList = self.talkList;
     NSDictionary *parameters = @{};
     [self.GitHub openIssuesForRepository:self.repositoryPath withParameters:parameters success:^(id results) {
         NSLog(@"Success, %@", results); // Returns an array of dictionaries
+        [results enumerateObjectsUsingBlock:^(NSDictionary *issueDictionary, NSUInteger index, BOOL *stop) {
+            [talkList addIssueWithDictionary:issueDictionary];
+        }];
     } failure:^(NSError *error) {
         NSLog(@"Failure %@", error.localizedDescription);
     }];
