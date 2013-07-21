@@ -191,6 +191,22 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
+{
+    return section ? 0.0f : 44.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
+{
+    if (section)
+        return nil;
+
+    UITableViewHeaderFooterView *header = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+    header.textLabel.text = self.issue.body;
+
+    return header;
+}
+
 
 #pragma mark - API
 
