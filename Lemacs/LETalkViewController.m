@@ -218,9 +218,12 @@
     if (_fetchedResultsController)
         return _fetchedResultsController;
 
+    NSPredicate *issuePredicate = [NSPredicate predicateWithFormat:@"issue == %@" argumentArray:@[self.issue]];
+
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     fetchRequest.entity = [NSEntityDescription entityForName:kGHCommentEntityName inManagedObjectContext:self.managedObjectContext];
     fetchRequest.fetchBatchSize = 20;
+    fetchRequest.predicate = issuePredicate;
     fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kGHCreatedDatePropertyName ascending:YES]];
 
     // Edit the section name key path and cache name if appropriate.
