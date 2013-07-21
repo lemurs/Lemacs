@@ -44,7 +44,7 @@
 
 #pragma mark - API
 
-@dynamic body, comments, commentsCount, number;
+@dynamic body, comments, commentsCount, number, user;
 
 @end
 

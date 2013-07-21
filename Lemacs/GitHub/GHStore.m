@@ -10,6 +10,7 @@
 
 #import "GHComment.h"
 #import "GHIssue.h"
+#import "GHUser.h"
 
 #import <UAGithubEngine/UAGithubEngine.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
@@ -252,6 +253,16 @@ NSString * const kLEGitHubUsernameKey = @"username";
     issue.comments = [NSOrderedSet orderedSetWithArray:comments];
     [self save];
     //    [self.talkList reloadList];
+}
+
+- (void)loadUserForComment:(GHComment *)comment;
+{
+
+}
+
+- (void)loadUserForIssue:(GHIssue *)issue;
+{
+
 }
 
 @end

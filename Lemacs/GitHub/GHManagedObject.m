@@ -9,6 +9,12 @@
 #import "GHManagedObject.h"
 #import "NSDate+GitHub.h"
 
+
+@interface GHManagedObject ()
+- (void)setUpRelationship:(NSRelationshipDescription *)relationship withValue:(id)value forKey:(NSString *)key;
+- (void)setUpToManyRelationship:(NSRelationshipDescription *)relationship withValue:(NSArray *)values forKey:(NSString *)key;
+@end
+
 @implementation GHManagedObject
 
 + (NSDictionary *)GitHubKeysToPropertyNames;
@@ -34,16 +40,12 @@
         return; // We may wish to treat this differently in the future to for example delete a previously set value.
 
     NSDictionary *properties = self.entity.propertiesByName;
-    NSAttributeDescription *attribute = properties[key];
-    if(![attribute isKindOfClass:[NSAttributeDescription class]]) {
-        return; // For now
+    NSPropertyDescription *property = properties[key];
+    if ([property isKindOfClass:[NSRelationshipDescription class]])
+        return [self setUpRelationship:(NSRelationshipDescription *)property withValue:value forKey:key];
 
-        NSRelationshipDescription *relationship = (NSRelationshipDescription *)attribute;
-        if (relationship.isToMany)
-            value = relationship.isOrdered ? [NSOrderedSet orderedSetWithArray:value] : [NSSet setWithArray:value];
-
-        return [super setValue:value forKey:key];
-    }
+    assert([property isKindOfClass:[NSAttributeDescription class]]);
+    NSAttributeDescription *attribute = (NSAttributeDescription *)property;
 
     switch (attribute.attributeType) {
         case NSInteger16AttributeType:
@@ -83,9 +85,41 @@
     [super setValue:value forKey:key];
 }
 
-- (void)setToManyValue:(NSArray *)values forKey:(NSString *)key;
+- (void)setUpRelationship:(NSRelationshipDescription *)relationship withValue:(id)value forKey:(NSString *)key;
 {
+    if (relationship.isToMany)
+        return [self setUpToManyRelationship:relationship withValue:(NSArray *)value forKey:key];
 
+    if ([value isKindOfClass:[GHManagedObject class]])
+        return [super setValue:value forKey:key];
+
+    GHManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:relationship.destinationEntity.name inManagedObjectContext:self.managedObjectContext];
+    assert([value isKindOfClass:[NSDictionary class]]);
+    [object setValuesForKeysWithDictionary:(NSDictionary *)value];
+    [super setValue:object forKey:key];
+
+    NSString *inverseKey = relationship.inverseRelationship.name;
+    if (inverseKey)
+        [object setValue:self forKey:inverseKey];
+}
+
+- (void)setUpToManyRelationship:(NSRelationshipDescription *)relationship withValue:(NSArray *)values forKey:(NSString *)key;
+{
+    NSMutableArray *objects = [NSMutableArray arrayWithCapacity:values.count];
+
+    [values enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
+        GHManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:relationship.destinationEntity.name inManagedObjectContext:self.managedObjectContext];
+        [object setValuesForKeysWithDictionary:(NSDictionary *)dictionary];
+        [objects addObject:object];
+
+        NSString *inverseKey = relationship.inverseRelationship.name;
+        if (inverseKey)
+            [object setValue:self forKey:inverseKey];
+
+    }];
+
+    id value = relationship.isOrdered ? [NSOrderedSet orderedSetWithArray:objects] : [NSSet setWithArray:objects];
+    [super setValue:value forKey:key];
 }
 
 @end

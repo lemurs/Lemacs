@@ -64,17 +64,17 @@
         <attribute name="starredURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subscriptionsURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userURL" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="495" positionY="9" width="128" height="60"/>
-        <element name="GHIssue" positionX="160" positionY="192" width="128" height="88"/>
-        <element name="GHUser" positionX="367" positionY="198" width="128" height="73"/>
-        <element name="GHPullRequest" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Event" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="GHComment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="GHIssue" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHLabel" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHMilestone" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="GHComment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="GHPullRequest" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="GHUser" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

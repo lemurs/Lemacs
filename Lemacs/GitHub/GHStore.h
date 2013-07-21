@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-@class GHIssue, UAGithubEngine;
+@class GHComment, GHIssue, UAGithubEngine;
 
 @interface GHStore : NSObject
 
@@ -23,5 +23,7 @@
 // Issues
 - (void)loadIssues;
 - (void)loadCommentsForIssue:(GHIssue *)issue;
+- (void)loadUserForComment:(GHComment *)comment;
+- (void)loadUserForIssue:(GHIssue *)issue;
 
 @end
