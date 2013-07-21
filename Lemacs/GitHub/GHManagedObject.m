@@ -89,3 +89,5 @@
 }
 
 @end
+
+NSString * const kGHCreatedDatePropertyName = @"createdDate";

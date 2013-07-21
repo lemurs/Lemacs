@@ -218,7 +218,7 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     fetchRequest.entity = [NSEntityDescription entityForName:kGHIssueEntityName inManagedObjectContext:self.managedObjectContext];
     fetchRequest.fetchBatchSize = 20;
-    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"createdDate" ascending:NO]];
+    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kGHCreatedDatePropertyName ascending:NO]];
 
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".

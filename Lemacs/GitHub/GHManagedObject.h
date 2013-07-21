@@ -11,3 +11,5 @@
 + (NSDictionary *)GitHubKeysToPropertyNames;
 
 @end
+
+extern NSString * const kGHCreatedDatePropertyName;
