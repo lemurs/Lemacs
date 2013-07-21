@@ -215,6 +215,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
     NSDictionary *parameters = @{};
     [self.GitHub openIssuesForRepository:self.repositoryPath withParameters:parameters success:^(id results) {
+        NSLog(@"%@", results);
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
             GHIssue *issue = [NSEntityDescription insertNewObjectForEntityForName:kGHIssueEntityName inManagedObjectContext:context];
 
@@ -237,6 +238,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
     NSDictionary *parameters = @{};
     [self.GitHub commentsForIssue:issue.number forRepository:self.repositoryPath success:^(id results) {
+        NSLog(@"%@", results);
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
             GHComment *comment = [NSEntityDescription insertNewObjectForEntityForName:kGHCommentEntityName inManagedObjectContext:issue.managedObjectContext];
             [comment setValuesForKeysWithDictionary:dictionary];

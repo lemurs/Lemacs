@@ -18,6 +18,7 @@
 		D89DC2B3179BEF64000770EC /* GHStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2B2179BEF64000770EC /* GHStore.m */; };
 		D89DC2B6179C0390000770EC /* GHComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2B5179C0388000770EC /* GHComment.m */; };
 		D89DC2B9179C2DF6000770EC /* GHMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2B8179C2DF6000770EC /* GHMilestone.m */; };
+		D89DC2BC179C4DE9000770EC /* LETalkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2BB179C4CCC000770EC /* LETalkCell.m */; };
 		D8A8C3F517982FDE009B1300 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F417982FDE009B1300 /* Foundation.framework */; };
 		D8A8C3F717982FDE009B1300 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F617982FDE009B1300 /* CoreGraphics.framework */; };
 		D8A8C3F917982FDE009B1300 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F817982FDE009B1300 /* UIKit.framework */; };
@@ -74,6 +75,8 @@
 		D89DC2B5179C0388000770EC /* GHComment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHComment.m; sourceTree = "<group>"; };
 		D89DC2B7179C2DF6000770EC /* GHMilestone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHMilestone.h; sourceTree = "<group>"; };
 		D89DC2B8179C2DF6000770EC /* GHMilestone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHMilestone.m; sourceTree = "<group>"; };
+		D89DC2BA179C4CCC000770EC /* LETalkCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LETalkCell.h; sourceTree = "<group>"; };
+		D89DC2BB179C4CCC000770EC /* LETalkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LETalkCell.m; sourceTree = "<group>"; };
 		D8A8C3F117982FDE009B1300 /* Lemacs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lemacs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8A8C3F417982FDE009B1300 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D8A8C3F617982FDE009B1300 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -197,6 +200,8 @@
 				D8A8C40617982FDE009B1300 /* LEAppDelegate.m */,
 				D8A8C40817982FDE009B1300 /* Main_iPhone.storyboard */,
 				D8A8C40B17982FDE009B1300 /* Main_iPad.storyboard */,
+				D89DC2BA179C4CCC000770EC /* LETalkCell.h */,
+				D89DC2BB179C4CCC000770EC /* LETalkCell.m */,
 				D83C35F217992BF20046D510 /* LETalkListController.h */,
 				D83C35F317992BF20046D510 /* LETalkListController.m */,
 				D83C35F417992BF20046D510 /* LETalkViewController.h */,
@@ -382,6 +387,7 @@
 				D89DC2B3179BEF64000770EC /* GHStore.m in Sources */,
 				D89DC2A61799DF11000770EC /* GHLabel.m in Sources */,
 				D8A8C41617982FDF009B1300 /* LEWorkViewController.m in Sources */,
+				D89DC2BC179C4DE9000770EC /* LETalkCell.m in Sources */,
 				D89DC2AD1799E3D7000770EC /* NSDate+GitHub.m in Sources */,
 				D83C35F617992BF20046D510 /* LETalkListController.m in Sources */,
 				D83C35F717992BF20046D510 /* LETalkViewController.m in Sources */,

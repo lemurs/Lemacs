@@ -11,6 +11,7 @@
 #import "GHComment.h"
 #import "GHIssue.h"
 #import "GHStore.h"
+#import "LETalkCell.h"
 #import "LEWorkViewController.h"
 #import "UAGitHubEngine.h"
 
@@ -293,7 +294,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     GHComment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = comment.body;
+    ((LETalkCell *)cell).textView.text = comment.body;
 }
 
 @end
