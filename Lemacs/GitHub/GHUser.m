@@ -37,3 +37,5 @@
 }
 
 @end
+
+NSString * const kGHUserEntityName = @"GHUser";

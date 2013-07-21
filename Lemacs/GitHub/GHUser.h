@@ -11,3 +11,5 @@
 @interface GHUser : GHManagedObject
 
 @end
+
+extern NSString * const kGHUserEntityName;

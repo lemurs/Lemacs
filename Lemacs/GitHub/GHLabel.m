@@ -24,3 +24,5 @@
 }
 
 @end
+
+NSString * const kGHLabelEntityName = @"GHLabel";

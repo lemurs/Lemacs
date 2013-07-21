@@ -11,3 +11,5 @@
 @interface GHIssue : GHManagedObject
 @property (nonatomic) NSInteger number;
 @end
+
+extern NSString * const kGHIssueEntityName;

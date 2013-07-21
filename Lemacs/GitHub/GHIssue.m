@@ -47,3 +47,5 @@
 @dynamic number;
 
 @end
+
+NSString * const kGHIssueEntityName = @"GHIssue";

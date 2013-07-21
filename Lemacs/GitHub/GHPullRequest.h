@@ -11,3 +11,5 @@
 @interface GHPullRequest : GHManagedObject
 
 @end
+
+extern NSString * const kGHPullRequestEntityName;

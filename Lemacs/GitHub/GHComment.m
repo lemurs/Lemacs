@@ -31,3 +31,5 @@
 }
 
 @end
+
+NSString * const kGHCommentEntityName = @"GHComment";

@@ -24,3 +24,5 @@
 }
 
 @end
+
+NSString * const kGHPullRequestEntityName = @"GHPullRequest";

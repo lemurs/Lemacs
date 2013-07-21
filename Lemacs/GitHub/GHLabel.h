@@ -11,3 +11,5 @@
 @interface GHLabel : GHManagedObject
 
 @end
+
+NSString * const kGHLabelEntityName;

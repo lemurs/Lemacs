@@ -11,3 +11,5 @@
 @interface GHComment : GHManagedObject
 
 @end
+
+extern NSString * const kGHCommentEntityName;
