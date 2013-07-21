@@ -52,7 +52,7 @@
                                                 <outlet property="delegate" destination="7ji-LT-Dwk" id="igj-Bc-yDG"/>
                                             </connections>
                                         </webView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XbG-ha-gh9">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XbG-ha-gh9">
                                             <rect key="frame" x="80" y="0.0" width="242" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -65,7 +65,6 @@
                                         <constraint firstItem="S0K-KF-IFg" firstAttribute="trailing" secondItem="IZl-y0-wgV" secondAttribute="trailing" id="hg8-SV-gxr"/>
                                         <constraint firstItem="jga-hP-nI4" firstAttribute="top" secondItem="IZl-y0-wgV" secondAttribute="top" id="lfV-9n-ub8"/>
                                         <constraint firstItem="jga-hP-nI4" firstAttribute="leading" secondItem="IZl-y0-wgV" secondAttribute="leading" id="qZr-PG-fUN"/>
-                                        <constraint firstItem="jga-hP-nI4" firstAttribute="top" secondItem="XbG-ha-gh9" secondAttribute="top" id="rPV-ea-lF6"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
