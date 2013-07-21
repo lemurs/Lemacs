@@ -8,6 +8,9 @@
 
 #import "GHStore.h"
 
+#import "GHComment.h"
+#import "GHIssue.h"
+
 #import <UAGithubEngine/UAGithubEngine.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
 
@@ -213,9 +216,9 @@ NSString * const kLEGitHubUsernameKey = @"username";
     NSDictionary *parameters = @{};
     [self.GitHub openIssuesForRepository:self.repositoryPath withParameters:parameters success:^(id results) {
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
-            NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:@"GHIssue" inManagedObjectContext:context];
+            GHIssue *issue = [NSEntityDescription insertNewObjectForEntityForName:@"GHIssue" inManagedObjectContext:context];
 
-            [newManagedObject setValuesForKeysWithDictionary:dictionary];
+            [issue setValuesForKeysWithDictionary:dictionary];
         }];
     } failure:^(NSError *error) {
         NSLog(@"Failure %@", error.localizedDescription);

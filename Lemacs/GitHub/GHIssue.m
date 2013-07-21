@@ -21,7 +21,7 @@
     GitHubKeysToPropertyNames = @{@"assignee" : @"assignee",
                                   @"body" : @"body",
                                   @"closed_at" : @"closedDate",
-                                  @"comments" : @"comments",
+                                  @"comments" : @"commentsCount",
                                   @"comments_url" : @"commentsURL",
                                   @"created_at" : @"createdDate",
                                   @"events_url" : @"eventsURL",
@@ -35,7 +35,8 @@
                                   @"state" : @"closed",
                                   @"title" : @"title",
                                   @"updated_at" : @"modifiedDate",
-                                  @"url" : @"issueURL"};
+                                  @"url" : @"issueURL",
+                                  @"user" : @"user"};
 
     return GitHubKeysToPropertyNames;
 }
