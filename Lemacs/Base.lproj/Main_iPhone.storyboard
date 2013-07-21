@@ -47,7 +47,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="Ah7-4n-0Wa" kind="push" id="CaG-9e-PXU"/>
+                                    <segue destination="Ah7-4n-0Wa" kind="push" identifier="showWork" id="CaG-9e-PXU"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -92,7 +92,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="57H-Xs-xKD" kind="push" id="IHX-UY-XHB"/>
+                                    <segue destination="57H-Xs-xKD" kind="push" identifier="showTalk" id="IHX-UY-XHB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

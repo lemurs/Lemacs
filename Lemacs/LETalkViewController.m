@@ -8,13 +8,20 @@
 
 #import "LETalkViewController.h"
 
+#import "GHIssue.h"
+#import "GHStore.h"
 #import "LEWorkViewController.h"
+#import "UAGitHubEngine.h"
+
 
 @interface LETalkViewController ()
+@property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 - (IBAction)insertNewObject;
 - (IBAction)saveContext;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
+
 
 @implementation LETalkViewController
 
@@ -24,7 +31,7 @@
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         self.clearsSelectionOnViewWillAppear = NO;
-        self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+        self.preferredContentSize = CGSizeMake(320.0, 600.0);
     }
     [super awakeFromNib];
 }
@@ -35,8 +42,6 @@
 - (void)viewDidLoad;
 {
     [super viewDidLoad];
-
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject)];
     self.navigationItem.rightBarButtonItem = addButton;
@@ -54,7 +59,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+    if ([[segue identifier] isEqualToString:@"showWork"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
         [[segue destinationViewController] setDetailItem:object];
@@ -188,6 +193,8 @@
 
 #pragma mark - API
 
+@synthesize fetchedResultsController = _fetchedResultsController, managedObjectContext = _managedObjectContext;
+
 - (NSFetchedResultsController *)fetchedResultsController;
 {
     if (_fetchedResultsController)
@@ -201,13 +208,13 @@
 
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
+    NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Issues"];
+    fetchedResultsController.delegate = self;
+    _fetchedResultsController = fetchedResultsController;
 
     NSError *fetchError = nil;
-    if ([self.fetchedResultsController performFetch:&fetchError])
-        return _fetchedResultsController; // Success
+    if ([fetchedResultsController performFetch:&fetchError])
+        return fetchedResultsController; // Success
 
     if (kLEUseNarrativeLogging) {
         NSLog(@"Fetch Error: %@, %@", fetchError, fetchError.userInfo);
@@ -224,6 +231,20 @@
     abort();
 
     return nil;
+}
+
+- (NSManagedObjectContext *)managedObjectContext;
+{// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
+    if (_managedObjectContext)
+        return _managedObjectContext;
+
+    NSPersistentStoreCoordinator *coordinator = [[GHStore sharedStore] persistentStoreCoordinator];
+    if (coordinator) {
+        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        _managedObjectContext.persistentStoreCoordinator = coordinator;
+    }
+
+    return _managedObjectContext;
 }
 
 - (IBAction)insertNewObject;

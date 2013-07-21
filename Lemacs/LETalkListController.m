@@ -9,9 +9,12 @@
 #import "LETalkListController.h"
 
 #import "GHIssue.h"
+#import "GHStore.h"
 #import "LETalkViewController.h"
 
 @interface LETalkListController ()
+@property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 - (IBAction)insertNewObject;
 - (IBAction)saveContext;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -25,7 +28,7 @@
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         self.clearsSelectionOnViewWillAppear = NO;
-        self.contentSizeForViewInPopover = CGSizeMake(320.0, 600.0);
+        self.preferredContentSize = CGSizeMake(320.0, 600.0);
     }
     [super awakeFromNib];
 }
@@ -41,6 +44,7 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject)];
     self.navigationItem.rightBarButtonItem = addButton;
+
     self.talkViewController = (LETalkViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
@@ -55,12 +59,15 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+    if ([[segue identifier] isEqualToString:@"showTalk"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
 
-        if ([object isKindOfClass:[GHIssue class]])
-            [[segue destinationViewController] setIssue:(GHIssue *)object];
+        if ([object isKindOfClass:[GHIssue class]]) {
+            GHIssue *issue = (GHIssue *)object;
+            [[GHStore sharedStore] loadCommentsForIssue:issue.number];
+            self.talkViewController.issue = issue;
+        }
     }
 }
 
@@ -177,27 +184,30 @@
 }
 
 
-
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        if ([object isKindOfClass:[GHIssue class]])
-            self.talkViewController.issue = (GHIssue *)object;
+        if ([object isKindOfClass:[GHIssue class]]) {
+            GHIssue *issue = (GHIssue *)object;
+            [[GHStore sharedStore] loadCommentsForIssue:issue.number];
+            self.talkViewController.issue = issue;
+        }
     }
 }
 
 
 #pragma mark - API
 
+@synthesize fetchedResultsController = _fetchedResultsController, managedObjectContext = _managedObjectContext;
+
 - (NSFetchedResultsController *)fetchedResultsController;
 {
     if (_fetchedResultsController)
         return _fetchedResultsController;
 
-    // TODO: Edit the entity name as appropriate.
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     fetchRequest.entity = [NSEntityDescription entityForName:@"GHIssue" inManagedObjectContext:self.managedObjectContext];
     fetchRequest.fetchBatchSize = 20;
@@ -205,13 +215,13 @@
 
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Issues"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
+    NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Issues"];
+    fetchedResultsController.delegate = self;
+    _fetchedResultsController = fetchedResultsController;
 
     NSError *fetchError = nil;
-    if ([self.fetchedResultsController performFetch:&fetchError])
-        return _fetchedResultsController; // Success
+    if ([fetchedResultsController performFetch:&fetchError])
+        return fetchedResultsController; // Success
 
     if (kLEUseNarrativeLogging) {
         NSLog(@"Fetch Error: %@, %@", fetchError, fetchError.userInfo);
@@ -228,6 +238,20 @@
     abort();
     
     return nil;
+}
+
+- (NSManagedObjectContext *)managedObjectContext;
+{// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
+    if (_managedObjectContext)
+        return _managedObjectContext;
+
+    NSPersistentStoreCoordinator *coordinator = [[GHStore sharedStore] persistentStoreCoordinator];
+    if (coordinator) {
+        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        _managedObjectContext.persistentStoreCoordinator = coordinator;
+    }
+
+    return _managedObjectContext;
 }
 
 - (IBAction)insertNewObject;

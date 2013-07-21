@@ -15,6 +15,7 @@
 		D89DC2A61799DF11000770EC /* GHLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2A51799DF0D000770EC /* GHLabel.m */; };
 		D89DC2A91799E234000770EC /* GHManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2A81799E22E000770EC /* GHManagedObject.m */; };
 		D89DC2AD1799E3D7000770EC /* NSDate+GitHub.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2AC1799E3D7000770EC /* NSDate+GitHub.m */; };
+		D89DC2B3179BEF64000770EC /* GHStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2B2179BEF64000770EC /* GHStore.m */; };
 		D8A8C3F517982FDE009B1300 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F417982FDE009B1300 /* Foundation.framework */; };
 		D8A8C3F717982FDE009B1300 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F617982FDE009B1300 /* CoreGraphics.framework */; };
 		D8A8C3F917982FDE009B1300 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F817982FDE009B1300 /* UIKit.framework */; };
@@ -65,6 +66,8 @@
 		D89DC2A81799E22E000770EC /* GHManagedObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHManagedObject.m; sourceTree = "<group>"; };
 		D89DC2AB1799E3D7000770EC /* NSDate+GitHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+GitHub.h"; sourceTree = "<group>"; };
 		D89DC2AC1799E3D7000770EC /* NSDate+GitHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+GitHub.m"; sourceTree = "<group>"; };
+		D89DC2B1179BEF64000770EC /* GHStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHStore.h; sourceTree = "<group>"; };
+		D89DC2B2179BEF64000770EC /* GHStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHStore.m; sourceTree = "<group>"; };
 		D8A8C3F117982FDE009B1300 /* Lemacs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lemacs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8A8C3F417982FDE009B1300 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D8A8C3F617982FDE009B1300 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -129,6 +132,8 @@
 				D89DC2A01799DCE7000770EC /* GHUser.m */,
 				D89DC2A41799DF0D000770EC /* GHLabel.h */,
 				D89DC2A51799DF0D000770EC /* GHLabel.m */,
+				D89DC2B1179BEF64000770EC /* GHStore.h */,
+				D89DC2B2179BEF64000770EC /* GHStore.m */,
 			);
 			path = GitHub;
 			sourceTree = "<group>";
@@ -361,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8A8C41017982FDF009B1300 /* Lemacs.xcdatamodeld in Sources */,
+				D89DC2B3179BEF64000770EC /* GHStore.m in Sources */,
 				D89DC2A61799DF11000770EC /* GHLabel.m in Sources */,
 				D8A8C41617982FDF009B1300 /* LEWorkViewController.m in Sources */,
 				D89DC2AD1799E3D7000770EC /* NSDate+GitHub.m in Sources */,

@@ -10,11 +10,7 @@
 
 @interface LETalkListController : UITableViewController <NSFetchedResultsControllerDelegate>
 
-@property (strong, nonatomic) LETalkViewController *talkViewController;
-
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) UAGithubEngine *GitHub;
+@property (nonatomic, strong) LETalkViewController *talkViewController;
 
 - (IBAction)reloadList;
 
