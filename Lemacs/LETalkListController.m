@@ -45,6 +45,12 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject)];
     self.navigationItem.rightBarButtonItem = addButton;
 
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        self.talkViewController = (LETalkViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    } else {
+        self.talkViewController = (LETalkViewController *)[self.navigationController topViewController];
+    }
+
     self.talkViewController = (LETalkViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
@@ -61,13 +67,14 @@
 {
     if ([[segue identifier] isEqualToString:@"showTalk"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
 
-        if ([object isKindOfClass:[GHIssue class]]) {
-            GHIssue *issue = (GHIssue *)object;
-            [[GHStore sharedStore] loadCommentsForIssue:issue.number];
-            self.talkViewController.issue = issue;
-        }
+        GHIssue *issue = (GHIssue *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+        assert([issue isKindOfClass:[GHIssue class]]);
+        [[GHStore sharedStore] loadCommentsForIssue:issue];
+
+        assert([segue.destinationViewController isKindOfClass:[LETalkViewController class]]);
+        LETalkViewController *talkViewController = (LETalkViewController *)segue.destinationViewController;
+        talkViewController.issue = issue;
     }
 }
 
@@ -192,7 +199,7 @@
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
         if ([object isKindOfClass:[GHIssue class]]) {
             GHIssue *issue = (GHIssue *)object;
-            [[GHStore sharedStore] loadCommentsForIssue:issue.number];
+            [[GHStore sharedStore] loadCommentsForIssue:issue];
             self.talkViewController.issue = issue;
         }
     }
@@ -209,9 +216,9 @@
         return _fetchedResultsController;
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.entity = [NSEntityDescription entityForName:@"GHIssue" inManagedObjectContext:self.managedObjectContext];
+    fetchRequest.entity = [NSEntityDescription entityForName:kGHIssueEntityName inManagedObjectContext:self.managedObjectContext];
     fetchRequest.fetchBatchSize = 20;
-    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"modifiedDate" ascending:NO]];
+    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"createdDate" ascending:NO]];
 
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".

@@ -216,7 +216,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
     NSDictionary *parameters = @{};
     [self.GitHub openIssuesForRepository:self.repositoryPath withParameters:parameters success:^(id results) {
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
-            GHIssue *issue = [NSEntityDescription insertNewObjectForEntityForName:@"GHIssue" inManagedObjectContext:context];
+            GHIssue *issue = [NSEntityDescription insertNewObjectForEntityForName:kGHIssueEntityName inManagedObjectContext:context];
 
             [issue setValuesForKeysWithDictionary:dictionary];
         }];
@@ -228,23 +228,28 @@ NSString * const kLEGitHubUsernameKey = @"username";
 //    [self.talkList reloadList];
 }
 
-- (void)loadCommentsForIssue:(NSInteger)issueNumber;
+- (void)loadCommentsForIssue:(GHIssue *)issue;
 {
-    NSManagedObjectContext *context = self.managedObjectContext;
+    if (!issue.commentsCount)
+        return;
+
+    NSMutableArray *comments = [NSMutableArray arrayWithCapacity:issue.commentsCount];
 
     NSDictionary *parameters = @{};
-    [self.GitHub commentsForIssue:issueNumber forRepository:self.repositoryPath success:^(id results) {
+    [self.GitHub commentsForIssue:issue.number forRepository:self.repositoryPath success:^(id results) {
         NSLog(@"Results: %@", results);
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
             NSLog(@"Dictionary: %@", dictionary);
-//            NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:@"GHIssue" inManagedObjectContext:context];
-//
-//            [newManagedObject setValuesForKeysWithDictionary:issueDictionary];
+            GHComment *comment = [NSEntityDescription insertNewObjectForEntityForName:kGHCommentEntityName inManagedObjectContext:issue.managedObjectContext];
+            [comment setValuesForKeysWithDictionary:dictionary];
+            [comment setValue:issue forKey:kGHCommentIssuePropertyName];
+            [comments addObject:comment];
         }];
     } failure:^(NSError *error) {
         NSLog(@"Failure %@", error.localizedDescription);
     }];
 
+    issue.comments = [NSOrderedSet orderedSetWithArray:comments];
     [self save];
     //    [self.talkList reloadList];
 }

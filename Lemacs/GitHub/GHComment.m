@@ -30,6 +30,12 @@
     return GitHubKeysToPropertyNames;
 }
 
+
+#pragma mark - API
+
+@dynamic body;
+
 @end
 
 NSString * const kGHCommentEntityName = @"GHComment";
+NSString * const kGHCommentIssuePropertyName = @"issue";

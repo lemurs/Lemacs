@@ -9,7 +9,8 @@
 #import "GHManagedObject.h"
 
 @interface GHComment : GHManagedObject
-
+@property (nonatomic, strong) NSString *body;
 @end
 
 extern NSString * const kGHCommentEntityName;
+extern NSString * const kGHCommentIssuePropertyName;

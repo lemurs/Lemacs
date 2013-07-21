@@ -8,6 +8,7 @@
 
 #import "LETalkViewController.h"
 
+#import "GHComment.h"
 #import "GHIssue.h"
 #import "GHStore.h"
 #import "LEWorkViewController.h"
@@ -200,15 +201,17 @@
     if (_fetchedResultsController)
         return _fetchedResultsController;
 
-    // TODO: Edit the entity name as appropriate.
+    if (!self.managedObjectContext)
+        return nil;
+
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+    fetchRequest.entity = [NSEntityDescription entityForName:kGHCommentEntityName inManagedObjectContext:self.managedObjectContext];
     fetchRequest.fetchBatchSize = 20;
-    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO]];
+    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"createdDate" ascending:NO]];
 
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Issues"];
+    NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Comments"];
     fetchedResultsController.delegate = self;
     _fetchedResultsController = fetchedResultsController;
 
@@ -234,17 +237,8 @@
 }
 
 - (NSManagedObjectContext *)managedObjectContext;
-{// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
-    if (_managedObjectContext)
-        return _managedObjectContext;
-
-    NSPersistentStoreCoordinator *coordinator = [[GHStore sharedStore] persistentStoreCoordinator];
-    if (coordinator) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
-        _managedObjectContext.persistentStoreCoordinator = coordinator;
-    }
-
-    return _managedObjectContext;
+{
+    return self.issue.managedObjectContext;
 }
 
 - (IBAction)insertNewObject;
@@ -285,8 +279,8 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    GHComment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = comment.body;
 }
 
 @end

@@ -6,7 +6,7 @@
         </attribute>
         <userInfo/>
     </entity>
-    <entity name="GHComment" syncable="YES">
+    <entity name="GHComment" representedClassName="GHComment" syncable="YES">
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="commentID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="commentURL" optional="YES" attributeType="String" syncable="YES"/>
@@ -33,7 +33,7 @@
         <attribute name="number" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="assignee" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" syncable="YES"/>
-        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHComment" inverseName="issue" inverseEntity="GHComment" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GHComment" inverseName="issue" inverseEntity="GHComment" syncable="YES"/>
         <relationship name="labels" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GHLabel" syncable="YES"/>
         <relationship name="milestone" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHMilestone" syncable="YES"/>
         <relationship name="pullRequest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHPullRequest" syncable="YES"/>
@@ -44,7 +44,7 @@
         <attribute name="labelURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="GHMilestone" syncable="YES"/>
+    <entity name="GHMilestone" representedClassName="GHMilestone" syncable="YES"/>
     <entity name="GHPullRequest" representedClassName="GHPullRequest" syncable="YES">
         <attribute name="diffURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="htmlURL" optional="YES" attributeType="String" syncable="YES"/>

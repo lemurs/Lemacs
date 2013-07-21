@@ -17,6 +17,7 @@
 		D89DC2AD1799E3D7000770EC /* NSDate+GitHub.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2AC1799E3D7000770EC /* NSDate+GitHub.m */; };
 		D89DC2B3179BEF64000770EC /* GHStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2B2179BEF64000770EC /* GHStore.m */; };
 		D89DC2B6179C0390000770EC /* GHComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2B5179C0388000770EC /* GHComment.m */; };
+		D89DC2B9179C2DF6000770EC /* GHMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2B8179C2DF6000770EC /* GHMilestone.m */; };
 		D8A8C3F517982FDE009B1300 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F417982FDE009B1300 /* Foundation.framework */; };
 		D8A8C3F717982FDE009B1300 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F617982FDE009B1300 /* CoreGraphics.framework */; };
 		D8A8C3F917982FDE009B1300 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3F817982FDE009B1300 /* UIKit.framework */; };
@@ -71,6 +72,8 @@
 		D89DC2B2179BEF64000770EC /* GHStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHStore.m; sourceTree = "<group>"; };
 		D89DC2B4179C0388000770EC /* GHComment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHComment.h; sourceTree = "<group>"; };
 		D89DC2B5179C0388000770EC /* GHComment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHComment.m; sourceTree = "<group>"; };
+		D89DC2B7179C2DF6000770EC /* GHMilestone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHMilestone.h; sourceTree = "<group>"; };
+		D89DC2B8179C2DF6000770EC /* GHMilestone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHMilestone.m; sourceTree = "<group>"; };
 		D8A8C3F117982FDE009B1300 /* Lemacs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lemacs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8A8C3F417982FDE009B1300 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D8A8C3F617982FDE009B1300 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -131,6 +134,8 @@
 				D89DC2B5179C0388000770EC /* GHComment.m */,
 				D89DC29B1799D006000770EC /* GHIssue.h */,
 				D89DC29C1799D006000770EC /* GHIssue.m */,
+				D89DC2B7179C2DF6000770EC /* GHMilestone.h */,
+				D89DC2B8179C2DF6000770EC /* GHMilestone.m */,
 				D89DC29D1799DBD2000770EC /* GHPullRequest.h */,
 				D89DC29E1799DBD2000770EC /* GHPullRequest.m */,
 				D89DC29F1799DCE7000770EC /* GHUser.h */,
@@ -382,6 +387,7 @@
 				D8A8C40717982FDE009B1300 /* LEAppDelegate.m in Sources */,
 				D89DC2B6179C0390000770EC /* GHComment.m in Sources */,
 				D89DC2A31799DCF0000770EC /* GHIssue.m in Sources */,
+				D89DC2B9179C2DF6000770EC /* GHMilestone.m in Sources */,
 				D89DC2A11799DCE7000770EC /* GHUser.m in Sources */,
 				D89DC2A21799DCEB000770EC /* GHPullRequest.m in Sources */,
 			);

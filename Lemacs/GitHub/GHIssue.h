@@ -9,7 +9,9 @@
 #import "GHManagedObject.h"
 
 @interface GHIssue : GHManagedObject
-@property (nonatomic) NSInteger number;
+@property (nonatomic) NSInteger commentsCount, number;
+@property (nonatomic, strong) NSOrderedSet *comments;
+@property (nonatomic, strong) NSString *body;
 @end
 
 extern NSString * const kGHIssueEntityName;
