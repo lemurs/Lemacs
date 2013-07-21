@@ -10,6 +10,8 @@
 
 @implementation GHIssue
 
+#pragma mark - GHManagedObject
+
 + (NSDictionary *)GitHubKeysToPropertyNames;
 {
     static NSDictionary *GitHubKeysToPropertyNames;
@@ -37,5 +39,10 @@
 
     return GitHubKeysToPropertyNames;
 }
+
+
+#pragma mark - API
+
+@dynamic number;
 
 @end

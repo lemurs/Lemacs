@@ -9,5 +9,5 @@
 #import "GHManagedObject.h"
 
 @interface GHIssue : GHManagedObject
-
+@property (nonatomic) NSInteger number;
 @end
