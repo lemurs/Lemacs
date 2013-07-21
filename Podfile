@@ -3,5 +3,5 @@ xcodeproj 'Lemacs.xcodeproj'
 pod 'UAGithubEngine'
 pod 'UICKeyChainStore'
 pod 'HockeySDK'
-
+pod 'sundown', '~> 0.1.0'
 

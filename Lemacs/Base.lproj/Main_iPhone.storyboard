@@ -36,14 +36,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="322" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V0c-Pb-Bhm">
-                                            <rect key="frame" x="80" y="0.0" width="242" height="99"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        </textView>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="67K-5S-RWg">
                                             <rect key="frame" x="15" y="0.0" width="292" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -51,11 +43,23 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
+                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S0K-KF-IFg">
+                                            <rect key="frame" x="80" y="0.0" width="242" height="99"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                                        </webView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="S0K-KF-IFg" firstAttribute="leading" secondItem="IZl-y0-wgV" secondAttribute="leading" constant="80" id="826-BU-gpZ"/>
+                                        <constraint firstItem="S0K-KF-IFg" firstAttribute="top" secondItem="67K-5S-RWg" secondAttribute="top" id="98P-zp-KBU"/>
+                                        <constraint firstItem="S0K-KF-IFg" firstAttribute="bottom" secondItem="67K-5S-RWg" secondAttribute="bottom" id="OC7-Va-SNH"/>
+                                        <constraint firstItem="S0K-KF-IFg" firstAttribute="trailing" secondItem="IZl-y0-wgV" secondAttribute="trailing" id="hg8-SV-gxr"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="textView" destination="V0c-Pb-Bhm" id="xpb-n7-iMl"/>
+                                    <outlet property="webView" destination="S0K-KF-IFg" id="keO-yI-HBV"/>
                                     <segue destination="Ah7-4n-0Wa" kind="push" identifier="showWork" id="CaG-9e-PXU"/>
                                 </connections>
                             </tableViewCell>

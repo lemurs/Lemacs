@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A128966179C5F290024C066 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A128965179C5F290024C066 /* CoreText.framework */; };
 		D83C35F617992BF20046D510 /* LETalkListController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C35F317992BF20046D510 /* LETalkListController.m */; };
 		D83C35F717992BF20046D510 /* LETalkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C35F517992BF20046D510 /* LETalkViewController.m */; };
 		D89DC2A11799DCE7000770EC /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2A01799DCE7000770EC /* GHUser.m */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A128965179C5F290024C066 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		6E5B33CEE62442A197C34A51 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD899536E4C41519333F9DA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		D83C35F217992BF20046D510 /* LETalkListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LETalkListController.h; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A128966179C5F290024C066 /* CoreText.framework in Frameworks */,
 				D8A8C3F717982FDE009B1300 /* CoreGraphics.framework in Frameworks */,
 				D8A8C3FB17982FDE009B1300 /* CoreData.framework in Frameworks */,
 				D8A8C3F917982FDE009B1300 /* UIKit.framework in Frameworks */,
@@ -183,6 +186,7 @@
 		D8A8C3F317982FDE009B1300 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4A128965179C5F290024C066 /* CoreText.framework */,
 				D8A8C3F417982FDE009B1300 /* Foundation.framework */,
 				D8A8C3F617982FDE009B1300 /* CoreGraphics.framework */,
 				D8A8C3F817982FDE009B1300 /* UIKit.framework */,

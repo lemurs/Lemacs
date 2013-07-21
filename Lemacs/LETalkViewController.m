@@ -14,7 +14,7 @@
 #import "LETalkCell.h"
 #import "LEWorkViewController.h"
 #import "UAGitHubEngine.h"
-
+#import <sundown/SundownWrapper.h>
 
 @interface LETalkViewController ()
 @property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
@@ -296,8 +296,10 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+
     GHComment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    ((LETalkCell *)cell).textView.text = comment.body;
+    NSString *htmlString = [SundownWrapper convertMarkdownString:comment.body];
+    [((LETalkCell *)cell).webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@""]];
 }
 
 @end
