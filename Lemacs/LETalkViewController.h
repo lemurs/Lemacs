@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-@class GHIssue, LEWorkViewController;
+@class GHIssue, LEWorkViewController, UAGithubEngine;
 
 @interface LETalkViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
@@ -15,5 +15,6 @@
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) UAGithubEngine *GitHub;
 
 @end

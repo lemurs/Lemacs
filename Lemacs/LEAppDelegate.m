@@ -28,12 +28,13 @@
         
         UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
         self.talkList = (LETalkListController *)masterNavigationController.topViewController;
-        self.talkList.managedObjectContext = self.managedObjectContext;
     } else {
         UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
         self.talkList = (LETalkListController *)navigationController.topViewController;
-        self.talkList.managedObjectContext = self.managedObjectContext;
     }
+
+    self.talkList.GitHub = self.GitHub;
+    self.talkList.managedObjectContext = self.managedObjectContext;
 
     return YES;
 }
