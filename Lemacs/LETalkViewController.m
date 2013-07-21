@@ -193,6 +193,20 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    return 150.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    GHComment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    CGFloat rowHeight = MAX(150.0f, [[[LETalkCell URLsToWebViewHeights] valueForKey:comment.commentURL] doubleValue]);
+
+    NSLog(@"%@ : %f", indexPath, rowHeight);
+    return rowHeight;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
 {
     return section ? 0.0f : 44.0f;
@@ -297,13 +311,14 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+    assert([cell isKindOfClass:[LETalkCell class]]);
+    LETalkCell *talkCell = (LETalkCell *)cell;
 
     GHComment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    talkCell.imageView.image = comment.user.avatar;
+
     NSString *htmlString = [SundownWrapper convertMarkdownString:comment.body];
-    [((LETalkCell *)cell).webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@""]];
-
-    ((LETalkCell *)cell).imageView.image = comment.user.avatar;
-
+    [talkCell.webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:comment.commentURL]];
 }
 
 @end

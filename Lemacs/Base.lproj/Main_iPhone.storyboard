@@ -24,32 +24,35 @@
         <scene sceneID="lLx-8y-duJ">
             <objects>
                 <tableViewController title="Master" id="57H-Xs-xKD" userLabel="Talk View Controller - Master" customClass="LETalkViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="100" sectionHeaderHeight="100" sectionFooterHeight="22" id="aIc-pf-KqX">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="150" sectionHeaderHeight="150" sectionFooterHeight="22" id="aIc-pf-KqX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LETalkCell" id="7ji-LT-Dwk" customClass="LETalkCell">
-                                <rect key="frame" x="0.0" y="164" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="214" width="320" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7ji-LT-Dwk" id="IZl-y0-wgV">
-                                    <rect key="frame" x="0.0" y="0.0" width="322" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="322" height="149"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jga-hP-nI4">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jga-hP-nI4">
                                             <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="64" id="9Jb-pV-Brx"/>
                                             </constraints>
                                         </imageView>
-                                        <webView contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S0K-KF-IFg">
-                                            <rect key="frame" x="80" y="20" width="242" height="79"/>
+                                        <webView contentMode="scaleToFill" ambiguous="YES" scalesPageToFit="YES" suppressesIncrementalRendering="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S0K-KF-IFg">
+                                            <rect key="frame" x="80" y="20" width="242" height="129"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="7ji-LT-Dwk" id="igj-Bc-yDG"/>
+                                            </connections>
                                         </webView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XbG-ha-gh9">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XbG-ha-gh9">
                                             <rect key="frame" x="80" y="0.0" width="242" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -59,12 +62,10 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="S0K-KF-IFg" firstAttribute="leading" secondItem="IZl-y0-wgV" secondAttribute="leading" constant="80" id="826-BU-gpZ"/>
-                                        <constraint firstItem="XbG-ha-gh9" firstAttribute="leading" secondItem="jga-hP-nI4" secondAttribute="trailing" constant="16" id="INv-Be-akc"/>
                                         <constraint firstItem="S0K-KF-IFg" firstAttribute="trailing" secondItem="IZl-y0-wgV" secondAttribute="trailing" id="hg8-SV-gxr"/>
                                         <constraint firstItem="jga-hP-nI4" firstAttribute="top" secondItem="IZl-y0-wgV" secondAttribute="top" id="lfV-9n-ub8"/>
                                         <constraint firstItem="jga-hP-nI4" firstAttribute="leading" secondItem="IZl-y0-wgV" secondAttribute="leading" id="qZr-PG-fUN"/>
                                         <constraint firstItem="jga-hP-nI4" firstAttribute="top" secondItem="XbG-ha-gh9" secondAttribute="top" id="rPV-ea-lF6"/>
-                                        <constraint firstAttribute="bottom" secondItem="jga-hP-nI4" secondAttribute="bottom" constant="35" id="wLZ-9d-TTg"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

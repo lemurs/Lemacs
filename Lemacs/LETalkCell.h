@@ -6,7 +6,11 @@
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-@interface LETalkCell : UITableViewCell
+@interface LETalkCell : UITableViewCell <UIWebViewDelegate>
+
++ (NSMutableDictionary *)URLsToWebViewHeights;
+
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIWebView *webView;
+
 @end

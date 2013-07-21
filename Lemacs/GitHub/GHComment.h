@@ -11,7 +11,7 @@
 @class GHUser;
 
 @interface GHComment : GHManagedObject
-@property (nonatomic, strong) NSString *body;
+@property (nonatomic, strong) NSString *body, *commentURL;
 @property (nonatomic, strong) GHUser *user;
 @end
 
