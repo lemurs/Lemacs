@@ -24,3 +24,9 @@
 #define COCOAPODS_VERSION_MINOR_UICKeyChainStore 0
 #define COCOAPODS_VERSION_PATCH_UICKeyChainStore 2
 
+// sundown
+#define COCOAPODS_POD_AVAILABLE_sundown
+#define COCOAPODS_VERSION_MAJOR_sundown 0
+#define COCOAPODS_VERSION_MINOR_sundown 1
+#define COCOAPODS_VERSION_PATCH_sundown 0
+

@@ -8,5 +8,5 @@
 
 @interface LETalkCell : UITableViewCell
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
-@property (nonatomic, weak) IBOutlet UITextView *textView;
+@property (nonatomic, weak) IBOutlet UIWebView *webView;
 @end
