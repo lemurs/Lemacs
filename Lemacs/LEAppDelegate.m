@@ -27,7 +27,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #ifdef HOCKEYAPP_IDENTIFIER
-    NSLog(@"hello");
+    NSLog(@"Set up HockeyApp");
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:HOCKEYAPP_IDENTIFIER delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
 #endif
