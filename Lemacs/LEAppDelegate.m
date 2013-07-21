@@ -13,12 +13,25 @@
 #import <UAGithubEngine/UAGithubEngine.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
 
+
+#ifdef HOCKEYAPP_IDENTIFIER
+#import <HockeySDK/HockeySDK.h>
+@interface LEAppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate>
+@end
+#endif
+
 @implementation LEAppDelegate
 
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#ifdef HOCKEYAPP_IDENTIFIER
+    NSLog(@"hello");
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:HOCKEYAPP_IDENTIFIER delegate:self];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+#endif
+    
     [self showLoginIfNeeded];
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -290,6 +303,17 @@
     } else
         [self showLogin];
 }
+
+
+#ifdef HOCKEYAPP_IDENTIFIER
+- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
+#ifndef CONFIGURATION_AppStore
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
+        return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+#endif
+    return nil;
+}
+#endif
 
 @end
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C9DB226A-4178-4234-A8A8-C0CF2B394E32</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Lemacs</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1B8D8A61-5C68-4046-92A0-9EB644B17804</key>
+		<string>ssh://github.com/lemurs/Lemacs.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Lemacs.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1B8D8A61-5C68-4046-92A0-9EB644B17804</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/lemurs/Lemacs.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1B8D8A61-5C68-4046-92A0-9EB644B17804</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1B8D8A61-5C68-4046-92A0-9EB644B17804</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Appsterdam</string>
+		</dict>
+	</array>
+</dict>
+</plist>

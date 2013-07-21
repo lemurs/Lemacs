@@ -1,12 +1,15 @@
 PODS:
+  - HockeySDK (3.0.0)
   - UAGithubEngine (2.3)
   - UICKeyChainStore (1.0.2)
 
 DEPENDENCIES:
+  - HockeySDK
   - UAGithubEngine
   - UICKeyChainStore
 
 SPEC CHECKSUMS:
+  HockeySDK: 286d86c6e89a35de7f3e4f3c2879a07185ee0918
   UAGithubEngine: 931cbfaaec42ee192dfecf9aeaa75bd4e1afc595
   UICKeyChainStore: 6f207688b1310e9b9d879c1ee702f5b0eb9484f8
 

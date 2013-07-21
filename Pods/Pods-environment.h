@@ -6,6 +6,12 @@
 // project.
 
 
+// HockeySDK
+#define COCOAPODS_POD_AVAILABLE_HockeySDK
+#define COCOAPODS_VERSION_MAJOR_HockeySDK 3
+#define COCOAPODS_VERSION_MINOR_HockeySDK 0
+#define COCOAPODS_VERSION_PATCH_HockeySDK 0
+
 // UAGithubEngine
 #define COCOAPODS_POD_AVAILABLE_UAGithubEngine
 #define COCOAPODS_VERSION_MAJOR_UAGithubEngine 2
