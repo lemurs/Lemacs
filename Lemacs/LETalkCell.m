@@ -21,7 +21,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView;
 {
     NSString *webURL = webView.request.URL.absoluteString;
-//
+
     CGRect frame = webView.frame;
     frame.size.height = 1;
     CGSize fittingSize = [webView sizeThatFits:CGSizeZero];

@@ -13,7 +13,7 @@
 @interface GHIssue : GHManagedObject
 @property (nonatomic) NSInteger commentsCount, number;
 @property (nonatomic, strong) NSOrderedSet *comments;
-@property (nonatomic, strong) NSString *body;
+@property (nonatomic, strong) NSString *body, *issueURL;
 @property (nonatomic, strong) GHUser *user;
 @end
 

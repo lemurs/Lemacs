@@ -136,13 +136,16 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 {
-    return self.fetchedResultsController.sections.count;
+    return self.fetchedResultsController.sections.count + 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
-    return sectionInfo.numberOfObjects;
+    if (section < self.fetchedResultsController.sections.count) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
+        return sectionInfo.numberOfObjects;
+    } else
+        return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -161,6 +164,9 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
 {
+    if (indexPath.section == self.fetchedResultsController.sections.count)
+        return;
+
     NSManagedObjectContext *context = self.fetchedResultsController.managedObjectContext;
 
     switch (editingStyle) {
@@ -200,27 +206,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
+    if (indexPath.section == self.fetchedResultsController.sections.count)
+        return 150.0f;
+
     GHComment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
     CGFloat rowHeight = MAX(150.0f, [[[LETalkCell URLsToWebViewHeights] valueForKey:comment.commentURL] doubleValue]);
 
     NSLog(@"%@ : %f", indexPath, rowHeight);
     return rowHeight;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
-{
-    return section ? 0.0f : 44.0f;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
-{
-    if (section)
-        return nil;
-
-    UITableViewHeaderFooterView *header = [[UITableViewHeaderFooterView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
-    header.textLabel.text = self.issue.body;
-
-    return header;
 }
 
 
@@ -239,7 +232,7 @@
     fetchRequest.entity = [NSEntityDescription entityForName:kGHCommentEntityName inManagedObjectContext:self.managedObjectContext];
     fetchRequest.fetchBatchSize = 20;
     fetchRequest.predicate = issuePredicate;
-    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kGHCreatedDatePropertyName ascending:YES]];
+    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kGHCreatedDatePropertyName ascending:NO]];
 
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
@@ -314,11 +307,17 @@
     assert([cell isKindOfClass:[LETalkCell class]]);
     LETalkCell *talkCell = (LETalkCell *)cell;
 
-    GHComment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    talkCell.imageView.image = comment.user.avatar;
+    if (indexPath.section < self.fetchedResultsController.sections.count) {
+        GHComment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        talkCell.imageView.image = comment.user.avatar;
 
-    NSString *htmlString = [SundownWrapper convertMarkdownString:comment.body];
-    [talkCell.webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:comment.commentURL]];
+        NSString *htmlString = [SundownWrapper convertMarkdownString:comment.body];
+        [talkCell.webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:comment.commentURL]];
+    } else {
+        talkCell.imageView.image = self.issue.user.avatar;
+        NSString *htmlString = [SundownWrapper convertMarkdownString:self.issue.body];
+        [talkCell.webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:self.issue.issueURL]];
+    }
 }
 
 @end
