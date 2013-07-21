@@ -9,7 +9,8 @@
 #import "GHManagedObject.h"
 
 @interface GHUser : GHManagedObject
-
+@property (nonatomic, strong) NSString *avatarURL;
+@property (nonatomic, strong, readonly) UIImage *avatar;
 @end
 
 extern NSString * const kGHUserEntityName;

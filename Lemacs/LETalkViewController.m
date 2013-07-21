@@ -11,6 +11,7 @@
 #import "GHComment.h"
 #import "GHIssue.h"
 #import "GHStore.h"
+#import "GHUser.h"
 #import "LETalkCell.h"
 #import "LEWorkViewController.h"
 #import "UAGitHubEngine.h"
@@ -146,7 +147,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([self class]) forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([LETalkCell class]) forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
 
     return cell;
@@ -300,6 +301,9 @@
     GHComment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSString *htmlString = [SundownWrapper convertMarkdownString:comment.body];
     [((LETalkCell *)cell).webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@""]];
+
+    ((LETalkCell *)cell).imageView.image = comment.user.avatar;
+
 }
 
 @end

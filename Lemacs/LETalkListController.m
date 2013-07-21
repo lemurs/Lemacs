@@ -10,6 +10,7 @@
 
 #import "GHIssue.h"
 #import "GHStore.h"
+#import "GHUser.h"
 #import "LETalkViewController.h"
 
 @interface LETalkListController ()
@@ -304,8 +305,9 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"body"] description];
+    GHIssue *issue = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.imageView.image = issue.user.avatar;
+    cell.textLabel.text = issue.body;
 }
 
 @end

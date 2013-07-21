@@ -36,6 +36,27 @@
     return GitHubKeysToPropertyNames;
 }
 
+
+#pragma mark - API
+
+@dynamic avatarURL;
+
+@synthesize avatar=_avatar;
+
+- (UIImage *)avatar;
+{
+    if (_avatar)
+        return _avatar;
+
+    NSURL *imageURL = [NSURL URLWithString:self.avatarURL];
+    NSError *imageLoadingError;
+    NSData *imageData = [NSData dataWithContentsOfURL:imageURL options:NSDataReadingUncached error:&imageLoadingError];
+    if (!imageData)
+        NSLog(@"Image Loading Error: %@", imageLoadingError.localizedDescription);
+
+    return (_avatar = [UIImage imageWithData:imageData]);
+}
+
 @end
 
 NSString * const kGHUserEntityName = @"GHUser";

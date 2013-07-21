@@ -8,8 +8,11 @@
 
 #import "GHManagedObject.h"
 
+@class GHUser;
+
 @interface GHComment : GHManagedObject
 @property (nonatomic, strong) NSString *body;
+@property (nonatomic, strong) GHUser *user;
 @end
 
 extern NSString * const kGHCommentEntityName;
