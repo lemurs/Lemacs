@@ -9,7 +9,8 @@
 #import "GHManagedObject.h"
 
 @interface GHUser : GHManagedObject
-@property (nonatomic, strong) NSString *avatarURL;
+@property (nonatomic, strong) NSString *avatarURL, *fullName, *userName;
+@property (nonatomic, strong, readonly) NSString *displayName;
 @property (nonatomic, strong, readonly) UIImage *avatar;
 @end
 

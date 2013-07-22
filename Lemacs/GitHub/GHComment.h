@@ -6,11 +6,12 @@
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-#import "GHManagedObject.h"
+#import "GHManagedObject+LETalk.h"
 
 @class GHUser;
 
 @interface GHComment : GHManagedObject
+@property (nonatomic, strong) NSDate *createdDate;
 @property (nonatomic, strong) NSString *body, *commentURL;
 @property (nonatomic, strong) GHUser *user;
 @end

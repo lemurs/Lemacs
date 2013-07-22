@@ -16,4 +16,6 @@
     #import <CoreData/CoreData.h>
 #endif
 
+#import "Emptiness.h"
+
 static const BOOL kLEUseNarrativeLogging = YES;

@@ -12,12 +12,6 @@
 
 #pragma mark - UIWebViewDelegate
 
-+ (NSMutableDictionary *)URLsToWebViewHeights;
-{
-    NSMutableDictionary *URLsToWebViewHeights;
-    return URLsToWebViewHeights ? : (URLsToWebViewHeights = [NSMutableDictionary dictionary]);
-}
-
 - (void)webViewDidFinishLoad:(UIWebView *)webView;
 {
     NSString *webURL = webView.request.URL.absoluteString;
@@ -28,6 +22,23 @@
 
     [[[self class] URLsToWebViewHeights] setValue:@(fittingSize.height) forKey:webURL];
     NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
+}
+
+
+#pragma mark API
+
++ (NSMutableDictionary *)URLsToWebViewHeights;
+{
+    NSMutableDictionary *URLsToWebViewHeights;
+    return URLsToWebViewHeights ? : (URLsToWebViewHeights = [NSMutableDictionary dictionary]);
+}
+
+- (void)configureCellWithTalk:(id <LETalk>)talk;
+{
+    self.imageView.image = talk.avatar;
+    self.timeLabel.text = talk.displayedTime;
+    self.titleLabel.attributedText = talk.styledTitle;
+    [self.webView loadHTMLString:talk.bodyHTML baseURL:talk.baseURL];
 }
 
 @end

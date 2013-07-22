@@ -33,7 +33,7 @@
 
 #pragma mark - API
 
-@dynamic body, commentURL, user;
+@dynamic body, commentURL, createdDate, user;
 
 @end
 

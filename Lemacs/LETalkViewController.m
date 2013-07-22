@@ -158,8 +158,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -307,17 +306,10 @@
     assert([cell isKindOfClass:[LETalkCell class]]);
     LETalkCell *talkCell = (LETalkCell *)cell;
 
-    if (indexPath.section < self.fetchedResultsController.sections.count) {
-        GHComment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        talkCell.imageView.image = comment.user.avatar;
-
-        NSString *htmlString = [SundownWrapper convertMarkdownString:comment.body];
-        [talkCell.webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:comment.commentURL]];
-    } else {
-        talkCell.imageView.image = self.issue.user.avatar;
-        NSString *htmlString = [SundownWrapper convertMarkdownString:self.issue.body];
-        [talkCell.webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:self.issue.issueURL]];
-    }
+    if (indexPath.section < self.fetchedResultsController.sections.count)
+        [talkCell configureCellWithTalk:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    else
+        [talkCell configureCellWithTalk:self.issue];
 }
 
 @end

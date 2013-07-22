@@ -52,14 +52,27 @@
     </entity>
     <entity name="GHUser" representedClassName="GHUser" syncable="YES">
         <attribute name="avatarURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bio" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="blog" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventsURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="followersCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="followersURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="followingCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="followingURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fullName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gistsCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="gistsURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gravatarID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hireable" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="htmlURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="organizationsURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="receivedEventsURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reposCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="reposURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="starredURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subscriptionsURL" optional="YES" attributeType="String" syncable="YES"/>

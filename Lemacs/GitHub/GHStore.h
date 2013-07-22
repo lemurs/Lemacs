@@ -23,6 +23,7 @@
 // Issues
 - (void)loadIssues;
 - (void)loadCommentsForIssue:(GHIssue *)issue;
+- (void)loadUser:(NSString *)login;
 - (void)loadUserForComment:(GHComment *)comment;
 - (void)loadUserForIssue:(GHIssue *)issue;
 

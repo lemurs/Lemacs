@@ -38,6 +38,7 @@
 		D8A8C42217982FDF009B1300 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A8C3FA17982FDE009B1300 /* CoreData.framework */; };
 		D8A8C42A17982FDF009B1300 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8A8C42817982FDF009B1300 /* InfoPlist.strings */; };
 		D8A8C42C17982FDF009B1300 /* LemacsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A8C42B17982FDF009B1300 /* LemacsTests.m */; };
+		D8B5EE8D179D434B0007A5D8 /* GHManagedObject+LETalk.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B5EE8C179D434B0007A5D8 /* GHManagedObject+LETalk.m */; };
 		E7C4DD42B32B4AC1B5DFB018 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5B33CEE62442A197C34A51 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,10 @@
 		D8A8C42717982FDF009B1300 /* LemacsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LemacsTests-Info.plist"; sourceTree = "<group>"; };
 		D8A8C42917982FDF009B1300 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D8A8C42B17982FDF009B1300 /* LemacsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LemacsTests.m; sourceTree = "<group>"; };
+		D8B5EE86179D2C6C0007A5D8 /* LETalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LETalk.h; sourceTree = "<group>"; };
+		D8B5EE87179D3E200007A5D8 /* Emptiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Emptiness.h; sourceTree = "<group>"; };
+		D8B5EE8B179D434B0007A5D8 /* GHManagedObject+LETalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GHManagedObject+LETalk.h"; sourceTree = "<group>"; };
+		D8B5EE8C179D434B0007A5D8 /* GHManagedObject+LETalk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GHManagedObject+LETalk.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +141,8 @@
 			children = (
 				D89DC2A71799E22D000770EC /* GHManagedObject.h */,
 				D89DC2A81799E22E000770EC /* GHManagedObject.m */,
+				D8B5EE8B179D434B0007A5D8 /* GHManagedObject+LETalk.h */,
+				D8B5EE8C179D434B0007A5D8 /* GHManagedObject+LETalk.m */,
 				D89DC2B4179C0388000770EC /* GHComment.h */,
 				D89DC2B5179C0388000770EC /* GHComment.m */,
 				D89DC29B1799D006000770EC /* GHIssue.h */,
@@ -159,6 +166,7 @@
 			children = (
 				D89DC2AB1799E3D7000770EC /* NSDate+GitHub.h */,
 				D89DC2AC1799E3D7000770EC /* NSDate+GitHub.m */,
+				D8B5EE87179D3E200007A5D8 /* Emptiness.h */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -206,6 +214,7 @@
 				D8A8C40B17982FDE009B1300 /* Main_iPad.storyboard */,
 				D89DC2BA179C4CCC000770EC /* LETalkCell.h */,
 				D89DC2BB179C4CCC000770EC /* LETalkCell.m */,
+				D8B5EE86179D2C6C0007A5D8 /* LETalk.h */,
 				D83C35F217992BF20046D510 /* LETalkListController.h */,
 				D83C35F317992BF20046D510 /* LETalkListController.m */,
 				D83C35F417992BF20046D510 /* LETalkViewController.h */,
@@ -397,6 +406,7 @@
 				D83C35F717992BF20046D510 /* LETalkViewController.m in Sources */,
 				D8A8C40317982FDE009B1300 /* main.m in Sources */,
 				D89DC2A91799E234000770EC /* GHManagedObject.m in Sources */,
+				D8B5EE8D179D434B0007A5D8 /* GHManagedObject+LETalk.m in Sources */,
 				D8A8C40717982FDE009B1300 /* LEAppDelegate.m in Sources */,
 				D89DC2B6179C0390000770EC /* GHComment.m in Sources */,
 				D89DC2A31799DCF0000770EC /* GHIssue.m in Sources */,
