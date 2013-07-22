@@ -9,9 +9,13 @@
 #import "GHManagedObject.h"
 
 @interface GHUser : GHManagedObject
+
++ (instancetype)userNamed:(NSString *)userName context:(NSManagedObjectContext *)context;
+
 @property (nonatomic, strong) NSString *avatarURL, *fullName, *userName;
 @property (nonatomic, strong, readonly) NSString *displayName;
 @property (nonatomic, strong, readonly) UIImage *avatar;
+
 @end
 
 extern NSString * const kGHUserEntityName;

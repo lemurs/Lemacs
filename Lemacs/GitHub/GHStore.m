@@ -42,7 +42,7 @@
     [UICKeyChainStore setString:password forKey:kLEGitHubPasswordKey service:kLEGitHubServiceName];
 
     self.GitHub = [[UAGithubEngine alloc] initWithUsername:username password:password withReachability:YES];
-    [self loadIssues];
+    [self reloadIssues];
 }
 
 
@@ -160,11 +160,11 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
 - (IBAction)save;
 {
-    NSError *contextSavingError;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (!managedObjectContext || !managedObjectContext.hasChanges)
         return; // Abort
 
+    NSError *contextSavingError;
     if ([managedObjectContext save:&contextSavingError])
         return; // Success
 
@@ -199,7 +199,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
     NSString *password = [UICKeyChainStore stringForKey:kLEGitHubPasswordKey service:kLEGitHubServiceName];
     if (username.length && password.length) {
         self.GitHub = [[UAGithubEngine alloc] initWithUsername:username password:password withReachability:YES];
-        [self loadIssues];
+        [self reloadIssues];
     } else
         [self showLogin];
 }
@@ -208,37 +208,41 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
 #pragma mark Issues
 
-- (void)loadIssues;
+- (void)reloadIssues;
 {
-    [self removeContext];
-
     NSManagedObjectContext *context = self.managedObjectContext;
+    if ([NonNil([context.userInfo valueForKey:kGHUpdatedDatePropertyName], [NSDate distantPast]) timeIntervalSinceNow] < kGHStoreUpdateLimit)
+        return;
+
+    [context.userInfo setValue:[NSDate date] forKey:kGHUpdatedDatePropertyName];
 
     NSDictionary *parameters = @{};
     [self.GitHub openIssuesForRepository:self.repositoryPath withParameters:parameters success:^(id results) {
         NSLog(@"%@", results);
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
-            GHIssue *issue = [NSEntityDescription insertNewObjectForEntityForName:kGHIssueEntityName inManagedObjectContext:context];
-
+            GHIssue *issue = [GHIssue issueNumber:[dictionary[kGHIssueNumberPropertyName] integerValue] context:context];
             [issue setValuesForKeysWithDictionary:dictionary];
+            issue.lastUpdated = [NSDate date];
         }];
     } failure:^(NSError *error) {
         NSLog(@"Failure %@", error.localizedDescription);
     }];
 
     [self save];
-//    [self.talkList reloadList];
 }
 
 - (void)loadCommentsForIssue:(GHIssue *)issue;
 {
+    if ([issue.lastUpdated timeIntervalSinceNow] < kGHStoreUpdateLimit)
+        return;
+
     if (!issue.commentsCount)
         return;
 
     NSMutableArray *comments = [NSMutableArray arrayWithCapacity:issue.commentsCount];
 
     NSDictionary *parameters = @{};
-    [self.GitHub commentsForIssue:issue.number forRepository:self.repositoryPath success:^(id results) {
+    [self.GitHub commentsForIssue:issue.issueNumber forRepository:self.repositoryPath success:^(id results) {
         NSLog(@"%@", results);
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
             GHComment *comment = [NSEntityDescription insertNewObjectForEntityForName:kGHCommentEntityName inManagedObjectContext:issue.managedObjectContext];
@@ -247,7 +251,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
             [comments addObject:comment];
         }];
     } failure:^(NSError *error) {
-        NSLog(@"Failure %@", error.localizedDescription);
+        NSLog(@"%@ %@", NSStringFromSelector(_cmd), error.localizedDescription);
     }];
 
     issue.comments = [NSOrderedSet orderedSetWithArray:comments];
@@ -255,14 +259,20 @@ NSString * const kLEGitHubUsernameKey = @"username";
     //    [self.talkList reloadList];
 }
 
-- (void)loadUserForComment:(GHComment *)comment;
+- (void)loadUser:(GHUser *)user;
 {
+    if ([user.lastUpdated timeIntervalSinceNow] < kGHStoreUpdateLimit)
+        return;
 
-}
+    user.lastUpdated = [NSDate date];
 
-- (void)loadUserForIssue:(GHIssue *)issue;
-{
-
+    [self.GitHub user:user.userName success:^(NSDictionary *dictionary) {
+        [user setValuesForKeysWithDictionary:dictionary];
+    } failure:^(NSError *error) {
+        NSLog(@"%@ %@", NSStringFromSelector(_cmd), error.localizedDescription);
+    }];
 }
 
 @end
+
+

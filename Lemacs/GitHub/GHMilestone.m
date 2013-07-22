@@ -10,6 +10,23 @@
 
 @implementation GHMilestone
 
++ (NSDictionary *)GitHubKeysToPropertyNames;
+{
+    static NSDictionary *GitHubKeysToPropertyNames;
+    if (GitHubKeysToPropertyNames)
+        return GitHubKeysToPropertyNames;
+
+    GitHubKeysToPropertyNames = @{@"number" : kGHMilestoneNumberPropertyName};
+
+    return GitHubKeysToPropertyNames;
+}
+
++ (NSString *)indexPropertyName;
+{
+    return kGHMilestoneNumberPropertyName;
+}
+
 @end
 
 NSString * const kGHMilestoneEntityName = @"GHMilestone";
+NSString * const kGHMilestoneNumberPropertyName = @"number";

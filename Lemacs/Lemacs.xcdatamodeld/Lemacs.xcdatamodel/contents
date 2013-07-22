@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3383" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Event">
-        <attribute name="timeStamp" optional="YES" attributeType="Date">
-            <userInfo/>
-        </attribute>
-        <userInfo/>
-    </entity>
-    <entity name="GHComment" representedClassName="GHComment" syncable="YES">
+    <entity name="GHComment" representedClassName="GHComment" parentEntity="GHManagedObject" syncable="YES">
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="commentID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="commentURL" optional="YES" attributeType="String" syncable="YES"/>
@@ -15,9 +9,9 @@
         <attribute name="issueURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="issue" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHIssue" inverseName="comments" inverseEntity="GHIssue" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="GHUser" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" syncable="YES"/>
     </entity>
-    <entity name="GHIssue" representedClassName="GHIssue" syncable="YES">
+    <entity name="GHIssue" representedClassName="GHIssue" parentEntity="GHManagedObject" syncable="YES">
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="closed" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="closedDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -27,30 +21,39 @@
         <attribute name="eventsURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="htmlURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="issueID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="issueNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="issueURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="labelsURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="number" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="assignee" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" syncable="YES"/>
-        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GHComment" inverseName="issue" inverseEntity="GHComment" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GHComment" inverseName="issue" inverseEntity="GHComment" syncable="YES"/>
         <relationship name="labels" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GHLabel" syncable="YES"/>
         <relationship name="milestone" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHMilestone" syncable="YES"/>
         <relationship name="pullRequest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHPullRequest" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" syncable="YES"/>
     </entity>
-    <entity name="GHLabel" representedClassName="GHLabel" syncable="YES">
+    <entity name="GHLabel" representedClassName="GHLabel" parentEntity="GHManagedObject" syncable="YES">
         <attribute name="colorCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="labelURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="GHMilestone" representedClassName="GHMilestone" syncable="YES"/>
-    <entity name="GHPullRequest" representedClassName="GHPullRequest" syncable="YES">
+    <entity name="GHManagedObject" representedClassName="GHManagedObject" isAbstract="YES">
+        <attribute name="lastUpdated" optional="YES" attributeType="Date" defaultDateTimeInterval="0" defaultValueString="distantPast">
+            <userInfo/>
+        </attribute>
+        <userInfo/>
+    </entity>
+    <entity name="GHMilestone" representedClassName="GHMilestone" parentEntity="GHManagedObject" syncable="YES">
+        <attribute name="number" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="GHPullRequest" representedClassName="GHPullRequest" parentEntity="GHManagedObject" syncable="YES">
         <attribute name="diffURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="htmlURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="patchURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pullRequestID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
-    <entity name="GHUser" representedClassName="GHUser" syncable="YES">
+    <entity name="GHUser" representedClassName="GHUser" parentEntity="GHManagedObject" syncable="YES">
         <attribute name="avatarURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bio" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="blog" optional="YES" attributeType="String" syncable="YES"/>
@@ -77,12 +80,13 @@
         <attribute name="starredURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subscriptionsURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="userID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userURL" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="GHManagedObject" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHComment" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHIssue" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHLabel" positionX="0" positionY="0" width="0" height="0"/>

@@ -18,11 +18,19 @@
 
     GitHubKeysToPropertyNames = @{@"diff_url" : @"diffURL",
                                   @"html_url" : @"htmlURL",
+                                  @"id" : @"pullRequestID",
                                   @"patch_url" : @"patchURL"};
 
     return GitHubKeysToPropertyNames;
 }
 
+
++ (NSString *)indexPropertyName;
+{
+    return kGHPullRequestIDPropertyName;
+}
+
 @end
 
 NSString * const kGHPullRequestEntityName = @"GHPullRequest";
+NSString * const kGHPullRequestIDPropertyName = @"pullRequestID";

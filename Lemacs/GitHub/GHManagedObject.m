@@ -13,13 +13,56 @@
 @interface GHManagedObject ()
 - (void)setUpRelationship:(NSRelationshipDescription *)relationship withValue:(id)value forKey:(NSString *)key;
 - (void)setUpToManyRelationship:(NSRelationshipDescription *)relationship withValue:(NSArray *)values forKey:(NSString *)key;
+- (BOOL)validateRelationship:(NSRelationshipDescription *)relationship withValue:(id *)value forKey:(NSString *)key error:(NSError **)error;
+- (BOOL)validateToManyRelationship:(NSRelationshipDescription *)relationship withValue:(NSArray **)values forKey:(NSString *)key error:(NSError **)error;;
 @end
 
 @implementation GHManagedObject
 
-+ (NSDictionary *)GitHubKeysToPropertyNames;
++ (instancetype)objectWithEntityName:(NSString *)entityName inContext:(NSManagedObjectContext *)context properties:(NSDictionary *)properties;
 {
-    return nil;
+    id managedObject;
+
+    NSString *indexPropertyName = [self indexPropertyName];
+    assert(indexPropertyName); // GHManagedObject is abstract
+
+    id indexPropertyValue = properties[indexPropertyName];
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ == %@" argumentArray:@[indexPropertyName, indexPropertyValue]];
+
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
+    fetchRequest.fetchLimit = 1;
+    fetchRequest.predicate = predicate;
+
+    NSError *fetchError;
+    if ((managedObject = [[context executeFetchRequest:fetchRequest error:&fetchError] lastObject]))
+        return managedObject;
+
+    managedObject = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:context];
+    [managedObject setValue:indexPropertyValue forKey:indexPropertyName];
+    [managedObject setValue:[NSDate distantPast] forKey:kGHUpdatedDatePropertyName];
+
+    return managedObject;
+}
+
+
+#pragma mark NSObject (KeyValueCoding)
+
+- (void)setValue:(id)value forKey:(NSString *)key;
+{
+    if (IsEmpty(key) || IsEmpty(value))
+        return; // We may wish to treat this differently in the future to for example delete a previously set value.
+
+    NSDictionary *properties = self.entity.propertiesByName;
+    NSPropertyDescription *property = properties[key];
+    if ([property isKindOfClass:[NSRelationshipDescription class]])
+        return [self setUpRelationship:(NSRelationshipDescription *)property withValue:value forKey:key];
+
+    NSError *validationError;
+    if ([self validateValue:&value forKey:key error:&validationError])
+        [super setValue:value forKey:key];
+    else
+        NSLog(@"%@ %@", NSStringFromSelector(_cmd), validationError.localizedDescription);
 }
 
 - (void)setValuesForKeysWithDictionary:(NSDictionary *)keyedValues;
@@ -31,18 +74,15 @@
     }];
 }
 
-- (void)setValue:(id)value forKey:(NSString *)key;
+- (BOOL)validateValue:(id *)value forKey:(NSString *)key error:(NSError **)error;    // KVC
 {
-    if (!value || !key)
-        return;
-
-    if ([value isEqual:[NSNull null]])
-        return; // We may wish to treat this differently in the future to for example delete a previously set value.
+//    static NSString * const WhatThisDoes = @"This method is responsible for two things: coercing the value into an appropriate type for the object, and validating it according to the object’s rules.";
+    NSLog(@"%@ %@ : %@", NSStringFromSelector(_cmd), key, *value);
 
     NSDictionary *properties = self.entity.propertiesByName;
     NSPropertyDescription *property = properties[key];
     if ([property isKindOfClass:[NSRelationshipDescription class]])
-        return [self setUpRelationship:(NSRelationshipDescription *)property withValue:value forKey:key];
+        return [self validateRelationship:(NSRelationshipDescription *)property withValue:value forKey:key error:error];
 
     assert([property isKindOfClass:[NSAttributeDescription class]]);
     NSAttributeDescription *attribute = (NSAttributeDescription *)property;
@@ -51,38 +91,114 @@
         case NSInteger16AttributeType:
         case NSInteger32AttributeType:
         case NSInteger64AttributeType:
-            value = [NSNumber numberWithInteger:[value integerValue]];
-            break;
+            if ([*value isKindOfClass:[NSNumber class]])
+                return YES;
+            else if ([*value isKindOfClass:[NSString class]])
+                *value = [NSNumber numberWithInteger:[*value integerValue]];
+            else if (!*value)
+                *value = [NSNumber numberWithInteger:0];
+            else
+                return NO;
+
+            return YES;
 
         case NSDoubleAttributeType:
-            value = [NSNumber numberWithDouble:[value doubleValue]];
-            break;
+            if ([*value isKindOfClass:[NSNumber class]])
+                return YES;
+            else if ([*value isKindOfClass:[NSString class]])
+                *value = [NSNumber numberWithDouble:[*value doubleValue]];
+            else if (!*value)
+                *value = [NSNumber numberWithDouble:0.0f];
+            else
+                return NO;
+
+            return YES;
 
         case NSFloatAttributeType:
-            value = [NSNumber numberWithFloat:[value floatValue]];
-            break;
+            if ([*value isKindOfClass:[NSNumber class]])
+                return YES;
+            else if ([*value isKindOfClass:[NSString class]])
+                *value = [NSNumber numberWithFloat:[*value floatValue]];
+            else if (!*value)
+                *value = [NSNumber numberWithFloat:0.0f];
+            else
+                return NO;
+
+            return YES;
 
         case NSDecimalAttributeType:
-            value = [NSDecimalNumber decimalNumberWithString:value];
+            if ([*value isKindOfClass:[NSDecimalNumber class]])
+                return YES;
+            else if ([*value isKindOfClass:[NSString class]])
+                *value = [NSDecimalNumber decimalNumberWithString:*value];
+            else if (!*value)
+                *value = [NSDecimalNumber decimalNumberWithString:@"0"];
+            else
+                return NO;
+
+            return YES;
+
+        case NSStringAttributeType:
             break;
 
         case NSBooleanAttributeType:
-            value = [NSNumber numberWithBool:[value boolValue]];
-            break;
+            if ([*value isKindOfClass:[NSNumber class]])
+                return YES;
+            else if ([*value isKindOfClass:[NSString class]])
+                *value = [NSNumber numberWithBool:[*value boolValue]];
+            else if (!*value)
+                *value = [NSNumber numberWithBool:NO];
+            else
+                return NO;
+
+            return YES;
 
         case NSDateAttributeType:
-            value = [NSDate dateWithGitHubDateString:value];
-            break;
+            if ([*value isKindOfClass:[NSDate class]])
+                return YES;
+            else if ([*value isKindOfClass:[NSString class]])
+                *value = [NSDate dateWithGitHubDateString:*value];
+            else if (!*value)
+                *value = [key isEqualToString:kGHCreatedDatePropertyName] ? [NSDate distantPast] : [NSNull null];
+            else
+                return [super validateValue:value forKey:key error:error];
 
         case NSBinaryDataAttributeType:
-            ; // TODO: Handle this case
-            break;
+            if ([*value isKindOfClass:[NSData class]])
+                return YES;
+            else if (!*value)
+                *value = [NSData data];
+            else
+                return NO;
+
+            return YES;
 
         default:
             break;
     }
-    
-    [super setValue:value forKey:key];
+
+    return [super validateValue:value forKey:key error:error];
+}
+
+
+#pragma mark - API
+
++ (NSDictionary *)GitHubKeysToPropertyNames;
+{
+    return nil;
+}
+
++ (NSString *)indexPropertyName;
+{
+    return nil; // Override
+}
+
+
+@dynamic lastUpdated;
+
+- (BOOL)needsUpdating;
+{
+    return [self.lastUpdated timeIntervalSinceNow] > kGHStoreUpdateLimit;
 }
 
 - (void)setUpRelationship:(NSRelationshipDescription *)relationship withValue:(id)value forKey:(NSString *)key;
@@ -93,9 +209,9 @@
     if ([value isKindOfClass:[GHManagedObject class]])
         return [super setValue:value forKey:key];
 
-    GHManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:relationship.destinationEntity.name inManagedObjectContext:self.managedObjectContext];
     assert([value isKindOfClass:[NSDictionary class]]);
-    [object setValuesForKeysWithDictionary:(NSDictionary *)value];
+
+    GHManagedObject *object = [GHManagedObject objectWithEntityName:relationship.destinationEntity.name inContext:self.managedObjectContext properties:value];
     [super setValue:object forKey:key];
 
     NSString *inverseKey = relationship.inverseRelationship.name;
@@ -122,6 +238,56 @@
     [super setValue:value forKey:key];
 }
 
+- (BOOL)validateRelationship:(NSRelationshipDescription *)relationship withValue:(id *)value forKey:(NSString *)key error:(NSError **)error;
+{
+    if (relationship.isToMany)
+        return [self validateToManyRelationship:relationship withValue:value forKey:key error:error];
+
+    if ([*value isKindOfClass:[GHManagedObject class]])
+        return [super validateValue:value forKey:key error:error];
+
+    if (![*value isKindOfClass:[NSDictionary class]])
+        return NO;
+
+    NSDictionary *properties = *value;
+    *value = [GHManagedObject objectWithEntityName:relationship.destinationEntity.name inContext:self.managedObjectContext properties:properties];
+
+    return YES;
+}
+
+- (BOOL)validateToManyRelationship:(NSRelationshipDescription *)relationship withValue:(NSArray **)values forKey:(NSString *)key error:(NSError **)error;
+{
+    if (relationship.isOrdered && [*values isKindOfClass:[NSOrderedSet class]])
+        return YES;
+    else if (!relationship.isOrdered && [*values isKindOfClass:[NSSet class]])
+        return YES;
+    else if (![*values isKindOfClass:[NSArray class]])
+        return NO;
+
+    NSMutableArray *objects = [NSMutableArray arrayWithCapacity:[*values count]];
+    [*values enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
+        if (![dictionary isKindOfClass:[NSDictionary class]])
+            *stop = YES;
+
+        GHManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:relationship.destinationEntity.name inManagedObjectContext:self.managedObjectContext];
+        [object setValuesForKeysWithDictionary:(NSDictionary *)dictionary];
+        [objects addObject:object];
+
+        NSString *inverseKey = relationship.inverseRelationship.name;
+        if (inverseKey)
+            [object setValue:self forKey:inverseKey];
+
+    }];
+
+    *values = objects;
+
+    return YES;
+}
+
 @end
 
+const NSTimeInterval kGHStoreUpdateLimit = 60.0f;
+
 NSString * const kGHCreatedDatePropertyName = @"createdDate";
+NSString * const kGHUpdatedDatePropertyName = @"lastUpdated";
+NSString * const kGHModifiedDatePropertyName = @"modifiedDate";

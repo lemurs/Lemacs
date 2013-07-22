@@ -11,6 +11,24 @@
 
 @implementation GHUser
 
++ (instancetype)userNamed:(NSString *)userName context:(NSManagedObjectContext *)context;
+{
+    return [self objectWithEntityName:kGHUserEntityName inContext:context properties:@{[self indexPropertyName] : userName}];
+}
+
+
+#pragma mark - NSManagedObject
+
+- (void)awakeFromInsert;
+{
+    // This should only happen once ever per user
+    // TODO: Trigger a deep load of the new user
+    [[GHStore sharedStore] loadUser:self];
+}
+
+
+#pragma mark - GHManagedObject
+
 + (NSDictionary *)GitHubKeysToPropertyNames;
 {
     static NSDictionary *GitHubKeysToPropertyNames;
@@ -50,14 +68,6 @@
     return GitHubKeysToPropertyNames;
 }
 
-
-#pragma mark - NSManagedObject
-
-- (void)awakeFromInsert;
-{
-    // TODO: Load base url to receive complete configuration information
-//    [[GHStore sharedStore] loadUser:self.userName];
-}
 
 #pragma mark - API
 

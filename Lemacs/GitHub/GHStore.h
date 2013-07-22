@@ -6,13 +6,14 @@
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-@class GHComment, GHIssue, UAGithubEngine;
+@class GHIssue, GHUser, UAGithubEngine;
 
 @interface GHStore : NSObject
 
 + (instancetype)sharedStore;
 
 @property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong) NSDate *lastUpdated;
 @property (nonatomic, strong) UAGithubEngine *GitHub;
 
 - (IBAction)save;
@@ -21,10 +22,10 @@
 - (void)logInWithUsername:(NSString *)username password:(NSString *)password;
 
 // Issues
-- (void)loadIssues;
+- (void)reloadIssues;
 - (void)loadCommentsForIssue:(GHIssue *)issue;
-- (void)loadUser:(NSString *)login;
-- (void)loadUserForComment:(GHComment *)comment;
-- (void)loadUserForIssue:(GHIssue *)issue;
+- (void)loadUser:(GHUser *)user;
 
 @end
+
+extern const NSTimeInterval kGHStoreUpdateLimit;

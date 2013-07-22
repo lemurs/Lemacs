@@ -9,7 +9,9 @@
 #import "GHManagedObject.h"
 
 @interface GHLabel : GHManagedObject
-
+@property (nonatomic, strong) NSString *colorCode, *name, *labelURL;
+@property (nonatomic, strong, readonly) UIColor *labelColor;
 @end
 
-NSString * const kGHLabelEntityName;
+extern NSString * const kGHLabelEntityName;
+extern NSString * const kGHLabelNamePropertyName;

@@ -13,3 +13,4 @@
 @end
 
 extern NSString * const kGHPullRequestEntityName;
+extern NSString * const kGHPullRequestIDPropertyName;
