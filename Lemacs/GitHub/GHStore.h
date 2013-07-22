@@ -16,16 +16,15 @@
 @property (nonatomic, strong) NSDate *lastUpdated;
 @property (nonatomic, strong) UAGithubEngine *GitHub;
 
+- (IBAction)refreshIssues;
 - (IBAction)save;
 - (IBAction)showLoginIfNeeded;
 
 - (void)logInWithUsername:(NSString *)username password:(NSString *)password;
 
 // Issues
-- (void)reloadIssues;
+- (void)loadIssues;
 - (void)loadCommentsForIssue:(GHIssue *)issue;
 - (void)loadUser:(GHUser *)user;
 
 @end
-
-extern const NSTimeInterval kGHStoreUpdateLimit;

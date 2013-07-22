@@ -42,7 +42,7 @@
     [UICKeyChainStore setString:password forKey:kLEGitHubPasswordKey service:kLEGitHubServiceName];
 
     self.GitHub = [[UAGithubEngine alloc] initWithUsername:username password:password withReachability:YES];
-    [self reloadIssues];
+    [self loadIssues];
 }
 
 
@@ -149,6 +149,31 @@ NSString * const kLEGitHubUsernameKey = @"username";
     return _persistentStoreCoordinator;
 }
 
+- (IBAction)refreshIssues;
+{
+    NSManagedObjectContext *context = self.managedObjectContext;
+    if ([NonNil([context.userInfo valueForKey:kGHUpdatedDatePropertyName], [NSDate distantPast]) timeIntervalSinceNow] < kGHStoreUpdateLimit)
+        return;
+
+    [context.userInfo setValue:[NSDate date] forKey:kGHUpdatedDatePropertyName];
+
+    NSDictionary *parameters = @{};
+    [self.GitHub openIssuesForRepository:self.repositoryPath withParameters:parameters success:^(id results) {
+        NSLog(@"%@", results);
+        [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
+            GHIssue *issue = [GHIssue issueNumber:[dictionary[kGHIssueNumberPropertyName] integerValue] context:context];
+            if (issue.needsUpdating) {
+                [issue setValuesForKeysWithDictionary:dictionary];
+                issue.lastUpdated = [NSDate date];
+            }
+        }];
+    } failure:^(NSError *error) {
+        NSLog(@"Failure %@", error.localizedDescription);
+    }];
+
+    [self save];
+}
+
 - (IBAction)removeContext;
 {
     NSURL *storeURL = [self.applicationDocumentsDirectory URLByAppendingPathComponent:@"Lemacs.sqlite"]; // FIXME: Factor out inline constants
@@ -199,7 +224,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
     NSString *password = [UICKeyChainStore stringForKey:kLEGitHubPasswordKey service:kLEGitHubServiceName];
     if (username.length && password.length) {
         self.GitHub = [[UAGithubEngine alloc] initWithUsername:username password:password withReachability:YES];
-        [self reloadIssues];
+        [self refreshIssues];
     } else
         [self showLogin];
 }
@@ -208,12 +233,11 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
 #pragma mark Issues
 
-- (void)reloadIssues;
+- (void)loadIssues;
 {
-    NSManagedObjectContext *context = self.managedObjectContext;
-    if ([NonNil([context.userInfo valueForKey:kGHUpdatedDatePropertyName], [NSDate distantPast]) timeIntervalSinceNow] < kGHStoreUpdateLimit)
-        return;
+    [self removeContext];
 
+    NSManagedObjectContext *context = self.managedObjectContext;
     [context.userInfo setValue:[NSDate date] forKey:kGHUpdatedDatePropertyName];
 
     NSDictionary *parameters = @{};
@@ -233,8 +257,10 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
 - (void)loadCommentsForIssue:(GHIssue *)issue;
 {
-    if ([issue.lastUpdated timeIntervalSinceNow] < kGHStoreUpdateLimit)
+    if (!issue.needsUpdating)
         return;
+    else
+        issue.lastUpdated = [NSDate date];
 
     if (!issue.commentsCount)
         return;
@@ -261,10 +287,10 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
 - (void)loadUser:(GHUser *)user;
 {
-    if ([user.lastUpdated timeIntervalSinceNow] < kGHStoreUpdateLimit)
+    if (!user.needsUpdating)
         return;
-
-    user.lastUpdated = [NSDate date];
+    else
+        user.lastUpdated = [NSDate date];
 
     [self.GitHub user:user.userName success:^(NSDictionary *dictionary) {
         [user setValuesForKeysWithDictionary:dictionary];
