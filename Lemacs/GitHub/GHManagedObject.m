@@ -67,6 +67,19 @@
 
 - (void)setValuesForKeysWithDictionary:(NSDictionary *)keyedValues;
 {
+    NSDate *modifiedDate = keyedValues[kGHModifiedDatePropertyName];
+    if (!IsEmpty(modifiedDate)) {
+        assert ([self respondsToSelector:@selector(modifiedDate)]);
+        NSDate *currentValue = [self valueForKey:kGHModifiedDatePropertyName];
+
+        NSError *validationError;
+        if (![self validateValue:&modifiedDate forKey:kGHModifiedDatePropertyName error:&validationError])
+            NSLog(@"%@ %@", NSStringFromSelector(_cmd), validationError.localizedDescription);
+
+        if ([currentValue isEqualToDate:modifiedDate])
+            return; // No changes expected
+    }
+
     NSDictionary *GitHubKeysToPropertyNames = [[self class] GitHubKeysToPropertyNames];
     GHManagedObject *object = self;
     [keyedValues enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
