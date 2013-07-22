@@ -151,8 +151,12 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
 - (IBAction)refreshIssues;
 {
+    return [self loadIssues];
+
     NSManagedObjectContext *context = self.managedObjectContext;
-    if ([NonNil([context.userInfo valueForKey:kGHUpdatedDatePropertyName], [NSDate distantPast]) timeIntervalSinceNow] < kGHStoreUpdateLimit)
+    NSDate *lastUpdated = NonNil([context.userInfo valueForKey:kGHUpdatedDatePropertyName], [NSDate distantPast]);
+    NSTimeInterval staleness = -[lastUpdated timeIntervalSinceNow];
+    if (staleness < kGHStoreUpdateLimit)
         return;
 
     [context.userInfo setValue:[NSDate date] forKey:kGHUpdatedDatePropertyName];
@@ -163,8 +167,8 @@ NSString * const kLEGitHubUsernameKey = @"username";
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
             GHIssue *issue = [GHIssue issueNumber:[dictionary[kGHIssueNumberPropertyName] integerValue] context:context];
             if (issue.needsUpdating) {
-                [issue setValuesForKeysWithDictionary:dictionary];
                 issue.lastUpdated = [NSDate date];
+                [issue setValuesForKeysWithDictionary:dictionary];
             }
         }];
     } failure:^(NSError *error) {
@@ -204,7 +208,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
     }
     
     // TODO: Make this do what it's supposed to.
-    
+
     abort();
 }
 
@@ -292,7 +296,9 @@ NSString * const kLEGitHubUsernameKey = @"username";
     else
         user.lastUpdated = [NSDate date];
 
-    [self.GitHub user:user.userName success:^(NSDictionary *dictionary) {
+    [self.GitHub user:user.userName success:^(id result) {
+        assert([result isKindOfClass:[NSArray class]]);
+        NSDictionary *dictionary = [result lastObject];
         [user setValuesForKeysWithDictionary:dictionary];
     } failure:^(NSError *error) {
         NSLog(@"%@ %@", NSStringFromSelector(_cmd), error.localizedDescription);

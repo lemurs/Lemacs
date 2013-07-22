@@ -9,7 +9,7 @@
         <attribute name="issueURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="issue" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHIssue" inverseName="comments" inverseEntity="GHIssue" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" inverseName="comments" inverseEntity="GHUser" syncable="YES"/>
     </entity>
     <entity name="GHIssue" representedClassName="GHIssue" parentEntity="GHManagedObject" syncable="YES">
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,17 +26,18 @@
         <attribute name="labelsURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="assignee" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" syncable="YES"/>
+        <relationship name="assignee" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" inverseName="assignments" inverseEntity="GHUser" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GHComment" inverseName="issue" inverseEntity="GHComment" syncable="YES"/>
-        <relationship name="labels" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GHLabel" syncable="YES"/>
-        <relationship name="milestone" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHMilestone" syncable="YES"/>
-        <relationship name="pullRequest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHPullRequest" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" syncable="YES"/>
+        <relationship name="labels" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GHLabel" inverseName="issues" inverseEntity="GHLabel" syncable="YES"/>
+        <relationship name="milestone" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHMilestone" inverseName="issues" inverseEntity="GHMilestone" syncable="YES"/>
+        <relationship name="pullRequest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHPullRequest" inverseName="issue" inverseEntity="GHPullRequest" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" inverseName="issues" inverseEntity="GHUser" syncable="YES"/>
     </entity>
     <entity name="GHLabel" representedClassName="GHLabel" parentEntity="GHManagedObject" syncable="YES">
         <attribute name="colorCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="labelURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="issues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHIssue" inverseName="labels" inverseEntity="GHIssue" syncable="YES"/>
     </entity>
     <entity name="GHManagedObject" representedClassName="GHManagedObject" isAbstract="YES">
         <attribute name="lastUpdated" optional="YES" attributeType="Date" defaultDateTimeInterval="0" defaultValueString="distantPast">
@@ -46,12 +47,14 @@
     </entity>
     <entity name="GHMilestone" representedClassName="GHMilestone" parentEntity="GHManagedObject" syncable="YES">
         <attribute name="number" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="issues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHIssue" inverseName="milestone" inverseEntity="GHIssue" syncable="YES"/>
     </entity>
     <entity name="GHPullRequest" representedClassName="GHPullRequest" parentEntity="GHManagedObject" syncable="YES">
         <attribute name="diffURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="htmlURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="patchURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pullRequestID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="issue" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHIssue" inverseName="pullRequest" inverseEntity="GHIssue" syncable="YES"/>
     </entity>
     <entity name="GHUser" representedClassName="GHUser" parentEntity="GHManagedObject" syncable="YES">
         <attribute name="avatarURL" optional="YES" attributeType="String" syncable="YES"/>
@@ -84,12 +87,15 @@
         <attribute name="userID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userURL" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="assignments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHIssue" inverseName="assignee" inverseEntity="GHIssue" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHComment" inverseName="user" inverseEntity="GHComment" syncable="YES"/>
+        <relationship name="issues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHIssue" inverseName="user" inverseEntity="GHIssue" syncable="YES"/>
     </entity>
     <elements>
-        <element name="GHManagedObject" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHComment" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHIssue" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHLabel" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="GHManagedObject" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHMilestone" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHPullRequest" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHUser" positionX="0" positionY="0" width="0" height="0"/>

@@ -19,3 +19,4 @@
 @end
 
 extern NSString * const kGHUserEntityName;
+extern NSString * const kGHUserNamePropertyName;

@@ -23,7 +23,7 @@
 {
     // This should only happen once ever per user
     // TODO: Trigger a deep load of the new user
-    [[GHStore sharedStore] loadUser:self];
+//    [[GHStore sharedStore] loadUser:self];
 }
 
 
@@ -68,6 +68,11 @@
     return GitHubKeysToPropertyNames;
 }
 
++ (NSString *)indexPropertyName;
+{
+    return kGHUserNamePropertyName;
+}
+
 
 #pragma mark - API
 
@@ -91,9 +96,16 @@
 
 - (NSString *)displayName;
 {
-    return self.fullName;
+    NSString *displayName = self.fullName;
+    if (!IsEmpty(displayName))
+        return displayName;
+
+    [[GHStore sharedStore] loadUser:self];
+
+    return nil;
 }
 
 @end
 
 NSString * const kGHUserEntityName = @"GHUser";
+NSString * const kGHUserNamePropertyName = @"userName";

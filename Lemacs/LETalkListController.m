@@ -228,8 +228,12 @@
     _fetchedResultsController = fetchedResultsController;
 
     NSError *fetchError;
-    if ([fetchedResultsController performFetch:&fetchError])
+    if ([fetchedResultsController performFetch:&fetchError]) {
+        if (!self.fetchedResultsController.sections.count)
+            [[GHStore sharedStore] loadIssues];
+
         return fetchedResultsController; // Success
+    }
 
     if (kLEUseNarrativeLogging) {
         NSLog(@"Fetch Error: %@, %@", fetchError, fetchError.userInfo);

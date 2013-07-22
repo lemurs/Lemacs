@@ -23,12 +23,21 @@
 {
     id managedObject;
 
-    NSString *indexPropertyName = [self indexPropertyName];
+    NSLog(@"Entity Name: %@", entityName);
+    NSString *indexPropertyName = [NSClassFromString(entityName) indexPropertyName];
     assert(indexPropertyName); // GHManagedObject is abstract
 
     id indexPropertyValue = properties[indexPropertyName];
+    if (!indexPropertyValue) {
+        NSString *primitiveKey = [[[NSClassFromString(entityName) GitHubKeysToPropertyNames] allKeysForObject:indexPropertyName] lastObject];
+        indexPropertyValue = properties[primitiveKey];
+    }
+    if (!indexPropertyValue) {
+        NSString *convertedKey = [[NSClassFromString(entityName) GitHubKeysToPropertyNames] valueForKey:indexPropertyName];
+        indexPropertyValue = properties[convertedKey];
+    }
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ == %@" argumentArray:@[indexPropertyName, indexPropertyValue]];
+    NSPredicate *predicate = indexPropertyValue ? [NSPredicate predicateWithFormat:@"%@ == %@" argumentArray:@[indexPropertyName, indexPropertyValue]] : nil;
 
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
     fetchRequest.fetchLimit = 1;
@@ -53,6 +62,9 @@
     if (IsEmpty(key) || IsEmpty(value))
         return; // We may wish to treat this differently in the future to for example delete a previously set value.
 
+    if ([[self valueForKey:key] isEqual:value])
+        return;
+
     NSDictionary *properties = self.entity.propertiesByName;
     NSPropertyDescription *property = properties[key];
     if ([property isKindOfClass:[NSRelationshipDescription class]])
@@ -63,6 +75,15 @@
         [super setValue:value forKey:key];
     else
         NSLog(@"%@ %@", NSStringFromSelector(_cmd), validationError.localizedDescription);
+}
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key;
+{
+    key = [[self class] GitHubKeysToPropertyNames][key];
+    if (key)
+        [self setValue:value forKey:key];
+    else
+        [super setValue:value forUndefinedKey:key];
 }
 
 - (void)setValuesForKeysWithDictionary:(NSDictionary *)keyedValues;
@@ -172,9 +193,11 @@
             else if ([*value isKindOfClass:[NSString class]])
                 *value = [NSDate dateWithGitHubDateString:*value];
             else if (!*value)
-                *value = [key isEqualToString:kGHCreatedDatePropertyName] ? [NSDate distantPast] : [NSNull null];
+                *value = [key isEqualToString:kGHCreatedDatePropertyName] ? [NSDate distantPast] : nil;
             else
                 return [super validateValue:value forKey:key error:error];
+
+            return YES;
 
         case NSBinaryDataAttributeType:
             if ([*value isKindOfClass:[NSData class]])
@@ -211,7 +234,7 @@
 
 - (BOOL)needsUpdating;
 {
-    return [self.lastUpdated timeIntervalSinceNow] > kGHStoreUpdateLimit;
+    return -[self.lastUpdated timeIntervalSinceNow] > kGHStoreUpdateLimit;
 }
 
 - (void)setUpRelationship:(NSRelationshipDescription *)relationship withValue:(id)value forKey:(NSString *)key;
@@ -225,25 +248,35 @@
     assert([value isKindOfClass:[NSDictionary class]]);
 
     GHManagedObject *object = [GHManagedObject objectWithEntityName:relationship.destinationEntity.name inContext:self.managedObjectContext properties:value];
+    if (object.needsUpdating)
+        [object setValuesForKeysWithDictionary:value];
+
     [super setValue:object forKey:key];
 
-    NSString *inverseKey = relationship.inverseRelationship.name;
-    if (inverseKey)
-        [object setValue:self forKey:inverseKey];
+//    NSString *inverseKey = relationship.inverseRelationship.name;
+//    if (inverseKey)
+//        [object setValue:self forKey:inverseKey];
 }
 
 - (void)setUpToManyRelationship:(NSRelationshipDescription *)relationship withValue:(NSArray *)values forKey:(NSString *)key;
 {
+    if (![values.lastObject isKindOfClass:[NSDictionary class]]) {
+        id value = relationship.isOrdered ? [NSOrderedSet orderedSetWithArray:values] : [NSSet setWithArray:values];
+        return [super setValue:value forKey:key];
+    }
+
     NSMutableArray *objects = [NSMutableArray arrayWithCapacity:values.count];
 
     [values enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
-        GHManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:relationship.destinationEntity.name inManagedObjectContext:self.managedObjectContext];
-        [object setValuesForKeysWithDictionary:(NSDictionary *)dictionary];
+        GHManagedObject *object = [GHManagedObject objectWithEntityName:relationship.destinationEntity.name  inContext:self.managedObjectContext properties:dictionary];
+        if (object.needsUpdating)
+            [object setValuesForKeysWithDictionary:(NSDictionary *)dictionary];
+
         [objects addObject:object];
 
-        NSString *inverseKey = relationship.inverseRelationship.name;
-        if (inverseKey)
-            [object setValue:self forKey:inverseKey];
+//        NSString *inverseKey = relationship.inverseRelationship.name;
+//        if (inverseKey)
+//            [object setValue:self forKey:inverseKey];
 
     }];
 
@@ -258,6 +291,11 @@
 
     if ([*value isKindOfClass:[GHManagedObject class]])
         return [super validateValue:value forKey:key error:error];
+
+    if ([key isEqualToString:@"pullRequest"] || [key isEqualToString:@"milestone"] || [key isEqualToString:@"assignee"]) {
+        *value = nil;
+        return YES;
+    }
 
     if (![*value isKindOfClass:[NSDictionary class]])
         return NO;
@@ -286,9 +324,9 @@
         [object setValuesForKeysWithDictionary:(NSDictionary *)dictionary];
         [objects addObject:object];
 
-        NSString *inverseKey = relationship.inverseRelationship.name;
-        if (inverseKey)
-            [object setValue:self forKey:inverseKey];
+//        NSString *inverseKey = relationship.inverseRelationship.name;
+//        if (inverseKey)
+//            [object setValue:self forKey:inverseKey];
 
     }];
 
