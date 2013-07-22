@@ -11,6 +11,7 @@
 
 static inline BOOL IsEmpty(id thing) {
     return thing == nil
+    || ([thing isEqual:[NSNull null]])
     || ([thing respondsToSelector:@selector(length)]
         && [(NSData *)thing length] == 0)
     || ([thing respondsToSelector:@selector(count)]
