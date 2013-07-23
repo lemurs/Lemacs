@@ -21,10 +21,10 @@
         <attribute name="eventsURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="htmlURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="issueID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="issueNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="issueURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="labelsURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="assignee" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHUser" inverseName="assignments" inverseEntity="GHUser" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="GHComment" inverseName="issue" inverseEntity="GHComment" syncable="YES"/>

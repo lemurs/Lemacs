@@ -23,5 +23,8 @@
 @end
 
 extern NSString * const kGHIssueEntityName;
+
+extern NSString * const kGHIssueClosedGitHubKey;
 extern NSString * const kGHIssueClosedPropertyName;
+extern NSString * const kGHIssueNumberGitHubKey;
 extern NSString * const kGHIssueNumberPropertyName;

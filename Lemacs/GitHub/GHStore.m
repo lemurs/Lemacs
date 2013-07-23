@@ -42,7 +42,7 @@
     [UICKeyChainStore setString:password forKey:kLEGitHubPasswordKey service:kLEGitHubServiceName];
 
     self.GitHub = [[UAGithubEngine alloc] initWithUsername:username password:password withReachability:YES];
-    [self loadIssues];
+    [self loadIssues:YES];
 }
 
 
@@ -81,7 +81,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
 }
 
 
-#pragma mark Actions
+#pragma mark Core Data
 
 - (NSManagedObjectContext *)managedObjectContext;
 {// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
@@ -149,33 +149,16 @@ NSString * const kLEGitHubUsernameKey = @"username";
     return _persistentStoreCoordinator;
 }
 
+
+#pragma mark Actions
+
 - (IBAction)refreshIssues;
 {
     NSManagedObjectContext *context = self.managedObjectContext;
     NSDate *lastUpdated = NonNil([context.userInfo valueForKey:kGHUpdatedDatePropertyName], [NSDate distantPast]);
     NSTimeInterval staleness = -[lastUpdated timeIntervalSinceNow];
-    if (staleness < kGHStoreUpdateLimit)
-        return;
-
-    [context.userInfo setValue:[NSDate date] forKey:kGHUpdatedDatePropertyName];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-
-    NSDictionary *parameters = @{};
-    [self.GitHub openIssuesForRepository:self.repositoryPath withParameters:parameters success:^(id results) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
-            GHIssue *issue = [GHIssue issueNumber:[dictionary[kGHIssueNumberPropertyName] integerValue] context:context];
-            if (issue.needsUpdating) {
-                issue.lastUpdated = [NSDate date];
-                [issue setValuesForKeysWithDictionary:dictionary];
-            }
-        }];
-    } failure:^(NSError *error) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        NSLog(@"Failure %@", error.localizedDescription);
-    }];
-
-    [self save];
+    if (staleness > kGHStoreUpdateLimit)
+        [self loadIssues:NO];
 }
 
 - (IBAction)removeContext;
@@ -235,11 +218,12 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
 
 
-#pragma mark Issues
+#pragma mark Loading
 
-- (void)loadIssues;
+- (void)loadIssues:(BOOL)freshStart;
 {
-    [self removeContext];
+    if (freshStart)
+        [self removeContext];
 
     NSManagedObjectContext *context = self.managedObjectContext;
     [context.userInfo setValue:[NSDate date] forKey:kGHUpdatedDatePropertyName];
@@ -249,11 +233,14 @@ NSString * const kLEGitHubUsernameKey = @"username";
     [self.GitHub openIssuesForRepository:self.repositoryPath withParameters:parameters success:^(id results) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
-            GHIssue *issue = [GHIssue issueNumber:[dictionary[kGHIssueNumberPropertyName] integerValue] context:context];
-            [issue setValuesForKeysWithDictionary:dictionary];
-            issue.lastUpdated = [NSDate date];
+            GHIssue *issue = [GHIssue issueNumber:[dictionary[kGHIssueNumberGitHubKey] integerValue] context:context];
+            if (freshStart || issue.needsUpdating) {
+                issue.lastUpdated = [NSDate date];
+                [issue setValuesForKeysWithDictionary:dictionary];
+            }
         }];
     } failure:^(NSError *error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         NSLog(@"Failure %@", error.localizedDescription);
     }];
 

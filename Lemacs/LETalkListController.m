@@ -230,7 +230,7 @@
     NSError *fetchError;
     if ([fetchedResultsController performFetch:&fetchError]) {
         if (!self.fetchedResultsController.sections.count)
-            [[GHStore sharedStore] loadIssues];
+            [[GHStore sharedStore] loadIssues:YES];
 
         return fetchedResultsController; // Success
     }

@@ -23,7 +23,7 @@
 - (void)logInWithUsername:(NSString *)username password:(NSString *)password;
 
 // Issues
-- (void)loadIssues;
+- (void)loadIssues:(BOOL)freshStart;
 - (void)loadCommentsForIssue:(GHIssue *)issue;
 - (void)loadUser:(GHUser *)user;
 

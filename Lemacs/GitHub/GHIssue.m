@@ -56,9 +56,9 @@
                                   @"labels" : @"labels",
                                   @"labels_url" : @"labelsURL",
                                   @"milestone" : @"milestone",
-                                  @"number" : kGHIssueNumberPropertyName,
+                                  kGHIssueNumberGitHubKey : kGHIssueNumberPropertyName,
                                   @"pull_request" : @"pullRequest",
-                                  @"state" : kGHIssueClosedPropertyName,
+                                  kGHIssueClosedGitHubKey : kGHIssueClosedPropertyName,
                                   @"title" : @"title",
                                   @"updated_at" : @"modifiedDate",
                                   @"url" : @"issueURL",
@@ -80,5 +80,8 @@
 @end
 
 NSString * const kGHIssueEntityName = @"GHIssue";
+
+NSString * const kGHIssueClosedGitHubKey = @"state";
 NSString * const kGHIssueClosedPropertyName = @"closed";
-NSString * const kGHIssueNumberPropertyName = @"issueNumber";
+NSString * const kGHIssueNumberGitHubKey = @"number";
+NSString * const kGHIssueNumberPropertyName = @"number";
