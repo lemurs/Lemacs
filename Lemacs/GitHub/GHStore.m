@@ -158,10 +158,11 @@ NSString * const kLEGitHubUsernameKey = @"username";
         return;
 
     [context.userInfo setValue:[NSDate date] forKey:kGHUpdatedDatePropertyName];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 
     NSDictionary *parameters = @{};
     [self.GitHub openIssuesForRepository:self.repositoryPath withParameters:parameters success:^(id results) {
-        NSLog(@"%@", results);
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
             GHIssue *issue = [GHIssue issueNumber:[dictionary[kGHIssueNumberPropertyName] integerValue] context:context];
             if (issue.needsUpdating) {
@@ -170,6 +171,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
             }
         }];
     } failure:^(NSError *error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         NSLog(@"Failure %@", error.localizedDescription);
     }];
 
@@ -212,7 +214,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
 - (IBAction)showLogin;
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Account" message:@"Sign in to GitHub" delegate:self cancelButtonTitle:@"Nope" otherButtonTitles:@"Ok", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Account", @"GitHub login Title") message:NSLocalizedString(@"Sign in to GitHub", @"GitHub login message") delegate:self cancelButtonTitle:NSLocalizedString(@"Not now", @"GitHub login cancel button title") otherButtonTitles:NSLocalizedString(@"Sign in", @"GitHub login OK button title"), nil];
     alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
     [alert show];
 }
@@ -241,10 +243,11 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
     NSManagedObjectContext *context = self.managedObjectContext;
     [context.userInfo setValue:[NSDate date] forKey:kGHUpdatedDatePropertyName];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 
     NSDictionary *parameters = @{};
     [self.GitHub openIssuesForRepository:self.repositoryPath withParameters:parameters success:^(id results) {
-        NSLog(@"%@", results);
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
             GHIssue *issue = [GHIssue issueNumber:[dictionary[kGHIssueNumberPropertyName] integerValue] context:context];
             [issue setValuesForKeysWithDictionary:dictionary];
@@ -267,11 +270,12 @@ NSString * const kLEGitHubUsernameKey = @"username";
     if (!issue.commentsCount)
         return;
 
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSMutableArray *comments = [NSMutableArray arrayWithCapacity:issue.commentsCount];
 
     NSDictionary *parameters = @{};
     [self.GitHub commentsForIssue:issue.issueNumber forRepository:self.repositoryPath success:^(id results) {
-        NSLog(@"%@", results);
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
             GHComment *comment = [NSEntityDescription insertNewObjectForEntityForName:kGHCommentEntityName inManagedObjectContext:issue.managedObjectContext];
             [comment setValuesForKeysWithDictionary:dictionary];
@@ -279,6 +283,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
             [comments addObject:comment];
         }];
     } failure:^(NSError *error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         NSLog(@"%@ %@", NSStringFromSelector(_cmd), error.localizedDescription);
     }];
 
@@ -294,11 +299,15 @@ NSString * const kLEGitHubUsernameKey = @"username";
     else
         user.lastUpdated = [NSDate date];
 
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+
     [self.GitHub user:user.userName success:^(id result) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         assert([result isKindOfClass:[NSArray class]]);
         NSDictionary *dictionary = [result lastObject];
         [user setValuesForKeysWithDictionary:dictionary];
     } failure:^(NSError *error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         NSLog(@"%@ %@", NSStringFromSelector(_cmd), error.localizedDescription);
     }];
 }
