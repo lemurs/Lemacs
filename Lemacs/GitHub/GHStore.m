@@ -151,8 +151,6 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
 - (IBAction)refreshIssues;
 {
-    return [self loadIssues];
-
     NSManagedObjectContext *context = self.managedObjectContext;
     NSDate *lastUpdated = NonNil([context.userInfo valueForKey:kGHUpdatedDatePropertyName], [NSDate distantPast]);
     NSTimeInterval staleness = -[lastUpdated timeIntervalSinceNow];
