@@ -35,7 +35,7 @@
 
 - (void)configureCellWithTalk:(id <LETalk>)talk;
 {
-    self.imageView.image = talk.avatar;
+    self.avatarView.image = talk.avatar;
     self.timeLabel.text = talk.displayedTime;
     self.titleLabel.attributedText = talk.styledTitle;
     [self.webView loadHTMLString:talk.bodyHTML baseURL:talk.baseURL];

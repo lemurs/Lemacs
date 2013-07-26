@@ -78,7 +78,7 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="imageView" destination="bow-Ra-ILf" id="Cx5-bI-8Zi"/>
+                <outlet property="avatarView" destination="bow-Ra-ILf" id="Ril-GF-lad"/>
                 <outlet property="timeLabel" destination="eaQ-ni-X56" id="yVL-Xi-tOE"/>
                 <outlet property="titleLabel" destination="CJv-bL-7RJ" id="BGM-Ev-bjM"/>
                 <outlet property="webView" destination="VZV-hl-5GD" id="22X-gQ-BZa"/>

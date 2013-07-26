@@ -12,7 +12,7 @@
 
 + (NSMutableDictionary *)URLsToWebViewHeights;
 
-@property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, weak) IBOutlet UIImageView *avatarView;
 @property (nonatomic, weak) IBOutlet UILabel *timeLabel, *titleLabel;
 @property (nonatomic, weak) IBOutlet UIWebView *webView;
 
