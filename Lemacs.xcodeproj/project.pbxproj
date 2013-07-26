@@ -10,6 +10,7 @@
 		4A128966179C5F290024C066 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A128965179C5F290024C066 /* CoreText.framework */; };
 		D83C35F617992BF20046D510 /* LETalkListController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C35F317992BF20046D510 /* LETalkListController.m */; };
 		D83C35F717992BF20046D510 /* LETalkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C35F517992BF20046D510 /* LETalkViewController.m */; };
+		D87B561017A2B596006A32DA /* LETalkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87B560F17A2B596006A32DA /* LETalkCell.xib */; };
 		D89DC2A11799DCE7000770EC /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2A01799DCE7000770EC /* GHUser.m */; };
 		D89DC2A21799DCEB000770EC /* GHPullRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC29E1799DBD2000770EC /* GHPullRequest.m */; };
 		D89DC2A31799DCF0000770EC /* GHIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC29C1799D006000770EC /* GHIssue.m */; };
@@ -61,6 +62,7 @@
 		D83C35F317992BF20046D510 /* LETalkListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LETalkListController.m; sourceTree = "<group>"; };
 		D83C35F417992BF20046D510 /* LETalkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LETalkViewController.h; sourceTree = "<group>"; };
 		D83C35F517992BF20046D510 /* LETalkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LETalkViewController.m; sourceTree = "<group>"; };
+		D87B560F17A2B596006A32DA /* LETalkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LETalkCell.xib; sourceTree = "<group>"; };
 		D89DC29B1799D006000770EC /* GHIssue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHIssue.h; sourceTree = "<group>"; };
 		D89DC29C1799D006000770EC /* GHIssue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHIssue.m; sourceTree = "<group>"; };
 		D89DC29D1799DBD2000770EC /* GHPullRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHPullRequest.h; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				D8A8C40B17982FDE009B1300 /* Main_iPad.storyboard */,
 				D89DC2BA179C4CCC000770EC /* LETalkCell.h */,
 				D89DC2BB179C4CCC000770EC /* LETalkCell.m */,
+				D87B560F17A2B596006A32DA /* LETalkCell.xib */,
 				D8B5EE86179D2C6C0007A5D8 /* LETalk.h */,
 				D83C35F217992BF20046D510 /* LETalkListController.h */,
 				D83C35F317992BF20046D510 /* LETalkListController.m */,
@@ -346,6 +349,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D87B561017A2B596006A32DA /* LETalkCell.xib in Resources */,
 				D8A8C40D17982FDE009B1300 /* Main_iPad.storyboard in Resources */,
 				D8A8C41817982FDF009B1300 /* Images.xcassets in Resources */,
 				D8A8C40A17982FDE009B1300 /* Main_iPhone.storyboard in Resources */,

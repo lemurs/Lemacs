@@ -11,6 +11,7 @@
 #import "GHIssue.h"
 #import "GHStore.h"
 #import "GHUser.h"
+#import "LETalkCell.h"
 #import "LETalkViewController.h"
 
 @interface LETalkListController ()
@@ -45,6 +46,8 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject)];
     self.navigationItem.rightBarButtonItem = addButton;
+
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([LETalkCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([LETalkCell class])];
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         self.talkViewController = (LETalkViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
@@ -157,7 +160,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([self class]) forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([LETalkCell class]) forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
 
     return cell;
@@ -310,9 +313,10 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 {
-    GHIssue *issue = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.imageView.image = issue.user.avatar;
-    cell.textLabel.text = issue.body;
+    assert([cell isKindOfClass:[LETalkCell class]]);
+    LETalkCell *talkCell = (LETalkCell *)cell;
+
+    [talkCell configureCellWithTalk:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
 @end
