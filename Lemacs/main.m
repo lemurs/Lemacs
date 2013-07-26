@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #import "LEAppDelegate.h"
 
 int main(int argc, char * argv[])
