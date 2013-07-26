@@ -23,6 +23,8 @@
     if ([key isEqualToString:kGHIssueClosedPropertyName]) {
         if ([*value isKindOfClass:[NSNumber class]])
             return YES;
+        else if (!*value)
+            *value = [NSNumber numberWithBool:NO];
         else if (![*value isKindOfClass:[NSString class]])
             return NO;
         else if ([*value isEqualToString:@"closed"])

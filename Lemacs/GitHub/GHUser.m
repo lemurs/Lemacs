@@ -70,7 +70,7 @@
 
 + (NSString *)indexGitHubKey;
 {
-    return kGHUserNameGitHubKey;
+    return kGHUserHandleGitHubKey;
 }
 
 
@@ -109,5 +109,5 @@
 
 NSString * const kGHUserEntityName = @"GHUser";
 
-NSString * const kGHUserNameGitHubKey = @"name";
-NSString * const kGHUserNamePropertyName = @"userName";
+NSString * const kGHUserHandleGitHubKey = @"login";
+NSString * const kGHUserHandlePropertyName = @"userName";

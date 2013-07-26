@@ -33,7 +33,7 @@
     }
 
     // Set up a fetch request to see if any objects match that property-value
-    NSPredicate *predicate = indexPropertyValue ? [NSPredicate predicateWithFormat:@"%@ == %@" argumentArray:@[indexPropertyName, indexPropertyValue]] : nil;
+    NSPredicate *predicate = indexPropertyValue ? [NSPredicate predicateWithFormat:@"%K == %@" argumentArray:@[indexPropertyName, indexPropertyValue]] : nil;
 
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
     fetchRequest.fetchLimit = 1;
@@ -113,7 +113,7 @@
 - (BOOL)validateValue:(id *)value forKey:(NSString *)key error:(NSError **)error;    // KVC
 {
 //    static NSString * const WhatThisDoes = @"This method is responsible for two things: coercing the value into an appropriate type for the object, and validating it according to the object’s rules.";
-    NSLog(@"%@ %@ : %@", NSStringFromSelector(_cmd), key, *value);
+//    NSLog(@"%@ %@ : %@", NSStringFromSelector(_cmd), key, *value);
 
     NSDictionary *properties = self.entity.propertiesByName;
     NSPropertyDescription *property = properties[key];
@@ -298,6 +298,9 @@
         *value = nil;
         return YES;
     }
+
+    if (!*value)
+        return YES;
 
     if (![*value isKindOfClass:[NSDictionary class]])
         return NO;

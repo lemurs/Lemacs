@@ -20,5 +20,5 @@
 
 extern NSString * const kGHUserEntityName;
 
-extern NSString * const kGHUserNameGitHubKey;
-extern NSString * const kGHUserNamePropertyName;
+extern NSString * const kGHUserHandleGitHubKey;
+extern NSString * const kGHUserHandlePropertyName;
