@@ -33,7 +33,7 @@
     }
 
     // Set up a fetch request to see if any objects match that property-value
-    NSPredicate *predicate = indexPropertyValue ? [NSPredicate predicateWithFormat:@"%@ == %@" argumentArray:@[indexGitHubKey, indexPropertyValue]] : nil;
+    NSPredicate *predicate = indexPropertyValue ? [NSPredicate predicateWithFormat:@"%@ == %@" argumentArray:@[indexPropertyName, indexPropertyValue]] : nil;
 
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
     fetchRequest.fetchLimit = 1;
@@ -41,7 +41,7 @@
 
     NSArray *fetchResults;
     NSError *fetchError;
-    if (!(fetchResults = [[context executeFetchRequest:fetchRequest error:&fetchError] lastObject]))
+    if (!(fetchResults = [context executeFetchRequest:fetchRequest error:&fetchError]))
         NSLog(@"Fetch Error: %@ %@", NSStringFromSelector(_cmd), fetchError.localizedDescription);
 
     id managedObject = fetchResults.lastObject;
