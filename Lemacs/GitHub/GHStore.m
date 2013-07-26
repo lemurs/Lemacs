@@ -261,7 +261,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
     NSMutableArray *comments = [NSMutableArray arrayWithCapacity:issue.commentsCount];
 
     NSDictionary *parameters = @{};
-    [self.GitHub commentsForIssue:issue.issueNumber forRepository:self.repositoryPath success:^(id results) {
+    [self.GitHub commentsForIssue:issue.number forRepository:self.repositoryPath success:^(id results) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
             GHComment *comment = [NSEntityDescription insertNewObjectForEntityForName:kGHCommentEntityName inManagedObjectContext:issue.managedObjectContext];

@@ -14,7 +14,7 @@
 
 + (instancetype)issueNumber:(NSInteger)issueNumber context:(NSManagedObjectContext *)context;
 
-@property (nonatomic) NSInteger commentsCount, issueNumber;
+@property (nonatomic) NSInteger commentsCount, number;
 @property (nonatomic, strong) NSDate *createdDate;
 @property (nonatomic, strong) NSOrderedSet *comments;
 @property (nonatomic, strong) NSString *body, *issueURL;
