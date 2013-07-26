@@ -8,29 +8,46 @@
 
 #import "LETalkCell.h"
 
+
+@interface LETalkCell ()
+@property CGFloat preferredHeight;
+@end
+
+
 @implementation LETalkCell
 
 #pragma mark - UIWebViewDelegate
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView;
 {
-    NSString *webURL = webView.request.URL.absoluteString;
+    // Web views are notoriously difficult to size. This seems to be the Internet-approved workaround.
 
     CGRect frame = webView.frame;
     frame.size.height = 1;
-    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
+    webView.frame = frame;
 
-    [[[self class] URLsToWebViewHeights] setValue:@(fittingSize.height) forKey:webURL];
-    NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
+    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
+    frame.size = fittingSize;
+    webView.frame = frame;
+
+    NSString *output = [webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"];
+    self.preferredHeight = webView.frame.origin.y + (CGFloat)output.integerValue;
 }
 
 
 #pragma mark API
 
-+ (NSMutableDictionary *)URLsToWebViewHeights;
++ (CGFloat)defaultHeight;
 {
-    NSMutableDictionary *URLsToWebViewHeights;
-    return URLsToWebViewHeights ? : (URLsToWebViewHeights = [NSMutableDictionary dictionary]);
+    return 142.0f;
+}
+
+- (CGFloat)height;
+{
+    static const CGFloat kLCTalkCellMaxHeight = 342.0f; // TODO: Replace this with some empirical value
+    static const CGFloat kLCTalkCellMinHeight = 42.0f;
+
+    return MIN(MAX(self.preferredHeight, kLCTalkCellMinHeight),  kLCTalkCellMaxHeight);
 }
 
 - (void)configureCellWithTalk:(id <LETalk>)talk;

@@ -11,15 +11,20 @@
 #import "GHIssue.h"
 #import "GHStore.h"
 #import "GHUser.h"
+#import "LETalk.h"
 #import "LETalkCell.h"
 #import "LETalkViewController.h"
 
 @interface LETalkListController ()
+
 @property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSMutableDictionary *talkURLsToCells;
+
 - (IBAction)insertNewObject;
 - (IBAction)saveContext;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @implementation LETalkListController
@@ -56,6 +61,8 @@
     }
 
     self.talkViewController = (LETalkViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+
+    self.talkURLsToCells = [NSMutableDictionary dictionaryWithCapacity:42];
 }
 
 - (void)didReceiveMemoryWarning;
@@ -209,6 +216,22 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    return [LETalkCell defaultHeight];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    id <LETalk> talk = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    assert([talk conformsToProtocol:@protocol(LETalk)]);
+
+    LETalkCell *cell = self.talkURLsToCells[talk.baseURL];
+
+    // If cell is nil, use default height
+    return MAX(cell.height, [LETalkCell defaultHeight]);
+}
+
 
 #pragma mark - API
 
@@ -313,10 +336,15 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 {
-    assert([cell isKindOfClass:[LETalkCell class]]);
     LETalkCell *talkCell = (LETalkCell *)cell;
+    assert([talkCell isKindOfClass:[LETalkCell class]]);
 
-    [talkCell configureCellWithTalk:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    id <LETalk> talk = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    assert([talk conformsToProtocol:@protocol(LETalk)]);
+
+
+    [self.talkURLsToCells setObject:talkCell forKey:talk.baseURL];
+    [talkCell configureCellWithTalk:talk];
 }
 
 @end

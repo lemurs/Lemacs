@@ -12,17 +12,23 @@
 #import "GHIssue.h"
 #import "GHStore.h"
 #import "GHUser.h"
+#import "LETalk.h"
 #import "LETalkCell.h"
 #import "LEWorkViewController.h"
 #import "UAGitHubEngine.h"
 #import <sundown/SundownWrapper.h>
 
 @interface LETalkViewController ()
+
 @property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSMutableDictionary *talkURLsToCells;
+
 - (IBAction)insertNewObject;
 - (IBAction)saveContext;
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 
@@ -52,6 +58,8 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([LETalkCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([LETalkCell class])];
 
     self.detailViewController = (LEWorkViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+
+    self.talkURLsToCells = [NSMutableDictionary dictionaryWithCapacity:42];
 }
 
 - (void)didReceiveMemoryWarning;
@@ -203,19 +211,18 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    return 150.0f;
+    return [LETalkCell defaultHeight];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    if (indexPath.section == self.fetchedResultsController.sections.count)
-        return 150.0f;
+    id <LETalk> talk = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    assert([talk conformsToProtocol:@protocol(LETalk)]);
 
-    GHComment *comment = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    CGFloat rowHeight = MAX(150.0f, [[[LETalkCell URLsToWebViewHeights] valueForKey:comment.commentURL] doubleValue]);
+    LETalkCell *cell = self.talkURLsToCells[talk.baseURL];
 
-    NSLog(@"%@ : %f", indexPath, rowHeight);
-    return rowHeight;
+    // If cell is nil, use default height
+    return MAX(cell.height, [LETalkCell defaultHeight]);
 }
 
 

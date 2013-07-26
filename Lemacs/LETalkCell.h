@@ -10,11 +10,13 @@
 
 @interface LETalkCell : UITableViewCell <UIWebViewDelegate>
 
-+ (NSMutableDictionary *)URLsToWebViewHeights;
++ (CGFloat)defaultHeight;
 
 @property (nonatomic, weak) IBOutlet UIImageView *avatarView;
 @property (nonatomic, weak) IBOutlet UILabel *timeLabel, *titleLabel;
 @property (nonatomic, weak) IBOutlet UIWebView *webView;
+
+@property (readonly) CGFloat height;
 
 - (void)configureCellWithTalk:(id <LETalk>)talk;
 
