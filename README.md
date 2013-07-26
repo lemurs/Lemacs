@@ -1,7 +1,7 @@
 Lemacs
 ======
 
-Lemacs turns conversation into collaboration. It is a social network in the spirit of Twitter, built on top of the GitHub workflow. (But, [why?](https://github.com/lemurs/Lemacs/wiki/Why)
+Lemacs turns conversation into collaboration. It is a social network in the spirit of Twitter, built on top of the GitHub workflow. (But, [why?](https://github.com/lemurs/Lemacs/wiki/Why))
 
 
 ## The Future
