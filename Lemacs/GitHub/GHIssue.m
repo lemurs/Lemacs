@@ -12,7 +12,7 @@
 
 + (instancetype)issueNumber:(NSInteger)issueNumber context:(NSManagedObjectContext *)context;
 {
-    return [self objectWithEntityName:kGHIssueEntityName inContext:context properties:@{[self indexPropertyName] : @(issueNumber)}];
+    return [self objectWithEntityName:kGHIssueEntityName inContext:context properties:@{[self indexGitHubKey] : @(issueNumber)}];
 }
 
 
@@ -56,9 +56,9 @@
                                   @"labels" : @"labels",
                                   @"labels_url" : @"labelsURL",
                                   @"milestone" : @"milestone",
-                                  kGHIssueNumberGitHubKey : kGHIssueNumberPropertyName,
+                                  @"number" : @"number",
                                   @"pull_request" : @"pullRequest",
-                                  kGHIssueClosedGitHubKey : kGHIssueClosedPropertyName,
+                                  @"state" : @"closed",
                                   @"title" : @"title",
                                   @"updated_at" : @"modifiedDate",
                                   @"url" : @"issueURL",
@@ -67,9 +67,9 @@
     return GitHubKeysToPropertyNames;
 }
 
-+ (NSString *)indexPropertyName;
++ (NSString *)indexGitHubKey;
 {
-    return kGHIssueNumberPropertyName;
+    return kGHIssueNumberGitHubKey;
 }
 
 

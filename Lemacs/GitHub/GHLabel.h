@@ -14,4 +14,6 @@
 @end
 
 extern NSString * const kGHLabelEntityName;
+
+extern NSString * const kGHLabelNameGitHubKey;
 extern NSString * const kGHLabelNamePropertyName;

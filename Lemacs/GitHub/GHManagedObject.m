@@ -21,32 +21,34 @@
 
 + (instancetype)objectWithEntityName:(NSString *)entityName inContext:(NSManagedObjectContext *)context properties:(NSDictionary *)properties;
 {
-    id managedObject;
+    // Convert GitHub key-value pair into Core Data property-value pair
+    NSString *indexGitHubKey = [NSClassFromString(entityName) indexGitHubKey];
+    assert(indexGitHubKey); // GHManagedObject is abstract
 
-    NSLog(@"Entity Name: %@", entityName);
-    NSString *indexPropertyName = [NSClassFromString(entityName) indexPropertyName];
-    assert(indexPropertyName); // GHManagedObject is abstract
+    NSString *indexPropertyName = [[NSClassFromString(entityName) GitHubKeysToPropertyNames] valueForKey:indexGitHubKey];
+    id indexPropertyValue = properties[indexGitHubKey];
 
-    id indexPropertyValue = properties[indexPropertyName];
-    if (!indexPropertyValue) {
-        NSString *primitiveKey = [[[NSClassFromString(entityName) GitHubKeysToPropertyNames] allKeysForObject:indexPropertyName] lastObject];
-        indexPropertyValue = properties[primitiveKey];
-    }
-    if (!indexPropertyValue) {
-        NSString *convertedKey = [[NSClassFromString(entityName) GitHubKeysToPropertyNames] valueForKey:indexPropertyName];
-        indexPropertyValue = properties[convertedKey];
+    if (!indexPropertyValue) { // Maybe this needs to be a property name?
+        indexPropertyValue = properties[indexPropertyName];
     }
 
-    NSPredicate *predicate = indexPropertyValue ? [NSPredicate predicateWithFormat:@"%@ == %@" argumentArray:@[indexPropertyName, indexPropertyValue]] : nil;
+    // Set up a fetch request to see if any objects match that property-value
+    NSPredicate *predicate = indexPropertyValue ? [NSPredicate predicateWithFormat:@"%@ == %@" argumentArray:@[indexGitHubKey, indexPropertyValue]] : nil;
 
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
     fetchRequest.fetchLimit = 1;
     fetchRequest.predicate = predicate;
 
+    NSArray *fetchResults;
     NSError *fetchError;
-    if ((managedObject = [[context executeFetchRequest:fetchRequest error:&fetchError] lastObject]))
+    if (!(fetchResults = [[context executeFetchRequest:fetchRequest error:&fetchError] lastObject]))
+        NSLog(@"Fetch Error: %@ %@", NSStringFromSelector(_cmd), fetchError.localizedDescription);
+
+    id managedObject = fetchResults.lastObject;
+    if (managedObject) // Existing object found!
         return managedObject;
 
+    // Create a new object
     managedObject = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:context];
     [managedObject setValue:indexPropertyValue forKey:indexPropertyName];
     [managedObject setValue:[NSDate distantPast] forKey:kGHUpdatedDatePropertyName];
@@ -221,10 +223,10 @@
 
 + (NSDictionary *)GitHubKeysToPropertyNames;
 {
-    return nil;
+    return nil; // Override
 }
 
-+ (NSString *)indexPropertyName;
++ (NSString *)indexGitHubKey;
 {
     return nil; // Override
 }

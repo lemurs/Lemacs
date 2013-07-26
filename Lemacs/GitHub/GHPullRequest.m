@@ -25,12 +25,13 @@
 }
 
 
-+ (NSString *)indexPropertyName;
++ (NSString *)indexGitHubKey;
 {
-    return kGHPullRequestIDPropertyName;
+    return kGHPullRequestIDGitHubKey;
 }
 
 @end
 
 NSString * const kGHPullRequestEntityName = @"GHPullRequest";
+NSString * const kGHPullRequestIDGitHubKey = @"id";
 NSString * const kGHPullRequestIDPropertyName = @"pullRequestID";

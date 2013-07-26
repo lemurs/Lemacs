@@ -16,17 +16,19 @@
     if (GitHubKeysToPropertyNames)
         return GitHubKeysToPropertyNames;
 
-    GitHubKeysToPropertyNames = @{@"number" : kGHMilestoneNumberPropertyName};
+    GitHubKeysToPropertyNames = @{@"number" : @"number"};
 
     return GitHubKeysToPropertyNames;
 }
 
-+ (NSString *)indexPropertyName;
++ (NSString *)indexGitHubKey;
 {
-    return kGHMilestoneNumberPropertyName;
+    return kGHMilestoneNumberGitHubKey;
 }
 
 @end
 
 NSString * const kGHMilestoneEntityName = @"GHMilestone";
+
+NSString * const kGHMilestoneNumberGitHubKey = @"number";
 NSString * const kGHMilestoneNumberPropertyName = @"number";

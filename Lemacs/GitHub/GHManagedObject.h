@@ -11,7 +11,7 @@
 + (instancetype)objectWithEntityName:(NSString *)entityName inContext:(NSManagedObjectContext *)context properties:(NSDictionary *)properties;
 
 + (NSDictionary *)GitHubKeysToPropertyNames;
-+ (NSString *)indexPropertyName;
++ (NSString *)indexGitHubKey;
 
 @property (nonatomic, readonly) BOOL needsUpdating;
 @property (nonatomic, strong) NSDate *lastUpdated;

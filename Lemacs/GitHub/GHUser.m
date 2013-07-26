@@ -13,7 +13,7 @@
 
 + (instancetype)userNamed:(NSString *)userName context:(NSManagedObjectContext *)context;
 {
-    return [self objectWithEntityName:kGHUserEntityName inContext:context properties:@{[self indexPropertyName] : userName}];
+    return [self objectWithEntityName:kGHUserEntityName inContext:context properties:@{[self indexGitHubKey] : userName}];
 }
 
 
@@ -68,9 +68,9 @@
     return GitHubKeysToPropertyNames;
 }
 
-+ (NSString *)indexPropertyName;
++ (NSString *)indexGitHubKey;
 {
-    return kGHUserNamePropertyName;
+    return kGHUserNameGitHubKey;
 }
 
 
@@ -108,4 +108,6 @@
 @end
 
 NSString * const kGHUserEntityName = @"GHUser";
+
+NSString * const kGHUserNameGitHubKey = @"name";
 NSString * const kGHUserNamePropertyName = @"userName";

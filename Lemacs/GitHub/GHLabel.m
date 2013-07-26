@@ -13,7 +13,7 @@
 
 + (instancetype)labelWithURL:(NSString *)labelURL context:(NSManagedObjectContext *)context;
 {
-    return [self objectWithEntityName:kGHLabelEntityName inContext:context properties:@{[self indexPropertyName] : labelURL}];
+    return [self objectWithEntityName:kGHLabelEntityName inContext:context properties:@{[self indexGitHubKey] : labelURL}];
 }
 
 
@@ -26,15 +26,15 @@
         return GitHubKeysToPropertyNames;
 
     GitHubKeysToPropertyNames = @{@"color" : @"colorCode",
-                                  @"name" : @"name",
+                                  kGHLabelNameGitHubKey : kGHLabelNamePropertyName,
                                   @"url" : @"labelURL"};
 
     return GitHubKeysToPropertyNames;
 }
 
-+ (NSString *)indexPropertyName;
++ (NSString *)indexGitHubKey;
 {
-    return kGHLabelNamePropertyName;
+    return kGHLabelNameGitHubKey;
 }
 
 
@@ -50,4 +50,6 @@
 @end
 
 NSString * const kGHLabelEntityName = @"GHLabel";
+
+NSString * const kGHLabelNameGitHubKey = @"name";
 NSString * const kGHLabelNamePropertyName = @"name";

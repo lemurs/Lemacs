@@ -13,4 +13,6 @@
 @end
 
 extern NSString * const kGHMilestoneEntityName;
+
+extern NSString * const kGHMilestoneNumberGitHubKey;
 extern NSString * const kGHMilestoneNumberPropertyName;

@@ -18,5 +18,7 @@
 @end
 
 extern NSString * const kGHCommentEntityName;
+
+extern NSString * const kGHCommentIDGitHubKey;
 extern NSString * const kGHCommentIDPropertyName;
 extern NSString * const kGHCommentIssuePropertyName;

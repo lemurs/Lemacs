@@ -12,7 +12,7 @@
 
 + (instancetype)commentNumber:(NSInteger)commentNumber context:(NSManagedObjectContext *)context;
 {
-    return [self objectWithEntityName:kGHCommentEntityName inContext:context properties:@{[self indexPropertyName] : @(commentNumber)}];
+    return [self objectWithEntityName:kGHCommentEntityName inContext:context properties:@{[self indexGitHubKey] : @(commentNumber)}];
 }
 
 #pragma mark - GHManagedObject
@@ -26,7 +26,7 @@
     GitHubKeysToPropertyNames = @{@"body" : @"body",
                                   @"created_at" : @"createdDate",
                                   @"html_url" : @"htmlURL",
-                                  @"id" : kGHCommentIDPropertyName,
+                                  @"id" : @"commentID",
                                   @"issue_url" : @"issueURL",
                                   @"updated_at" : @"modifiedDate",
                                   @"url" : @"commentURL",
@@ -35,9 +35,9 @@
     return GitHubKeysToPropertyNames;
 }
 
-+ (NSString *)indexPropertyName;
++ (NSString *)indexGitHubKey;
 {
-    return kGHCommentIDPropertyName;
+    return kGHCommentIDGitHubKey;
 }
 
 
@@ -49,5 +49,7 @@
 @end
 
 NSString * const kGHCommentEntityName = @"GHComment";
+
+NSString * const kGHCommentIDGitHubKey = @"id";
 NSString * const kGHCommentIDPropertyName = @"commentID";
 NSString * const kGHCommentIssuePropertyName = @"issue";
