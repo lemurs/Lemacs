@@ -15,6 +15,7 @@
 #import "LETalk.h"
 #import "LETalkCell.h"
 #import "LEWorkViewController.h"
+#import "SETextView.h"
 #import "UAGitHubEngine.h"
 #import <sundown/SundownWrapper.h>
 
@@ -22,7 +23,6 @@
 
 @property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong) NSMutableDictionary *talkURLsToCells;
 
 - (IBAction)insertNewObject;
 - (IBAction)saveContext;
@@ -58,8 +58,6 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([LETalkCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([LETalkCell class])];
 
     self.detailViewController = (LEWorkViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
-
-    self.talkURLsToCells = [NSMutableDictionary dictionaryWithCapacity:42];
 }
 
 - (void)didReceiveMemoryWarning;
@@ -75,8 +73,9 @@
 {
     if ([[segue identifier] isEqualToString:@"SelectComment"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = indexPath.section ? self.issue : [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        [[segue destinationViewController] setDetailItem:object];
+        id <LETalk> talk = (indexPath.section < self.fetchedResultsController.sections.count) ? [self.fetchedResultsController objectAtIndexPath:indexPath] : self.issue;
+        assert([talk conformsToProtocol:@protocol(LETalk)]);
+        [[segue destinationViewController] setDetailItem:talk];
     }
 }
 
@@ -193,7 +192,6 @@
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    // The table view should not be re-orderable.
     return NO;
 }
 
@@ -211,20 +209,12 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath;
-{
-    return [LETalkCell defaultHeight];
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    id <LETalk> talk = indexPath.section ? self.issue : [self.fetchedResultsController objectAtIndexPath:indexPath];
+    id <LETalk> talk = (indexPath.section < self.fetchedResultsController.sections.count) ? [self.fetchedResultsController objectAtIndexPath:indexPath] : self.issue;
     assert([talk conformsToProtocol:@protocol(LETalk)]);
 
-    LETalkCell *cell = self.talkURLsToCells[talk.baseURL];
-
-    // If cell is nil, use default height
-    return MAX(cell.height, [LETalkCell defaultHeight]);
+    return CGRectGetHeight([SETextView frameRectWithAttributtedString:talk.styledBody constraintSize:CGSizeMake(264.0f, 1024.0f)]) + 29.0f; // 21.0f for the label plus 8 for the padding
 }
 
 
@@ -319,10 +309,10 @@
     assert([cell isKindOfClass:[LETalkCell class]]);
     LETalkCell *talkCell = (LETalkCell *)cell;
 
-    if (indexPath.section < self.fetchedResultsController.sections.count)
-        [talkCell configureCellWithTalk:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-    else
-        [talkCell configureCellWithTalk:self.issue];
+    id <LETalk> talk = (indexPath.section < self.fetchedResultsController.sections.count) ? [self.fetchedResultsController objectAtIndexPath:indexPath] : self.issue;
+    assert([talk conformsToProtocol:@protocol(LETalk)]);
+
+    [talkCell configureCellWithTalk:talk];
 }
 
 @end

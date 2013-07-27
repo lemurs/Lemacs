@@ -9,27 +9,9 @@
 #import "LETalkCell.h"
 #import "SETextView.h"
 
-@interface LETalkCell ()
-@property CGFloat preferredHeight;
-@end
-
-
 @implementation LETalkCell
 
 #pragma mark API
-
-+ (CGFloat)defaultHeight;
-{
-    return 142.0f;
-}
-
-- (CGFloat)height;
-{
-    static const CGFloat kLCTalkCellMaxHeight = 342.0f; // TODO: Replace this with some empirical value
-    static const CGFloat kLCTalkCellMinHeight = 42.0f;
-
-    return MIN(MAX(self.preferredHeight, kLCTalkCellMinHeight),  kLCTalkCellMaxHeight);
-}
 
 - (void)configureCellWithTalk:(id <LETalk>)talk;
 {

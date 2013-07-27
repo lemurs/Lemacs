@@ -14,15 +14,16 @@
 #import "LETalk.h"
 #import "LETalkCell.h"
 #import "LETalkViewController.h"
+#import "SETextView.h"
 
 @interface LETalkListController ()
 
 @property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong) NSMutableDictionary *talkURLsToCells;
 
 - (IBAction)insertNewObject;
 - (IBAction)saveContext;
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 @end
@@ -61,8 +62,6 @@
     }
 
     self.talkViewController = (LETalkViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
-
-    self.talkURLsToCells = [NSMutableDictionary dictionaryWithCapacity:42];
 }
 
 - (void)didReceiveMemoryWarning;
@@ -175,8 +174,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -197,7 +195,6 @@
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    // The table view should not be re-orderable.
     return NO;
 }
 
@@ -218,20 +215,12 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath;
-{
-    return [LETalkCell defaultHeight];
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     id <LETalk> talk = [self.fetchedResultsController objectAtIndexPath:indexPath];
     assert([talk conformsToProtocol:@protocol(LETalk)]);
 
-    LETalkCell *cell = self.talkURLsToCells[talk.baseURL];
-
-    // If cell is nil, use default height
-    return MAX(cell.height, [LETalkCell defaultHeight]);
+    return MIN(MAX(CGRectGetHeight([SETextView frameRectWithAttributtedString:talk.styledBody constraintSize:CGSizeMake(264.0f, 84.0f)]), 42.0f), 84.0) + 29.0f; // 21.0f for the label plus 8 for the padding
 }
 
 
@@ -344,7 +333,6 @@
     id <LETalk> talk = [self.fetchedResultsController objectAtIndexPath:indexPath];
     assert([talk conformsToProtocol:@protocol(LETalk)]);
 
-    [self.talkURLsToCells setObject:talkCell forKey:talk.baseURL];
     [talkCell configureCellWithTalk:talk];
 }
 
