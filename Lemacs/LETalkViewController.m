@@ -73,9 +73,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 {
-    if ([[segue identifier] isEqualToString:@"showWork"]) {
+    if ([[segue identifier] isEqualToString:@"SelectComment"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        NSManagedObject *object = indexPath.section ? self.issue : [[self fetchedResultsController] objectAtIndexPath:indexPath];
         [[segue destinationViewController] setDetailItem:object];
     }
 }
@@ -203,6 +203,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
+    [self performSegueWithIdentifier:@"SelectComment" sender:[tableView cellForRowAtIndexPath:indexPath]];
+
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
         self.detailViewController.detailItem = object;
@@ -216,7 +218,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    id <LETalk> talk = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    id <LETalk> talk = indexPath.section ? self.issue : [self.fetchedResultsController objectAtIndexPath:indexPath];
     assert([talk conformsToProtocol:@protocol(LETalk)]);
 
     LETalkCell *cell = self.talkURLsToCells[talk.baseURL];

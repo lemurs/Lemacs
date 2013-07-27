@@ -76,7 +76,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 {
-    if ([[segue identifier] isEqualToString:@"showTalk"]) {
+    if ([[segue identifier] isEqualToString:@"SelectIssue"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 
         GHIssue *issue = (GHIssue *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
@@ -206,14 +206,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    if ([object isKindOfClass:[GHIssue class]]) {
-        GHIssue *issue = (GHIssue *)object;
-        [[GHStore sharedStore] loadCommentsForIssue:issue];
-        self.talkViewController.issue = issue;
-    }
+    [self performSegueWithIdentifier:@"SelectIssue" sender:[tableView cellForRowAtIndexPath:indexPath]];
 
-    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        if ([object isKindOfClass:[GHIssue class]]) {
+            GHIssue *issue = (GHIssue *)object;
+            [[GHStore sharedStore] loadCommentsForIssue:issue];
+            self.talkViewController.issue = issue;
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath;
