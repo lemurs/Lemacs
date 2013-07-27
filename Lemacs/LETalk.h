@@ -7,7 +7,7 @@
 //
 
 @protocol LETalk <NSObject>
-@property (nonatomic, readonly) NSAttributedString *styledTitle;
+@property (nonatomic, readonly) NSAttributedString *styledBody, *styledTitle;
 @property (nonatomic, readonly) NSString *bodyHTML, *displayedTime;
 @property (nonatomic, readonly) NSURL *baseURL;
 @property (nonatomic, readonly) UIImage *avatar;

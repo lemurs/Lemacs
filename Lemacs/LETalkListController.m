@@ -29,17 +29,6 @@
 
 @implementation LETalkListController
 
-#pragma mark NSObject (NSKeyValueObserving)
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-{
-    if ([keyPath isEqual:@"preferredHeight"])
-        [self.tableView reloadData];
-    else if ([super respondsToSelector:@selector(observeValueForKeyPath:ofObject:change:context:)])
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-}
-
-
 #pragma mark - NSObject (UINibLoadingAdditions)
 
 - (void)awakeFromNib;
@@ -217,14 +206,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        if ([object isKindOfClass:[GHIssue class]]) {
-            GHIssue *issue = (GHIssue *)object;
-            [[GHStore sharedStore] loadCommentsForIssue:issue];
-            self.talkViewController.issue = issue;
-        }
+    NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    if ([object isKindOfClass:[GHIssue class]]) {
+        GHIssue *issue = (GHIssue *)object;
+        [[GHStore sharedStore] loadCommentsForIssue:issue];
+        self.talkViewController.issue = issue;
     }
+
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -352,8 +341,6 @@
 
     id <LETalk> talk = [self.fetchedResultsController objectAtIndexPath:indexPath];
     assert([talk conformsToProtocol:@protocol(LETalk)]);
-
-    [talkCell addObserver:self forKeyPath:@"preferredHeight" options:NSKeyValueObservingOptionNew context:NULL];
 
     [self.talkURLsToCells setObject:talkCell forKey:talk.baseURL];
     [talkCell configureCellWithTalk:talk];

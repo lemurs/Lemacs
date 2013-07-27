@@ -9,6 +9,7 @@
 #import "GHManagedObject+LETalk.h"
 #import "GHComment.h"
 #import "GHUser.h"
+#import "NSAttributedStringMarkdownParser+GHMarkdown.h"
 #import "SundownWrapper.h"
 
 @implementation GHManagedObject (LETalk)
@@ -46,6 +47,11 @@
     [dateFormatter setDateFormat:dateFormat];
 
     return [dateFormatter stringFromDate:[self valueForKeyPath:@"createdDate"]];
+}
+
+- (NSAttributedString *)styledBody;
+{
+    return [[NSAttributedStringMarkdownParser sharedParser] attributedStringFromMarkdownString:[self valueForKey:@"body"]];
 }
 
 - (NSAttributedString *)styledTitle;

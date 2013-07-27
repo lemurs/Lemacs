@@ -7,6 +7,7 @@
 //
 
 #import "GHIssue.h"
+#import "NSAttributedStringMarkdownParser+GHMarkdown.h"
 
 @implementation GHIssue
 
@@ -75,9 +76,20 @@
 }
 
 
+#pragma mark - GHTalk
+
+- (NSAttributedString *)styledBody;
+{
+    NSString *fullBody = [@"# " stringByAppendingString:self.title];
+    fullBody = [fullBody stringByAppendingString:@"\n\n"];
+    fullBody = [fullBody stringByAppendingString:self.body];
+    return [[NSAttributedStringMarkdownParser sharedParser] attributedStringFromMarkdownString:fullBody];
+}
+
+
 #pragma mark - API
 
-@dynamic body, comments, commentsCount, createdDate, issueURL, number, user;
+@dynamic body, comments, commentsCount, createdDate, issueURL, number, title, user;
 
 @end
 

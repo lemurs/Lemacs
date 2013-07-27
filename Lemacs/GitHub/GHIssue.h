@@ -17,7 +17,7 @@
 @property (nonatomic) NSInteger commentsCount, number;
 @property (nonatomic, strong) NSDate *createdDate;
 @property (nonatomic, strong) NSOrderedSet *comments;
-@property (nonatomic, strong) NSString *body, *issueURL;
+@property (nonatomic, strong) NSString *body, *issueURL, *title;
 @property (nonatomic, strong) GHUser *user;
 
 @end

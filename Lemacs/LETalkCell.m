@@ -7,7 +7,7 @@
 //
 
 #import "LETalkCell.h"
-
+#import "SETextView.h"
 
 @interface LETalkCell ()
 @property CGFloat preferredHeight;
@@ -15,25 +15,6 @@
 
 
 @implementation LETalkCell
-
-#pragma mark - UIWebViewDelegate
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView;
-{
-    // Web views are notoriously difficult to size. This seems to be the Internet-approved workaround.
-
-    CGRect frame = webView.frame;
-    frame.size.height = 1;
-    webView.frame = frame;
-
-    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
-    frame.size = fittingSize;
-    webView.frame = frame;
-
-    NSString *output = [webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"];
-    self.preferredHeight = webView.frame.origin.y + (CGFloat)output.integerValue;
-}
-
 
 #pragma mark API
 
@@ -55,7 +36,7 @@
     self.avatarView.image = talk.avatar;
     self.timeLabel.text = talk.displayedTime;
     self.titleLabel.attributedText = talk.styledTitle;
-    [self.webView loadHTMLString:talk.bodyHTML baseURL:talk.baseURL];
+    self.markdownView.attributedText = talk.styledBody;
 }
 
 @end

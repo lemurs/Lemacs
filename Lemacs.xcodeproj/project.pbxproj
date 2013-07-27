@@ -10,6 +10,13 @@
 		4A128966179C5F290024C066 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A128965179C5F290024C066 /* CoreText.framework */; };
 		D83C35F617992BF20046D510 /* LETalkListController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C35F317992BF20046D510 /* LETalkListController.m */; };
 		D83C35F717992BF20046D510 /* LETalkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C35F517992BF20046D510 /* LETalkViewController.m */; };
+		D861DC5417A420D70067A9D1 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D861D9AF17A420D40067A9D1 /* LICENSE */; };
+		D861DDB817A420D70067A9D1 /* MarkdownTokenizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D861DC4717A420D70067A9D1 /* MarkdownTokenizer.m */; };
+		D861DDB917A420D70067A9D1 /* MarkdownTokens.m in Sources */ = {isa = PBXBuildFile; fileRef = D861DC4917A420D70067A9D1 /* MarkdownTokens.m */; };
+		D861DDBA17A420D70067A9D1 /* NSAttributedStringMarkdownParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D861DC4B17A420D70067A9D1 /* NSAttributedStringMarkdownParser.m */; };
+		D861DE2717A424810067A9D1 /* fmemopen.c in Sources */ = {isa = PBXBuildFile; fileRef = D861DE2517A424810067A9D1 /* fmemopen.c */; };
+		D861DE2E17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = D861DE2D17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.m */; };
+		D861DE3117A42FE30067A9D1 /* UIFont+GHMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = D861DE3017A42FE30067A9D1 /* UIFont+GHMarkdown.m */; };
 		D87B561017A2B596006A32DA /* LETalkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87B560F17A2B596006A32DA /* LETalkCell.xib */; };
 		D89DC2A11799DCE7000770EC /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2A01799DCE7000770EC /* GHUser.m */; };
 		D89DC2A21799DCEB000770EC /* GHPullRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC29E1799DBD2000770EC /* GHPullRequest.m */; };
@@ -62,6 +69,18 @@
 		D83C35F317992BF20046D510 /* LETalkListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LETalkListController.m; sourceTree = "<group>"; };
 		D83C35F417992BF20046D510 /* LETalkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LETalkViewController.h; sourceTree = "<group>"; };
 		D83C35F517992BF20046D510 /* LETalkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LETalkViewController.m; sourceTree = "<group>"; };
+		D861D9AF17A420D40067A9D1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		D861DC4717A420D70067A9D1 /* MarkdownTokenizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkdownTokenizer.m; sourceTree = "<group>"; };
+		D861DC4817A420D70067A9D1 /* MarkdownTokens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkdownTokens.h; sourceTree = "<group>"; };
+		D861DC4917A420D70067A9D1 /* MarkdownTokens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkdownTokens.m; sourceTree = "<group>"; };
+		D861DC4A17A420D70067A9D1 /* NSAttributedStringMarkdownParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAttributedStringMarkdownParser.h; sourceTree = "<group>"; };
+		D861DC4B17A420D70067A9D1 /* NSAttributedStringMarkdownParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAttributedStringMarkdownParser.m; sourceTree = "<group>"; };
+		D861DE2517A424810067A9D1 /* fmemopen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fmemopen.c; sourceTree = "<group>"; };
+		D861DE2617A424810067A9D1 /* fmemopen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fmemopen.h; sourceTree = "<group>"; };
+		D861DE2C17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedStringMarkdownParser+GHMarkdown.h"; sourceTree = "<group>"; };
+		D861DE2D17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedStringMarkdownParser+GHMarkdown.m"; sourceTree = "<group>"; };
+		D861DE2F17A42FE30067A9D1 /* UIFont+GHMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+GHMarkdown.h"; sourceTree = "<group>"; };
+		D861DE3017A42FE30067A9D1 /* UIFont+GHMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+GHMarkdown.m"; sourceTree = "<group>"; };
 		D87B560F17A2B596006A32DA /* LETalkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LETalkCell.xib; sourceTree = "<group>"; };
 		D89DC29B1799D006000770EC /* GHIssue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHIssue.h; sourceTree = "<group>"; };
 		D89DC29C1799D006000770EC /* GHIssue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHIssue.m; sourceTree = "<group>"; };
@@ -141,6 +160,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D861D9A217A420D40067A9D1 /* NSAttributedStringMarkdownParser */ = {
+			isa = PBXGroup;
+			children = (
+				D861D9AF17A420D40067A9D1 /* LICENSE */,
+				D861DE2417A424810067A9D1 /* fmemopen */,
+				D861DC4617A420D70067A9D1 /* src */,
+			);
+			path = NSAttributedStringMarkdownParser;
+			sourceTree = "<group>";
+		};
+		D861DC4617A420D70067A9D1 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				D861DC4717A420D70067A9D1 /* MarkdownTokenizer.m */,
+				D861DC4817A420D70067A9D1 /* MarkdownTokens.h */,
+				D861DC4917A420D70067A9D1 /* MarkdownTokens.m */,
+				D861DC4A17A420D70067A9D1 /* NSAttributedStringMarkdownParser.h */,
+				D861DC4B17A420D70067A9D1 /* NSAttributedStringMarkdownParser.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		D861DE2417A424810067A9D1 /* fmemopen */ = {
+			isa = PBXGroup;
+			children = (
+				D861DE2517A424810067A9D1 /* fmemopen.c */,
+				D861DE2617A424810067A9D1 /* fmemopen.h */,
+			);
+			path = fmemopen;
+			sourceTree = "<group>";
+		};
+		D861DE2B17A42F1A0067A9D1 /* Markdown */ = {
+			isa = PBXGroup;
+			children = (
+				D861DE2C17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.h */,
+				D861DE2D17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.m */,
+				D861DE2F17A42FE30067A9D1 /* UIFont+GHMarkdown.h */,
+				D861DE3017A42FE30067A9D1 /* UIFont+GHMarkdown.m */,
+			);
+			path = Markdown;
+			sourceTree = "<group>";
+		};
 		D89DC2971799CE98000770EC /* GitHub */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +244,7 @@
 			children = (
 				D8A8C3FC17982FDE009B1300 /* Lemacs */,
 				D8A8C42517982FDF009B1300 /* LemacsTests */,
+				D861D9A217A420D40067A9D1 /* NSAttributedStringMarkdownParser */,
 				D8A8C3F317982FDE009B1300 /* Frameworks */,
 				D8A8C3F217982FDE009B1300 /* Products */,
 				9CD899536E4C41519333F9DA /* Pods.xcconfig */,
@@ -232,6 +294,7 @@
 				D8A8C41717982FDF009B1300 /* Images.xcassets */,
 				D8A8C40E17982FDF009B1300 /* Lemacs.xcdatamodeld */,
 				D89DC2971799CE98000770EC /* GitHub */,
+				D861DE2B17A42F1A0067A9D1 /* Markdown */,
 				D89DC2AA1799E3BA000770EC /* Utilities */,
 				D8A8C3FD17982FDE009B1300 /* Supporting Files */,
 			);
@@ -353,6 +416,7 @@
 				D8A8C40D17982FDE009B1300 /* Main_iPad.storyboard in Resources */,
 				D8A8C41817982FDF009B1300 /* Images.xcassets in Resources */,
 				D8A8C40A17982FDE009B1300 /* Main_iPhone.storyboard in Resources */,
+				D861DC5417A420D70067A9D1 /* LICENSE in Resources */,
 				D8A8C40117982FDE009B1300 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,10 +470,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8A8C41017982FDF009B1300 /* Lemacs.xcdatamodeld in Sources */,
+				D861DE2E17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.m in Sources */,
 				D89DC2B3179BEF64000770EC /* GHStore.m in Sources */,
 				D8B5EE90179D81470007A5D8 /* UIColor+HexCodes.m in Sources */,
+				D861DDB817A420D70067A9D1 /* MarkdownTokenizer.m in Sources */,
 				D89DC2A61799DF11000770EC /* GHLabel.m in Sources */,
 				D8A8C41617982FDF009B1300 /* LEWorkViewController.m in Sources */,
+				D861DDBA17A420D70067A9D1 /* NSAttributedStringMarkdownParser.m in Sources */,
 				D89DC2BC179C4DE9000770EC /* LETalkCell.m in Sources */,
 				D89DC2AD1799E3D7000770EC /* NSDate+GitHub.m in Sources */,
 				D83C35F617992BF20046D510 /* LETalkListController.m in Sources */,
@@ -417,9 +484,12 @@
 				D8A8C40317982FDE009B1300 /* main.m in Sources */,
 				D89DC2A91799E234000770EC /* GHManagedObject.m in Sources */,
 				D8B5EE8D179D434B0007A5D8 /* GHManagedObject+LETalk.m in Sources */,
+				D861DDB917A420D70067A9D1 /* MarkdownTokens.m in Sources */,
+				D861DE3117A42FE30067A9D1 /* UIFont+GHMarkdown.m in Sources */,
 				D8A8C40717982FDE009B1300 /* LEAppDelegate.m in Sources */,
 				D89DC2B6179C0390000770EC /* GHComment.m in Sources */,
 				D89DC2A31799DCF0000770EC /* GHIssue.m in Sources */,
+				D861DE2717A424810067A9D1 /* fmemopen.c in Sources */,
 				D89DC2B9179C2DF6000770EC /* GHMilestone.m in Sources */,
 				D89DC2A11799DCE7000770EC /* GHUser.m in Sources */,
 				D89DC2A21799DCEB000770EC /* GHPullRequest.m in Sources */,

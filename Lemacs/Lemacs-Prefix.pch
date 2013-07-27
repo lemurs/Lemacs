@@ -14,8 +14,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+    #import "Emptiness.h"
+
+    static const BOOL kLEUseNarrativeLogging = YES;
 #endif
-
-#import "Emptiness.h"
-
-static const BOOL kLEUseNarrativeLogging = YES;
