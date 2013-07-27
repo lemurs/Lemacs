@@ -10,6 +10,8 @@
 	<dict>
 		<key>863AE0E5-FEAF-456F-983C-5F77159CFE5C</key>
 		<string>https://github.com/lemurs/Lemacs.git</string>
+		<key>A15FA6FB-3B35-4F14-B88A-9929359A7C43</key>
+		<string>git://github.com/twitter/twitter-text-conformance.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Lemacs.xcworkspace</string>
@@ -17,6 +19,8 @@
 	<dict>
 		<key>863AE0E5-FEAF-456F-983C-5F77159CFE5C</key>
 		<string>..</string>
+		<key>A15FA6FB-3B35-4F14-B88A-9929359A7C43</key>
+		<string>../Pods/SECoreTextView/Vendor/twitter-text-objc/test/twitter-text-conformance</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/lemurs/Lemacs.git</string>
@@ -33,6 +37,14 @@
 			<string>863AE0E5-FEAF-456F-983C-5F77159CFE5C</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Lemacs</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A15FA6FB-3B35-4F14-B88A-9929359A7C43</string>
+			<key>IDESourceControlWCCName</key>
+			<string>twitter-text-conformance</string>
 		</dict>
 	</array>
 </dict>

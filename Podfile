@@ -3,5 +3,5 @@ xcodeproj 'Lemacs.xcodeproj'
 pod 'UAGithubEngine'
 pod 'UICKeyChainStore'
 pod 'HockeySDK'
+pod 'SECoreTextView', :git => 'https://github.com/kishikawakatsumi/SECoreTextView.git'
 pod 'sundown', '~> 0.1.0'
-

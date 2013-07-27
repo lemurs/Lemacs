@@ -1,0 +1,1 @@
+../../SECoreTextView/Lib/NSMutableAttributedString+Helper.h

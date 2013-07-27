@@ -1,17 +1,24 @@
 PODS:
   - HockeySDK (3.0.0)
+  - SECoreTextView (1.0.0)
   - sundown (0.1.0)
   - UAGithubEngine (2.3)
   - UICKeyChainStore (1.0.2)
 
 DEPENDENCIES:
   - HockeySDK
+  - SECoreTextView (from `https://github.com/kishikawakatsumi/SECoreTextView.git`)
   - sundown (~> 0.1.0)
   - UAGithubEngine
   - UICKeyChainStore
 
+EXTERNAL SOURCES:
+  SECoreTextView:
+    :git: https://github.com/kishikawakatsumi/SECoreTextView.git
+
 SPEC CHECKSUMS:
   HockeySDK: 286d86c6e89a35de7f3e4f3c2879a07185ee0918
+  SECoreTextView: f87af11c421bb0e220c422474c27e4205c7d4ee8
   sundown: f0b86bd08ee36f84e9e6a6332d3cbd0309889dfa
   UAGithubEngine: 931cbfaaec42ee192dfecf9aeaa75bd4e1afc595
   UICKeyChainStore: 6f207688b1310e9b9d879c1ee702f5b0eb9484f8

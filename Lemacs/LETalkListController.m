@@ -29,6 +29,17 @@
 
 @implementation LETalkListController
 
+#pragma mark NSObject (NSKeyValueObserving)
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+{
+    if ([keyPath isEqual:@"preferredHeight"])
+        [self.tableView reloadData];
+    else if ([super respondsToSelector:@selector(observeValueForKeyPath:ofObject:change:context:)])
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
+
 #pragma mark - NSObject (UINibLoadingAdditions)
 
 - (void)awakeFromNib;
@@ -342,6 +353,7 @@
     id <LETalk> talk = [self.fetchedResultsController objectAtIndexPath:indexPath];
     assert([talk conformsToProtocol:@protocol(LETalk)]);
 
+    [talkCell addObserver:self forKeyPath:@"preferredHeight" options:NSKeyValueObservingOptionNew context:NULL];
 
     [self.talkURLsToCells setObject:talkCell forKey:talk.baseURL];
     [talkCell configureCellWithTalk:talk];
