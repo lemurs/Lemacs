@@ -48,6 +48,7 @@
 		D8A8C42C17982FDF009B1300 /* LemacsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A8C42B17982FDF009B1300 /* LemacsTests.m */; };
 		D8B5EE8D179D434B0007A5D8 /* GHManagedObject+LETalk.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B5EE8C179D434B0007A5D8 /* GHManagedObject+LETalk.m */; };
 		D8B5EE90179D81470007A5D8 /* UIColor+HexCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B5EE8F179D81470007A5D8 /* UIColor+HexCodes.m */; };
+		D8E1DDE217A4693B00F1D442 /* UIGestureRecognizer+LEDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = D8E1DDE117A4693B00F1D442 /* UIGestureRecognizer+LEDebugging.m */; };
 		E7C4DD42B32B4AC1B5DFB018 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5B33CEE62442A197C34A51 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -130,6 +131,8 @@
 		D8B5EE8C179D434B0007A5D8 /* GHManagedObject+LETalk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GHManagedObject+LETalk.m"; sourceTree = "<group>"; };
 		D8B5EE8E179D81470007A5D8 /* UIColor+HexCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexCodes.h"; sourceTree = "<group>"; };
 		D8B5EE8F179D81470007A5D8 /* UIColor+HexCodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexCodes.m"; sourceTree = "<group>"; };
+		D8E1DDE017A4693B00F1D442 /* UIGestureRecognizer+LEDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+LEDebugging.h"; sourceTree = "<group>"; };
+		D8E1DDE117A4693B00F1D442 /* UIGestureRecognizer+LEDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+LEDebugging.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +238,8 @@
 				D89DC2AC1799E3D7000770EC /* NSDate+GitHub.m */,
 				D8B5EE8E179D81470007A5D8 /* UIColor+HexCodes.h */,
 				D8B5EE8F179D81470007A5D8 /* UIColor+HexCodes.m */,
+				D8E1DDE017A4693B00F1D442 /* UIGestureRecognizer+LEDebugging.h */,
+				D8E1DDE117A4693B00F1D442 /* UIGestureRecognizer+LEDebugging.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -477,6 +482,7 @@
 				D89DC2A61799DF11000770EC /* GHLabel.m in Sources */,
 				D8A8C41617982FDF009B1300 /* LEWorkViewController.m in Sources */,
 				D861DDBA17A420D70067A9D1 /* NSAttributedStringMarkdownParser.m in Sources */,
+				D8E1DDE217A4693B00F1D442 /* UIGestureRecognizer+LEDebugging.m in Sources */,
 				D89DC2BC179C4DE9000770EC /* LETalkCell.m in Sources */,
 				D89DC2AD1799E3D7000770EC /* NSDate+GitHub.m in Sources */,
 				D83C35F617992BF20046D510 /* LETalkListController.m in Sources */,

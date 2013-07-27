@@ -15,11 +15,15 @@
 #import "LETalkCell.h"
 #import "LETalkViewController.h"
 #import "SETextView.h"
+#import "UIGestureRecognizer+LEDebugging.h"
+
+typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSizeFull, kLETalkSizeCount} LETalkSize;
 
 @interface LETalkListController ()
 
 @property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) LETalkSize talkSize;
 
 - (IBAction)insertNewObject;
 - (IBAction)saveContext;
@@ -29,6 +33,12 @@
 @end
 
 @implementation LETalkListController
+
++ (void)initialize;
+{
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLETalkListTalkSize : @(kLETalkSizeRegular)}];
+}
+
 
 #pragma mark - NSObject (UINibLoadingAdditions)
 
@@ -62,6 +72,8 @@
     }
 
     self.talkViewController = (LETalkViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+
+    self.talkSize = [[NSUserDefaults standardUserDefaults] integerForKey:kLETalkListTalkSize];
 }
 
 - (void)didReceiveMemoryWarning;
@@ -220,7 +232,29 @@
     id <LETalk> talk = [self.fetchedResultsController objectAtIndexPath:indexPath];
     assert([talk conformsToProtocol:@protocol(LETalk)]);
 
-    return MIN(MAX(CGRectGetHeight([SETextView frameRectWithAttributtedString:talk.styledBody constraintSize:CGSizeMake(264.0f, 84.0f)]), 42.0f), 84.0) + 29.0f; // 21.0f for the label plus 8 for the padding
+    static const CGFloat heightMin = 42.0; // Height of the avatar
+    CGFloat heightMax = heightMin;
+    switch (self.talkSize) {
+        case kLETalkSizeMini:
+            return heightMin;
+
+        case kLETalkSizeRegular:
+            heightMax = 84.0f;
+            break;
+
+        case kLETalkSizeLarge:
+            heightMax = 264.0f;
+            break;
+
+        case kLETalkSizeFull:
+            heightMax = 1024.0f;
+            break;
+
+        default:
+            break;
+    }
+
+    return MIN(MAX(CGRectGetHeight([SETextView frameRectWithAttributtedString:talk.styledBody constraintSize:CGSizeMake(264.0f, heightMax)]), heightMin), heightMax) + 29.0f; // 21.0f for the label plus 8 for the padding
 }
 
 
@@ -325,6 +359,40 @@
     [self.tableView reloadData];
 }
 
+- (IBAction)resizeCells:(UIPinchGestureRecognizer *)pinch;
+{
+    BOOL embiggens = pinch.velocity > 0.0f;
+    BOOL jumps = fabs(pinch.velocity) > 6.0;
+
+    if (jumps) {
+        self.talkSize = embiggens ? kLETalkSizeFull : kLETalkSizeFull;
+        [self reloadList];
+        return;
+    }
+
+    if (pinch.scale < 0.0f)
+        self.talkSize = kLETalkSizeMini;
+    else if (pinch.scale > 5.0f)
+        self.talkSize = kLETalkSizeFull;
+    else if (pinch.scale > 3.0f)
+        self.talkSize = kLETalkSizeLarge;
+    else
+        self.talkSize = kLETalkSizeRegular;
+
+//    NSLog(@"Scale: %f, Velocity: %f", pinch.scale, pinch.velocity);
+//    NSLog(@"State: %@", pinch.stateName);
+}
+
+- (void)setTalkSize:(LETalkSize)talkSize;
+{
+    if (_talkSize == talkSize)
+        return;
+
+    _talkSize = talkSize;
+    [self.tableView reloadData];
+    [[NSUserDefaults standardUserDefaults] setInteger:talkSize forKey:kLETalkListTalkSize];
+}
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 {
     LETalkCell *talkCell = (LETalkCell *)cell;
@@ -337,3 +405,5 @@
 }
 
 @end
+
+NSString * const kLETalkListTalkSize = @"LETalkList-TalkSize";

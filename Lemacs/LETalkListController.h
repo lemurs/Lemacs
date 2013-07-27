@@ -14,5 +14,8 @@
 @property (nonatomic, strong) LETalkViewController *talkViewController;
 
 - (IBAction)reloadList;
+- (IBAction)resizeCells:(UIPinchGestureRecognizer *)pinch;
 
 @end
+
+extern NSString * const kLETalkListTalkSize;
