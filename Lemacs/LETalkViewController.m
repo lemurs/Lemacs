@@ -56,8 +56,6 @@
     self.navigationItem.rightBarButtonItem = addButton;
 
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([LETalkCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([LETalkCell class])];
-
-    self.detailViewController = (LEWorkViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
 - (void)didReceiveMemoryWarning;
@@ -71,10 +69,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 {
-    if ([[segue identifier] isEqualToString:@"SelectComment"]) {
+    if ([[segue identifier] isEqualToString:@"SelectTalk"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         id <LETalk> talk = (indexPath.section < self.fetchedResultsController.sections.count) ? [self.fetchedResultsController objectAtIndexPath:indexPath] : self.issue;
         assert([talk conformsToProtocol:@protocol(LETalk)]);
+        assert([segue.destinationViewController isKindOfClass:[LEWorkViewController class]]);
         [[segue destinationViewController] setTalk:talk];
     }
 }
@@ -202,12 +201,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     [self performSegueWithIdentifier:@"SelectTalk" sender:[tableView cellForRowAtIndexPath:indexPath]];
-
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        id <LETalk> talk = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        assert([talk conformsToProtocol:@protocol(LETalk)]);
-        self.detailViewController.talk = talk;
-    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;

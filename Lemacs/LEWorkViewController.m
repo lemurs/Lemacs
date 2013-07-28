@@ -29,7 +29,8 @@
 - (void)viewDidLoad;
 {
     [super viewDidLoad];
-    [self configureView];
+    self.delegate = self;
+    // Select the preview unless there are edits
 }
 
 - (void)didReceiveMemoryWarning;
@@ -96,9 +97,11 @@
     if (!selectorName)
         return;
 
+    id bodyView = [self.selectedViewController.view viewWithTag:42];
+
     #pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [self performSelector:NSSelectorFromString(selectorName) withObject:self.selectedViewController.view.subviews.lastObject];
+    [self performSelector:NSSelectorFromString(selectorName) withObject:bodyView];
     #pragma clang diagnostic pop
 }
 

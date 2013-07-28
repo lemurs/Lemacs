@@ -11,6 +11,5 @@
 @interface LETalkViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) GHIssue *issue;
-@property (strong, nonatomic) LEWorkViewController *detailViewController;
 
 @end
