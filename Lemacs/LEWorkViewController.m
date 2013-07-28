@@ -33,6 +33,11 @@
     // Select the preview unless there are edits
 }
 
+- (void)viewDidAppear:(BOOL)animated;
+{
+    [self configureView];
+}
+
 - (void)didReceiveMemoryWarning;
 {
     [super didReceiveMemoryWarning];
