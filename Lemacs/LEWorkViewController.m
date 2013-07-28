@@ -16,9 +16,6 @@
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 
 - (void)configureView;
-- (void)configureAttributedView:(UITextView *)textView;
-- (void)configurePlainTextView:(UITextView *)textView;
-- (void)configureWebView:(UIWebView *)webView;
 
 @end
 
@@ -26,14 +23,9 @@
 
 #pragma mark - UIViewController
 
-- (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
 {
-    [super viewDidLoad];
-    self.delegate = self;
-}
-
-- (void)viewDidAppear:(BOOL)animated;
-{
+    [super viewDidAppear:animated];
     [self configureView];
     // TODO: Select the preview unless there are edits
 }
@@ -62,30 +54,18 @@
 }
 
 
-#pragma mark - UITabBarControllerDelegate
-
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController;
-{
-    [self configureView];
-}
-
-
 #pragma mark - API
 
 - (void)setEditing:(BOOL)editing;
 {
-    UITextView *textView = (UITextView *)[self.selectedViewController.view viewWithTag:42];
-    if (![textView isKindOfClass:[UITextView class]])
-        return;
+    self.textView.editable = editing;
+    if (editing)
+        self.textView.text = self.talk.body;
+    else
+        self.textView.attributedText = self.talk.styledBody;
 
-    textView.editable = editing;
-    if (editing) {
-        textView.text = self.talk.body;
-    } else
-        textView.attributedText = self.talk.styledBody;
-
-    self.selectedViewController.editing = editing;
-    [textView becomeFirstResponder];
+    [self.textView becomeFirstResponder];
+    super.editing = editing;
 }
 
 - (void)setTalk:(id)talk;
@@ -106,60 +86,21 @@
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
     // If new
-    // Commit an sync
+    // Commit and sync
     // else
     // Show commit screen
 }
 
 - (IBAction)togglePreview:(UISegmentedControl *)segmentedControl;
 {
-    BOOL showPreview = !segmentedControl.selectedSegmentIndex;
-
-    UITextView *textView = (UITextView *)[self.selectedViewController.view viewWithTag:42];
-    if ([textView isKindOfClass:[UITextView class]])
-        return [self setEditing:!showPreview];
-
-    self.selectedIndex = showPreview ? 3 : 1;
-    [self configureView];
-
-    NSLog(@"Show %@", showPreview ? @"preview" : @"editor");
+    self.editing = segmentedControl.selectedSegmentIndex;
 }
 
 - (void)configureView;
 {
     // Update the user interface for the detail item.
-    if (!self.talk || !self.selectedViewController)
-        return;
-
-    NSDictionary * const restorationIdentifierToSelectorNames = @{@"LEWebViewController" : @"configureWebView:",
-                                                                  @"LECoreTextController" : @"configureAttributedView:",
-                                                                  @"LERichTextController" : @"configureAttributedView:",
-                                                                  @"LEPlainTextController" : @"configurePlainTextView:"};
-    NSString *selectorName = restorationIdentifierToSelectorNames[self.selectedViewController.restorationIdentifier];
-    if (!selectorName)
-        return;
-
-    id bodyView = [self.selectedViewController.view viewWithTag:42];
-
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [self performSelector:NSSelectorFromString(selectorName) withObject:bodyView];
-    #pragma clang diagnostic pop
-}
-
-- (void)configureAttributedView:(UITextView *)textView;
-{
-    textView.attributedText = self.talk.styledBody;
-}
-
-- (void)configurePlainTextView:(UITextView *)textView;
-{
-    textView.text = self.talk.body;
-}
-
-- (void)configureWebView:(UIWebView *)webView;
-{
-    [webView loadHTMLString:self.talk.bodyHTML baseURL:self.talk.baseURL];
+    if (self.talk)
+        self.editing = NO;
 }
 
 @end

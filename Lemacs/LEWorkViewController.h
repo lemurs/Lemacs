@@ -8,8 +8,9 @@
 
 #import "LETalk.h"
 
-@interface LEWorkViewController : UITabBarController <UISplitViewControllerDelegate, UITabBarControllerDelegate>
+@interface LEWorkViewController : UIViewController <UISplitViewControllerDelegate>
 
+@property (nonatomic, weak) IBOutlet UITextView *textView;
 @property (strong, nonatomic) id <LETalk> talk;
 
 - (IBAction)save;
