@@ -30,12 +30,12 @@
 {
     [super viewDidLoad];
     self.delegate = self;
-    // Select the preview unless there are edits
 }
 
 - (void)viewDidAppear:(BOOL)animated;
 {
     [self configureView];
+    // TODO: Select the preview unless there are edits
 }
 
 - (void)didReceiveMemoryWarning;
