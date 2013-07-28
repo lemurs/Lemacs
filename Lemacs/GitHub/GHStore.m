@@ -260,7 +260,6 @@ NSString * const kLEGitHubUsernameKey = @"username";
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSMutableArray *comments = [NSMutableArray arrayWithCapacity:issue.commentsCount];
 
-    NSDictionary *parameters = @{};
     [self.GitHub commentsForIssue:issue.number forRepository:self.repositoryPath success:^(id results) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
