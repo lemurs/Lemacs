@@ -98,7 +98,7 @@
 
     #pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [self performSelector:NSSelectorFromString(selectorName) withObject:self.selectedViewController.view];
+    [self performSelector:NSSelectorFromString(selectorName) withObject:self.selectedViewController.view.subviews.lastObject];
     #pragma clang diagnostic pop
 }
 

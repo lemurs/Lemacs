@@ -201,11 +201,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    [self performSegueWithIdentifier:@"SelectComment" sender:[tableView cellForRowAtIndexPath:indexPath]];
+    [self performSegueWithIdentifier:@"SelectTalk" sender:[tableView cellForRowAtIndexPath:indexPath]];
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        self.detailViewController.talk = object;
+        id <LETalk> talk = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        assert([talk conformsToProtocol:@protocol(LETalk)]);
+        self.detailViewController.talk = talk;
     }
 }
 

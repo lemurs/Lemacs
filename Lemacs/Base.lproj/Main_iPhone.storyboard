@@ -5,6 +5,80 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3697.3"/>
     </dependencies>
     <scenes>
+        <!--LERichTextController-->
+        <scene sceneID="Bbz-nq-Tzr">
+            <objects>
+                <viewController storyboardIdentifier="LERichTextController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LeK-Cl-Emu" userLabel="LERichTextController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BGJ-tf-hpn"/>
+                        <viewControllerLayoutGuide type="bottom" id="CIo-Ya-2Ok"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="A8b-Tl-I0D">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="doA-xL-YLh">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="632"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <tabBarItem key="tabBarItem" title="Rich Text" id="t6T-24-rPm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sa5-wg-BJq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1564" y="42"/>
+        </scene>
+        <!--LECoreTextController-->
+        <scene sceneID="y7g-vy-e3g">
+            <objects>
+                <viewController storyboardIdentifier="LECoreTextController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XCe-Gt-is9" userLabel="LECoreTextController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ct5-xd-cUo"/>
+                        <viewControllerLayoutGuide type="bottom" id="tXQ-lu-Qll"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="F1q-Dj-MWy">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xt3-k6-oah" customClass="SETextView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="632"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <tabBarItem key="tabBarItem" title="Core Text" id="pEN-8P-dbC"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q4o-ce-4pk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1564" y="820"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="cUi-kZ-frf">
             <objects>
@@ -37,7 +111,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Ah7-4n-0Wa" kind="push" identifier="SelectComment" id="WC1-01-qf3"/>
+                                    <segue destination="eiH-gm-BML" kind="push" identifier="SelectTalk" id="3Zu-3H-kZv"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -95,38 +169,84 @@
             </objects>
             <point key="canvasLocation" x="135" y="42"/>
         </scene>
-        <!--Work View Controller - Detail-->
-        <scene sceneID="Cn3-H9-jdl">
+        <!--LEWebViewController-->
+        <scene sceneID="evA-TM-6oa">
             <objects>
-                <viewController title="Detail" id="Ah7-4n-0Wa" userLabel="Work View Controller - Detail" customClass="LEWorkViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="LEWebViewController" storyboardIdentifier="LEWebViewController" id="DP2-gH-s7j" userLabel="LEWebViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="pNC-tH-SZK"/>
-                        <viewControllerLayoutGuide type="bottom" id="aeZ-4U-NqK"/>
+                        <viewControllerLayoutGuide type="top" id="0gE-3g-8kq"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cj0-Ai-MSo"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="G0D-dS-a9T">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <view key="view" contentMode="scaleToFill" id="r3j-UU-jTL">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Work happens here" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="TIW-D6-FYM">
-                                <rect key="frame" x="20" y="276" width="280" height="17"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" size="system"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cix-Dw-bw4">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="TIW-D6-FYM" firstAttribute="centerY" secondItem="G0D-dS-a9T" secondAttribute="centerY" id="ArG-tg-FLO"/>
-                            <constraint firstItem="TIW-D6-FYM" firstAttribute="leading" secondItem="G0D-dS-a9T" secondAttribute="leading" constant="20" symbolic="YES" id="EDf-5N-CVf"/>
-                            <constraint firstAttribute="trailing" secondItem="TIW-D6-FYM" secondAttribute="trailing" constant="20" symbolic="YES" id="Ftx-47-Z3u"/>
-                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Detail" id="cra-N8-TIN"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <tabBarItem key="tabBarItem" title="Web View" id="D9N-Wy-W5R"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Pj-hy-XsY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1024" y="42"/>
+            <point key="canvasLocation" x="1032" y="-740"/>
+        </scene>
+        <!--LEWorkViewController-->
+        <scene sceneID="ilt-P0-boi">
+            <objects>
+                <tabBarController storyboardIdentifier="LEWorkViewController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eiH-gm-BML" userLabel="LEWorkViewController" customClass="LEWorkViewController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="xqI-x9-2Au"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="254-Mi-e1L">
+                        <rect key="frame" x="129" y="330" width="163" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="DP2-gH-s7j" kind="relationship" relationship="viewControllers" id="djv-NT-23n"/>
+                        <segue destination="PFQ-5a-gOB" kind="relationship" relationship="viewControllers" id="KX1-k4-FBF"/>
+                        <segue destination="LeK-Cl-Emu" kind="relationship" relationship="viewControllers" id="5Uf-eu-5hp"/>
+                        <segue destination="XCe-Gt-is9" kind="relationship" relationship="viewControllers" id="9wW-6b-Mho"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6gX-P7-x1a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1032" y="42"/>
+        </scene>
+        <!--LEPlainTextController-->
+        <scene sceneID="AQI-Bh-Jdf">
+            <objects>
+                <viewController storyboardIdentifier="LEPlainTextController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PFQ-5a-gOB" userLabel="LEPlainTextController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="F7X-8K-hjv"/>
+                        <viewControllerLayoutGuide type="bottom" id="D68-pE-719"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Fsg-FG-bvf">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XRB-xh-1Vi">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <tabBarItem key="tabBarItem" title="Plain Text" id="jQU-U4-msa"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JwG-v3-f4n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1564" y="-740"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
