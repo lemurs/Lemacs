@@ -75,7 +75,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         id <LETalk> talk = (indexPath.section < self.fetchedResultsController.sections.count) ? [self.fetchedResultsController objectAtIndexPath:indexPath] : self.issue;
         assert([talk conformsToProtocol:@protocol(LETalk)]);
-        [[segue destinationViewController] setDetailItem:talk];
+        [[segue destinationViewController] setTalk:talk];
     }
 }
 
@@ -205,7 +205,7 @@
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        self.detailViewController.detailItem = object;
+        self.detailViewController.talk = object;
     }
 }
 

@@ -8,19 +8,68 @@
 
 #import "LEWorkViewController.h"
 
+#import "LETalk.h"
+#import "SETextView.h"
+
 @interface LEWorkViewController ()
+
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
+
 - (void)configureView;
+- (void)configureAttributedView:(UITextView *)textView;
+- (void)configurePlainTextView:(UITextView *)textView;
+- (void)configureWebView:(UIWebView *)webView;
+
 @end
 
 @implementation LEWorkViewController
 
-#pragma mark - Managing the detail item
+#pragma mark - UIViewController
 
-- (void)setDetailItem:(id)newDetailItem
+- (void)viewDidLoad;
 {
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
+    [super viewDidLoad];
+    [self configureView];
+}
+
+- (void)didReceiveMemoryWarning;
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - UISplitViewControllerDelegate
+
+- (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController;
+{
+    barButtonItem.title = NSLocalizedString(@"Talk", @"Talk");
+    [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
+    self.masterPopoverController = popoverController;
+}
+
+- (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem;
+{
+    // Called when the view is shown again in the split view, invalidating the button and popover controller.
+    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    self.masterPopoverController = nil;
+}
+
+
+#pragma mark - UITabBarControllerDelegate
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController;
+{
+    [self configureView];
+}
+
+
+#pragma mark - API
+
+- (void)setTalk:(id)talk;
+{
+    if (_talk != talk) {
+        _talk = talk;
         
         // Update the view.
         [self configureView];
@@ -31,41 +80,41 @@
     }        
 }
 
-- (void)configureView
+- (void)configureView;
 {
     // Update the user interface for the detail item.
-    if (self.detailItem) {
+    if (!self.talk) {
         self.detailDescriptionLabel.text = @"Ahoy!";
+        return;
     }
+
+    NSDictionary * const restorationIdentifierToSelectorNames = @{@"LEWebViewController" : @"configureWebView:",
+                                                                  @"LECoreTextController" : @"configureAttributedView:",
+                                                                  @"LERichTextController" : @"configureAttributedView:",
+                                                                  @"LEPlainTextController" : @"configurePlainTextView:"};
+    NSString *selectorName = restorationIdentifierToSelectorNames[self.selectedViewController.restorationIdentifier];
+    if (!selectorName)
+        return;
+
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [self performSelector:NSSelectorFromString(selectorName) withObject:self.selectedViewController.view];
+    #pragma clang diagnostic pop
 }
 
-- (void)viewDidLoad
+- (void)configureAttributedView:(UITextView *)textView;
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    [self configureView];
+    textView.attributedText = self.talk.styledBody;
 }
 
-- (void)didReceiveMemoryWarning
+- (void)configurePlainTextView:(UITextView *)textView;
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    textView.text = self.talk.body;
 }
 
-#pragma mark - Split view
-
-- (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
+- (void)configureWebView:(UIWebView *)webView;
 {
-    barButtonItem.title = NSLocalizedString(@"Talk", @"Talk");
-    [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
-    self.masterPopoverController = popoverController;
-}
-
-- (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    // Called when the view is shown again in the split view, invalidating the button and popover controller.
-    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
-    self.masterPopoverController = nil;
+    [webView loadHTMLString:self.talk.bodyHTML baseURL:self.talk.baseURL];
 }
 
 @end

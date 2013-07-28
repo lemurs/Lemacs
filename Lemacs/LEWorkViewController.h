@@ -6,9 +6,11 @@
 //  Copyright (c) 2013 New Lemurs. All rights reserved.
 //
 
-@interface LEWorkViewController : UIViewController <UISplitViewControllerDelegate>
+#import "LETalk.h"
 
-@property (strong, nonatomic) id detailItem;
+@interface LEWorkViewController : UITabBarController <UISplitViewControllerDelegate, UITabBarControllerDelegate>
+
+@property (strong, nonatomic) id <LETalk> talk;
 
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 @end
