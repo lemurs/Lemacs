@@ -72,6 +72,22 @@
 
 #pragma mark - API
 
+- (void)setEditing:(BOOL)editing;
+{
+    UITextView *textView = (UITextView *)[self.selectedViewController.view viewWithTag:42];
+    if (![textView isKindOfClass:[UITextView class]])
+        return;
+
+    textView.editable = editing;
+    if (editing) {
+        textView.text = self.talk.body;
+    } else
+        textView.attributedText = self.talk.styledBody;
+
+    self.selectedViewController.editing = editing;
+    [textView becomeFirstResponder];
+}
+
 - (void)setTalk:(id)talk;
 {
     if (_talk != talk) {
@@ -98,6 +114,14 @@
 - (IBAction)togglePreview:(UISegmentedControl *)segmentedControl;
 {
     BOOL showPreview = !segmentedControl.selectedSegmentIndex;
+
+    UITextView *textView = (UITextView *)[self.selectedViewController.view viewWithTag:42];
+    if ([textView isKindOfClass:[UITextView class]])
+        return [self setEditing:!showPreview];
+
+    self.selectedIndex = showPreview ? 3 : 1;
+    [self configureView];
+
     NSLog(@"Show %@", showPreview ? @"preview" : @"editor");
 }
 
