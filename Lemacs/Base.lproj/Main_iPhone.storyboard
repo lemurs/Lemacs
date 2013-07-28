@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="42" contentMode="scaleToFill" fixedFrame="YES" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="doA-xL-YLh">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="632"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="42" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="doA-xL-YLh">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <attributedString key="attributedText">
@@ -34,6 +34,12 @@
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="doA-xL-YLh" firstAttribute="top" secondItem="BGJ-tf-hpn" secondAttribute="bottom" id="5Cq-c9-1b9"/>
+                            <constraint firstItem="doA-xL-YLh" firstAttribute="leading" secondItem="A8b-Tl-I0D" secondAttribute="leading" id="D5a-u5-TS7"/>
+                            <constraint firstAttribute="bottom" secondItem="doA-xL-YLh" secondAttribute="bottom" id="VQ1-cs-e3Y"/>
+                            <constraint firstItem="doA-xL-YLh" firstAttribute="trailing" secondItem="A8b-Tl-I0D" secondAttribute="trailing" id="uxi-1H-gW1"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="Rich Text" id="t6T-24-rPm"/>
@@ -54,8 +60,8 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="42" contentMode="scaleToFill" fixedFrame="YES" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xt3-k6-oah" customClass="SETextView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="632"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="42" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xt3-k6-oah" customClass="SETextView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <attributedString key="attributedText">
@@ -71,6 +77,12 @@
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Xt3-k6-oah" firstAttribute="top" secondItem="F1q-Dj-MWy" secondAttribute="top" id="81f-ta-85z"/>
+                            <constraint firstAttribute="bottom" secondItem="Xt3-k6-oah" secondAttribute="bottom" id="8Y9-Wp-Thu"/>
+                            <constraint firstItem="Xt3-k6-oah" firstAttribute="leading" secondItem="F1q-Dj-MWy" secondAttribute="leading" id="B7r-f8-kZA"/>
+                            <constraint firstItem="Xt3-k6-oah" firstAttribute="trailing" secondItem="F1q-Dj-MWy" secondAttribute="trailing" id="R52-FV-HFz"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="Core Text" id="pEN-8P-dbC"/>
@@ -181,13 +193,20 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView tag="42" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cix-Dw-bw4">
+                            <webView tag="42" contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cix-Dw-bw4">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cix-Dw-bw4" firstAttribute="top" secondItem="0gE-3g-8kq" secondAttribute="bottom" id="0A6-5W-80l"/>
+                            <constraint firstItem="cix-Dw-bw4" firstAttribute="bottom" secondItem="r3j-UU-jTL" secondAttribute="bottom" id="PZm-st-hmg"/>
+                            <constraint firstItem="cix-Dw-bw4" firstAttribute="leading" secondItem="r3j-UU-jTL" secondAttribute="leading" id="sf5-FD-hwq"/>
+                            <constraint firstItem="cix-Dw-bw4" firstAttribute="trailing" secondItem="r3j-UU-jTL" secondAttribute="trailing" id="xTU-LR-0Zc"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="Web View" id="D9N-Wy-W5R"/>
@@ -230,16 +249,22 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="42" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XRB-xh-1Vi">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="42" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XRB-xh-1Vi">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="10"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="XRB-xh-1Vi" secondAttribute="bottom" id="6BX-Kf-QGX"/>
+                            <constraint firstItem="XRB-xh-1Vi" firstAttribute="top" secondItem="F7X-8K-hjv" secondAttribute="bottom" id="EPZ-Fh-EJV"/>
+                            <constraint firstItem="XRB-xh-1Vi" firstAttribute="leading" secondItem="Fsg-FG-bvf" secondAttribute="leading" id="Sz5-9x-l3C"/>
+                            <constraint firstItem="XRB-xh-1Vi" firstAttribute="trailing" secondItem="Fsg-FG-bvf" secondAttribute="trailing" id="TXe-UM-af8"/>
+                        </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="Plain Text" id="jQU-U4-msa"/>
