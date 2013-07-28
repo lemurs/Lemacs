@@ -16,6 +16,8 @@
 
 #pragma mark - LETalk
 
+@dynamic body;
+
 - (UIImage *)avatar;
 {
     if ([self respondsToSelector:@selector(user)])
