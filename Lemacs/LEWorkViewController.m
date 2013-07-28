@@ -86,13 +86,26 @@
     }        
 }
 
+- (IBAction)save;
+{
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    // If new
+    // Commit an sync
+    // else
+    // Show commit screen
+}
+
+- (IBAction)togglePreview:(UISegmentedControl *)segmentedControl;
+{
+    BOOL showPreview = !segmentedControl.selectedSegmentIndex;
+    NSLog(@"Show %@", showPreview ? @"preview" : @"editor");
+}
+
 - (void)configureView;
 {
     // Update the user interface for the detail item.
-    if (!self.talk) {
-        self.detailDescriptionLabel.text = @"Ahoy!";
+    if (!self.talk || !self.selectedViewController)
         return;
-    }
 
     NSDictionary * const restorationIdentifierToSelectorNames = @{@"LEWebViewController" : @"configureWebView:",
                                                                   @"LECoreTextController" : @"configureAttributedView:",

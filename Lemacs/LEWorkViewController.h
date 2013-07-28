@@ -12,5 +12,7 @@
 
 @property (strong, nonatomic) id <LETalk> talk;
 
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+- (IBAction)save;
+- (IBAction)togglePreview:(UISegmentedControl *)segmentedControl;
+
 @end
