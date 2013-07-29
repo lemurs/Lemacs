@@ -27,6 +27,7 @@
 @property (nonatomic, readonly) BOOL hasChanges;
 @property (nonatomic, strong) NSSet *changes;
 
+- (id)currentValueForKey:(NSString *)propertyName;
 - (LEChange *)changeForPropertyNamed:(NSString *)propertyName;
 
 - (id)changeValueForGitHubKeyNamed:(NSString *)key;

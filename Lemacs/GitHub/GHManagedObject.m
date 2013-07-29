@@ -355,6 +355,11 @@
     return self.changes.count;
 }
 
+- (id)currentValueForKey:(NSString *)propertyName;
+{
+    return [self changeValueForPropertyNamed:propertyName] ? : [self valueForKey:propertyName];
+}
+
 - (LEChange *)changeForPropertyNamed:(NSString *)propertyName;
 {
     assert(propertyName);
