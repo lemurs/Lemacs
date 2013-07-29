@@ -7,5 +7,7 @@
 //
 
 @interface NSDate (GitHub)
++ (NSDateFormatter *)GitHubDateFormatter;
 + (NSDate *)dateWithGitHubDateString:(NSString *)dateString;
++ (NSString *)GitHubDateStringWithDate:(NSDate *)date;
 @end

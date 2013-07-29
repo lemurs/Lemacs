@@ -10,22 +10,33 @@
 
 @implementation NSDate (GitHub)
 
-+ (NSDate *)dateWithGitHubDateString:(NSString *)dateString;
++ (NSDateFormatter *)GitHubDateFormatter;
 {
     static NSDateFormatter *GitHubDateFormatter;
-    if (!GitHubDateFormatter) {
-        GitHubDateFormatter = [[NSDateFormatter alloc] init];
-        assert(GitHubDateFormatter);
+    if (GitHubDateFormatter)
+        return GitHubDateFormatter;
 
-        NSLocale * enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-        assert(enUSPOSIXLocale);
+    GitHubDateFormatter = [[NSDateFormatter alloc] init];
+    assert(GitHubDateFormatter);
 
-        [GitHubDateFormatter setLocale:enUSPOSIXLocale];
-        [GitHubDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
-        [GitHubDateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    }
+    NSLocale * enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    assert(enUSPOSIXLocale);
 
-    return [GitHubDateFormatter dateFromString:dateString];
+    [GitHubDateFormatter setLocale:enUSPOSIXLocale];
+    [GitHubDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+    [GitHubDateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+
+    return GitHubDateFormatter;
+}
+
++ (NSDate *)dateWithGitHubDateString:(NSString *)dateString;
+{
+    return [[self GitHubDateFormatter] dateFromString:dateString];
+}
+
++ (NSString *)GitHubDateStringWithDate:(NSDate *)date;
+{
+    return [[self GitHubDateFormatter] stringFromDate:date];
 }
 
 @end

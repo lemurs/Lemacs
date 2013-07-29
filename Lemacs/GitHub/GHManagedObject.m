@@ -7,6 +7,8 @@
 //
 
 #import "GHManagedObject.h"
+
+#import "LEChange.h"
 #import "NSDate+GitHub.h"
 
 
@@ -16,6 +18,7 @@
 - (BOOL)validateRelationship:(NSRelationshipDescription *)relationship withValue:(id *)value forKey:(NSString *)key error:(NSError **)error;
 - (BOOL)validateToManyRelationship:(NSRelationshipDescription *)relationship withValue:(NSArray **)values forKey:(NSString *)key error:(NSError **)error;;
 @end
+
 
 @implementation GHManagedObject
 
@@ -341,6 +344,82 @@
 }
 
 @end
+
+
+@implementation GHManagedObject (Change)
+
+@dynamic changes;
+
+- (BOOL)hasChanges;
+{
+    return self.changes.count;
+}
+
+- (LEChange *)changeForPropertyNamed:(NSString *)propertyName;
+{
+    assert(propertyName);
+
+    NSPredicate *changePredicate = [NSPredicate predicateWithFormat:@"original == %@ && change.propertyName == %@", self, propertyName];
+
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"LEChange"];
+    fetchRequest.fetchLimit = 1;
+    fetchRequest.predicate = changePredicate;
+
+    NSArray *fetchResults;
+    NSError *fetchError;
+    if (!(fetchResults = [self.managedObjectContext executeFetchRequest:fetchRequest error:&fetchError]))
+        NSLog(@"Fetch Error: %@ %@", NSStringFromSelector(_cmd), fetchError.localizedDescription);
+
+    return fetchResults.lastObject;
+}
+
+- (id)changeValueForGitHubKeyNamed:(NSString *)key;
+{
+    return [self changeValueForPropertyNamed:[[self class] GitHubKeysToPropertyNames][key]];
+}
+
+- (void)setChangeValue:(id)changeValue forGitHubKeyNamed:(NSString *)key;
+{
+    [self setChangeValue:changeValue forPropertyNamed:[[self class] GitHubKeysToPropertyNames][key]];
+}
+
+- (id)changeValueForPropertyNamed:(NSString *)propertyName;
+{
+    assert(propertyName);
+    LEChange *change = [self changeForPropertyNamed:propertyName];
+    if (!change)
+        return nil;
+
+    id changeValue = change.stringValue;
+    NSError *validationError;
+    if (![self validateValue:&changeValue forKey:propertyName error:&validationError]) {
+        NSLog(@"Could not validate change value %@ for key %@ due to error %@", changeValue, propertyName, validationError.localizedDescription);
+        assert(NO);
+    }
+
+    return changeValue;
+}
+
+- (void)setChangeValue:(id)changeValue forPropertyNamed:(NSString *)propertyName;
+{
+    assert(propertyName);
+    LEChange *change = [self changeForPropertyNamed:propertyName];
+    if (!change)
+        ; // TODO: Create change
+
+    if ([changeValue isKindOfClass:[NSString class]])
+        change.stringValue = changeValue;
+    else if ([changeValue isKindOfClass:[NSNumber class]])
+        change.stringValue = [changeValue stringValue];
+    else if ([changeValue isKindOfClass:[NSDate class]])
+        change.stringValue = [NSDate GitHubDateStringWithDate:changeValue];
+    else
+        assert(NO);
+}
+
+@end
+
+
 
 const NSTimeInterval kGHStoreUpdateLimit = 60.0f;
 

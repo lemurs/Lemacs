@@ -43,6 +43,7 @@
         <attribute name="lastUpdated" optional="YES" attributeType="Date" defaultDateTimeInterval="0" defaultValueString="distantPast">
             <userInfo/>
         </attribute>
+        <relationship name="changes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="LEChange" inverseName="original" inverseEntity="LEChange" syncable="YES"/>
         <userInfo/>
     </entity>
     <entity name="GHMilestone" representedClassName="GHMilestone" parentEntity="GHManagedObject" syncable="YES">
@@ -91,6 +92,12 @@
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHComment" inverseName="user" inverseEntity="GHComment" syncable="YES"/>
         <relationship name="issues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHIssue" inverseName="user" inverseEntity="GHIssue" syncable="YES"/>
     </entity>
+    <entity name="LEChange" representedClassName="LEChange" syncable="YES">
+        <attribute name="keyName" attributeType="String" syncable="YES"/>
+        <attribute name="propertyName" attributeType="String" syncable="YES"/>
+        <attribute name="stringValue" attributeType="String" syncable="YES"/>
+        <relationship name="original" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHManagedObject" inverseName="changes" inverseEntity="GHManagedObject" syncable="YES"/>
+    </entity>
     <elements>
         <element name="GHComment" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHIssue" positionX="0" positionY="0" width="0" height="0"/>
@@ -99,5 +106,6 @@
         <element name="GHMilestone" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHPullRequest" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GHUser" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="LEChange" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
