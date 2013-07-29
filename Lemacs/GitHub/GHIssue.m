@@ -79,10 +79,9 @@
 #pragma mark - GHTalk
 
 - (NSAttributedString *)styledBody;
-{
-    NSString *fullBody = [@"# " stringByAppendingString:self.title];
-    fullBody = [fullBody stringByAppendingString:@"\n\n"];
-    fullBody = [fullBody stringByAppendingString:self.body];
+{// FIXME: Appending the title here is a nice hack, but then it disappears during editing.
+    NSString *fullBody = IsEmpty(self.title) ? @"" : [[@"# " stringByAppendingString:self.title] stringByAppendingString:@"\n\n"];
+    fullBody = [fullBody stringByAppendingString:NonNil(self.body, @"")];
     return [[NSAttributedStringMarkdownParser sharedParser] attributedStringFromMarkdownString:fullBody];
 }
 
