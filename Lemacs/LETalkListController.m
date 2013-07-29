@@ -14,6 +14,7 @@
 #import "LETalk.h"
 #import "LETalkCell.h"
 #import "LETalkViewController.h"
+#import "LEWorkViewController.h"
 #import "SETextView.h"
 #import "UIGestureRecognizer+LEDebugging.h"
 
@@ -87,17 +88,23 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 {
+    LETalkCell *cell = sender;
+    assert([cell isKindOfClass:[LETalkCell class]]);
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+
+    GHIssue *issue = (GHIssue *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+    assert([issue isKindOfClass:[GHIssue class]]);
+
     if ([[segue identifier] isEqualToString:@"SelectIssue"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-
-        GHIssue *issue = (GHIssue *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
-        assert([issue isKindOfClass:[GHIssue class]]);
         [[GHStore sharedStore] loadCommentsForIssue:issue];
-
         assert([segue.destinationViewController isKindOfClass:[LETalkViewController class]]);
         LETalkViewController *talkViewController = (LETalkViewController *)segue.destinationViewController;
         talkViewController.issue = issue;
+    } else if ([[segue identifier] isEqualToString:@"SelectTalk"]) {
+        assert([segue.destinationViewController isKindOfClass:[LEWorkViewController class]]);
+        [[segue destinationViewController] setTalk:issue];
     }
+
 }
 
 
@@ -213,9 +220,20 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 #pragma mark UITableViewDelegate
 
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
+{
+    [self performSegueWithIdentifier:@"SelectTalk" sender:[tableView cellForRowAtIndexPath:indexPath]];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    [self performSegueWithIdentifier:@"SelectIssue" sender:[tableView cellForRowAtIndexPath:indexPath]];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (cell.accessoryType == UITableViewCellAccessoryDetailDisclosureButton)
+        [self performSegueWithIdentifier:@"SelectIssue" sender:cell];
+    else
+        [self performSegueWithIdentifier:@"SelectTalk" sender:cell];
+
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
@@ -402,6 +420,16 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
     assert([talk conformsToProtocol:@protocol(LETalk)]);
 
     [talkCell configureCellWithTalk:talk];
+
+    GHIssue *issue = (GHIssue *)talk;
+    assert([issue isKindOfClass:[GHIssue class]]);
+
+    NSInteger commentsCount = issue.commentsCount;
+    if (commentsCount) {
+        talkCell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    } else {
+        talkCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
 }
 
 @end

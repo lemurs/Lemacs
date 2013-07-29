@@ -307,6 +307,7 @@
     assert([talk conformsToProtocol:@protocol(LETalk)]);
 
     [talkCell configureCellWithTalk:talk];
+    talkCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 @end

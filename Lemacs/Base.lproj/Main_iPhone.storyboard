@@ -120,7 +120,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SGk-hN-ddy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="569" y="42"/>
+            <point key="canvasLocation" x="567" y="370"/>
         </scene>
         <!--Talk List Controller - Master-->
         <scene sceneID="VgW-fR-Quf">
@@ -132,15 +132,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="d8I-k5-K19">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="d8I-k5-K19">
                                 <rect key="frame" x="0.0" y="164" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d8I-k5-K19" id="PSy-4i-Rat">
-                                    <rect key="frame" x="0.0" y="0.0" width="289" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="255" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="57H-Xs-xKD" kind="push" identifier="SelectIssue" id="rYP-1i-WLA"/>
+                                    <segue destination="LeK-Cl-Emu" kind="push" identifier="SelectTalk" id="s9d-Vw-wBC"/>
+                                    <segue destination="57H-Xs-xKD" kind="push" identifier="SelectIssue" trigger="accessoryAction" id="pSc-lB-iK3"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -168,4 +169,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="Zab-zb-DbW"/>
+    </inferredMetricsTieBreakers>
 </document>
