@@ -8,7 +8,8 @@
 
 #import "LEWorkViewController.h"
 
-#import "LETalk.h"
+#import "GHManagedObject+LETalk.h"
+#import "GHStore.h"
 #import "SETextView.h"
 
 @interface LEWorkViewController ()
@@ -54,13 +55,36 @@
 }
 
 
+#pragma mark - UITextViewDelegate
+
+- (void)textViewDidBeginEditing:(UITextView *)textView;
+{
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), textView.text);
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView;
+{
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), textView.text);
+
+    [[GHStore sharedStore] save];
+}
+
+- (void)textViewDidChange:(UITextView *)textView;
+{
+    GHManagedObject *editedObject = (GHManagedObject *)self.talk;
+    assert([editedObject isKindOfClass:[GHManagedObject class]]);
+
+    [editedObject setChangeValue:textView.text forPropertyNamed:kLETalkBodyKey];
+}
+
+
 #pragma mark - API
 
 - (void)setEditing:(BOOL)editing;
 {
     self.textView.editable = editing;
     if (editing)
-        self.textView.text = self.talk.body;
+        self.textView.text = self.talk.plainBody;
     else
         self.textView.attributedText = self.talk.styledBody;
 

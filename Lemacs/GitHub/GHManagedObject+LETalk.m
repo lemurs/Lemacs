@@ -16,8 +16,6 @@
 
 #pragma mark - LETalk
 
-@dynamic body;
-
 - (UIImage *)avatar;
 {
     if ([self respondsToSelector:@selector(user)])
@@ -34,7 +32,7 @@
 - (NSString *)bodyHTML;
 {
     if ([self respondsToSelector:@selector(body)])
-        return [SundownWrapper convertMarkdownString:[self valueForKey:@"body"]];
+        return [SundownWrapper convertMarkdownString:self.plainBody];
     else
         return nil;
 }
@@ -51,9 +49,14 @@
     return [dateFormatter stringFromDate:[self valueForKeyPath:@"createdDate"]];
 }
 
+- (NSString *)plainBody;
+{
+    return [self currentValueForKey:kLETalkBodyKey];
+}
+
 - (NSAttributedString *)styledBody;
 {
-    return [[NSAttributedStringMarkdownParser sharedParser] attributedStringFromMarkdownString:[self valueForKey:@"body"]];
+    return [[NSAttributedStringMarkdownParser sharedParser] attributedStringFromMarkdownString:self.plainBody];
 }
 
 - (NSAttributedString *)styledTitle;

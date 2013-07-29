@@ -364,9 +364,9 @@
 {
     assert(propertyName);
 
-    NSPredicate *changePredicate = [NSPredicate predicateWithFormat:@"original == %@ && change.propertyName == %@", self, propertyName];
+    NSPredicate *changePredicate = [NSPredicate predicateWithFormat:@"original == %@ && propertyName == %@", self, propertyName];
 
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"LEChange"];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:kLEChangeEntityName];
     fetchRequest.fetchLimit = 1;
     fetchRequest.predicate = changePredicate;
 

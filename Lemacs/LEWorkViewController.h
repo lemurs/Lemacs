@@ -8,7 +8,7 @@
 
 #import "LETalk.h"
 
-@interface LEWorkViewController : UIViewController <UISplitViewControllerDelegate>
+@interface LEWorkViewController : UIViewController <UISplitViewControllerDelegate, UITextViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextView *textView;
 @property (strong, nonatomic) id <LETalk> talk;
