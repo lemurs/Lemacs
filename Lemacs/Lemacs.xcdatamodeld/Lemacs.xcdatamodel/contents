@@ -93,7 +93,7 @@
         <relationship name="issues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GHIssue" inverseName="user" inverseEntity="GHIssue" syncable="YES"/>
     </entity>
     <entity name="LEChange" representedClassName="LEChange" syncable="YES">
-        <attribute name="keyName" attributeType="String" syncable="YES"/>
+        <attribute name="keyName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="propertyName" attributeType="String" syncable="YES"/>
         <attribute name="stringValue" attributeType="String" syncable="YES"/>
         <relationship name="original" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GHManagedObject" inverseName="changes" inverseEntity="GHManagedObject" syncable="YES"/>

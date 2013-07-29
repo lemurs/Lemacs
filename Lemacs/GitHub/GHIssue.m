@@ -81,7 +81,7 @@
 - (NSAttributedString *)styledBody;
 {// FIXME: Appending the title here is a nice hack, but then it disappears during editing.
     NSString *fullBody = IsEmpty(self.title) ? @"" : [[@"# " stringByAppendingString:self.title] stringByAppendingString:@"\n\n"];
-    fullBody = [fullBody stringByAppendingString:NonNil(self.body, @"")];
+    fullBody = [fullBody stringByAppendingString:NonNil(self.plainBody, @"")];
     return [[NSAttributedStringMarkdownParser sharedParser] attributedStringFromMarkdownString:fullBody];
 }
 

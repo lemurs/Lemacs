@@ -8,6 +8,7 @@
 
 #import "GHManagedObject.h"
 
+#import "GHStore.h"
 #import "LEChange.h"
 #import "NSDate+GitHub.h"
 
@@ -409,8 +410,11 @@
 {
     assert(propertyName);
     LEChange *change = [self changeForPropertyNamed:propertyName];
-    if (!change)
-        ; // TODO: Create change
+    if (!change) {
+        change = [NSEntityDescription insertNewObjectForEntityForName:kLEChangeEntityName inManagedObjectContext:self.managedObjectContext];
+        change.propertyName = propertyName;
+        [[self mutableSetValueForKey:@"changes"] addObject:change]; 
+    }
 
     if ([changeValue isKindOfClass:[NSString class]])
         change.stringValue = changeValue;
@@ -420,6 +424,9 @@
         change.stringValue = [NSDate GitHubDateStringWithDate:changeValue];
     else
         assert(NO);
+
+    // To be safe let's save now, but if it becomes an issue, we can save outside of this operation.
+    [[GHStore sharedStore] save];
 }
 
 @end
