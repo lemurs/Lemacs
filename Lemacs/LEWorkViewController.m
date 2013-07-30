@@ -122,9 +122,12 @@
 
 - (void)configureView;
 {
-    // Update the user interface for the detail item.
-    if (self.talk)
-        self.editing = NO;
+    if (!self.talk)
+        return; // This should only happen while the controller is still being set up
+
+    // Default to editing mode if this is an uncommited talk
+    // TODO: Default to editing mode if talk has unsaved changes.
+    self.editing = IsEmpty(self.talk.baseURL);
 }
 
 @end
