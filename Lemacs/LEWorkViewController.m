@@ -92,7 +92,7 @@
     super.editing = editing;
 }
 
-- (void)setTalk:(id)talk;
+- (void)setTalk:(id <LETalk>)talk;
 {
     if (_talk != talk) {
         _talk = talk;
