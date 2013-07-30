@@ -26,7 +26,6 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic) LETalkSize talkSize;
 
-- (IBAction)insertNewObject;
 - (IBAction)saveContext;
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -59,11 +58,6 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 {
     [super viewDidLoad];
 
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject)];
-    self.navigationItem.rightBarButtonItem = addButton;
-
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([LETalkCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([LETalkCell class])];
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -88,11 +82,20 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 {
+    GHIssue *issue;
+    if ([[segue identifier] isEqualToString:@"CreateIssue"]) {
+        // Create issue
+        issue = [GHIssue newIssueInContext:self.managedObjectContext];
+        assert([segue.destinationViewController isKindOfClass:[LEWorkViewController class]]);
+        [[segue destinationViewController] setTalk:issue];
+        return;
+    }
+
     LETalkCell *cell = sender;
     assert([cell isKindOfClass:[LETalkCell class]]);
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
 
-    GHIssue *issue = (GHIssue *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    issue = (GHIssue *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
     assert([issue isKindOfClass:[GHIssue class]]);
 
     if ([[segue identifier] isEqualToString:@"SelectIssue"]) {
@@ -335,18 +338,6 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
     return _managedObjectContext;
 }
 
-- (IBAction)insertNewObject;
-{
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:self.fetchedResultsController.fetchRequest.entity.name inManagedObjectContext:self.fetchedResultsController.managedObjectContext];
-
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:kGHCreatedDatePropertyName];
-    [newManagedObject setValue:[NSDate distantPast] forKey:kGHUpdatedDatePropertyName];
-
-    [self saveContext];
-}
-
 - (IBAction)saveContext;
 {
     NSError *contextSavingError;
@@ -399,6 +390,12 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 //    NSLog(@"Scale: %f, Velocity: %f", pinch.scale, pinch.velocity);
 //    NSLog(@"State: %@", pinch.stateName);
+}
+
+- (IBAction)showOptions:(UIBarButtonItem *)barButton;
+{
+    // TODO: Implement the options menu, refs #25
+    NSLog(@"TODO: Implement %@ refs #%d", NSStringFromSelector(_cmd), 25);
 }
 
 - (void)setTalkSize:(LETalkSize)talkSize;
