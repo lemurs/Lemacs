@@ -114,8 +114,13 @@
                             <outlet property="delegate" destination="57H-Xs-xKD" id="Y6J-Mq-Dz2"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Talk View" id="3ym-f3-qQ8">
-                        <barButtonItem key="backBarButtonItem" title="List" id="CZU-tb-fIF"/>
+                    <navigationItem key="navigationItem" title="The Conversation" id="3ym-f3-qQ8">
+                        <barButtonItem key="backBarButtonItem" title="Conversation" id="CZU-tb-fIF"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="reply" id="JEu-iT-NYm">
+                            <connections>
+                                <action selector="insertNewObject" destination="57H-Xs-xKD" id="sYg-6B-c1O"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SGk-hN-ddy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -132,11 +137,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="d8I-k5-K19">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="d8I-k5-K19">
                                 <rect key="frame" x="0.0" y="164" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d8I-k5-K19" id="PSy-4i-Rat">
-                                    <rect key="frame" x="0.0" y="0.0" width="255" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="289" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
@@ -152,7 +157,19 @@
                             <outletCollection property="gestureRecognizers" destination="8e5-I2-msd" appends="YES" id="Bil-My-y17"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Talk List" id="tQt-TN-PWz"/>
+                    <navigationItem key="navigationItem" title="Your Timeline" id="tQt-TN-PWz">
+                        <barButtonItem key="backBarButtonItem" title="Timeline" id="DAv-8u-OVY"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="cbn-6F-DwN">
+                            <connections>
+                                <action selector="showOptions:" destination="pGg-6v-bdr" id="2e8-Rs-mzA"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="dCN-Ij-qBL">
+                            <connections>
+                                <segue destination="LeK-Cl-Emu" kind="push" identifier="CreateIssue" id="8Hs-Zv-FOc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
                 <pinchGestureRecognizer id="8e5-I2-msd">
@@ -170,6 +187,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Zab-zb-DbW"/>
+        <segue reference="8Hs-Zv-FOc"/>
     </inferredMetricsTieBreakers>
 </document>
