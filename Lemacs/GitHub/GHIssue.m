@@ -7,9 +7,24 @@
 //
 
 #import "GHIssue.h"
+#import "GHStore.h"
 #import "NSAttributedStringMarkdownParser+GHMarkdown.h"
 
 @implementation GHIssue
+
++ (instancetype)newIssueInContext:(NSManagedObjectContext *)context;
+{
+    GHIssue *issue = (GHIssue *)[NSEntityDescription insertNewObjectForEntityForName:kGHIssueEntityName inManagedObjectContext:context];
+    issue.createdDate = [NSDate date];
+
+    // TODO: Make these default text in the views rather than setting them in the text itself.
+    issue.body = NSLocalizedString(@"Why do you want it??", @"Default Issue Body");
+    issue.title = NSLocalizedString(@"What do you want?", @"Default Issue Title");
+    // TODO: Configure issue if necessary
+
+    [[GHStore sharedStore] save];
+    return issue;
+}
 
 + (instancetype)issueNumber:(NSInteger)issueNumber context:(NSManagedObjectContext *)context;
 {

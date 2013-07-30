@@ -12,6 +12,7 @@
 
 @interface GHIssue : GHManagedObject
 
++ (instancetype)newIssueInContext:(NSManagedObjectContext *)context;
 + (instancetype)issueNumber:(NSInteger)issueNumber context:(NSManagedObjectContext *)context;
 
 @property (nonatomic) NSInteger commentsCount, number;
