@@ -11,6 +11,7 @@
 #import "GHManagedObject+LETalk.h"
 #import "GHStore.h"
 #import "SETextView.h"
+#import "UIFont+GHMarkdown.h"
 
 @interface LEWorkViewController ()
 
@@ -83,6 +84,7 @@
 - (void)setEditing:(BOOL)editing;
 {
     self.textView.editable = editing;
+    self.textView.font = [UIFont markdownParagraphFont]; // To clear style
     if (editing)
         self.textView.text = self.talk.plainBody;
     else
@@ -94,16 +96,12 @@
 
 - (void)setTalk:(id <LETalk>)talk;
 {
-    if (_talk != talk) {
-        _talk = talk;
-        
-        // Update the view.
-        [self configureView];
-    }
+    if (_talk == talk)
+        return;
 
-    if (self.masterPopoverController != nil) {
-        [self.masterPopoverController dismissPopoverAnimated:YES];
-    }        
+    _talk = talk;
+        
+    [self configureView];
 }
 
 - (IBAction)save;
@@ -127,7 +125,7 @@
 
     // Default to editing mode if this is an uncommited talk
     // TODO: Default to editing mode if talk has unsaved changes.
-    self.editing = IsEmpty(self.talk.baseURL);
+    self.editing = IsEmpty([(NSObject *)self.talk valueForKey:kLETalkBodyKey]);
 }
 
 @end
