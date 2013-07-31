@@ -26,7 +26,8 @@
 
 - (NSURL *)baseURL;
 {
-    return [NSURL URLWithString:[[self class] GitHubKeysToPropertyNames][@"url"]];
+    NSString *propertyName = [[self class] GitHubKeysToPropertyNames][@"url"];
+    return [NSURL URLWithString:[self valueForKey:propertyName]];
 }
 
 - (NSString *)bodyHTML;
