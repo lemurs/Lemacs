@@ -19,9 +19,11 @@
     do {
         issue = [self issueNumber:unusedUnsyncedIssueNumber context:context];
         unusedUnsyncedIssueNumber--;
-    } while (!IsEmpty(issue.body));
+    } while (!IsEmpty(issue.plainBody));
 
+    issue.number = unusedUnsyncedIssueNumber;
     [[GHStore sharedStore] save];
+    
     return issue;
 }
 

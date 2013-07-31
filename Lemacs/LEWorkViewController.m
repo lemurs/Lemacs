@@ -27,9 +27,15 @@
 
 - (void)viewWillAppear:(BOOL)animated;
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     [self configureView];
     // TODO: Select the preview unless there are edits
+}
+
+- (void)viewDidAppear:(BOOL)animated;
+{
+    // FIXME: There is some kind of fight happening for firstResponder where it is taken from the text view after viewWillAppear: We can win this fight here, but it does make the UI blink, so we should try to figure out why it's happening and fix it.
+    [self.textView becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning;
@@ -83,15 +89,19 @@
 
 - (void)setEditing:(BOOL)editing;
 {
+    if (!self.textView)
+        return;
+
     self.textView.editable = editing;
     self.textView.font = [UIFont markdownParagraphFont]; // To clear style
+
     if (editing)
         self.textView.text = self.talk.plainBody;
     else
         self.textView.attributedText = self.talk.styledBody;
 
-    [self.textView becomeFirstResponder];
     super.editing = editing;
+    [self.textView becomeFirstResponder];
 }
 
 - (void)setTalk:(id <LETalk>)talk;
@@ -125,7 +135,8 @@
 
     // Default to editing mode if this is an uncommited talk
     // TODO: Default to editing mode if talk has unsaved changes.
-    self.editing = IsEmpty([(NSObject *)self.talk valueForKey:kLETalkBodyKey]);
+    self.editing = IsEmpty([(NSObject *)self.talk valueForKey:kLETalkBodyKey]) || ((id <LETalk>)self.talk).hasChanges;
+    self.segmentedControl.selectedSegmentIndex = self.editing ? 1 : 0;
 }
 
 @end

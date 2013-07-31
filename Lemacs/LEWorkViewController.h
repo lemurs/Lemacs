@@ -11,6 +11,7 @@
 @interface LEWorkViewController : UIViewController <UISplitViewControllerDelegate, UITextViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextView *textView;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) id <LETalk> talk;
 
 - (IBAction)save;
