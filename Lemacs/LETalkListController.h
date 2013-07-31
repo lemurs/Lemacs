@@ -7,7 +7,7 @@
 //
 // TODO: Make LCTalkListController a subclass of LETalkViewController, refs #26
 
-@class LETalkViewController, UAGithubEngine;
+@class LETalkViewController;
 
 @interface LETalkListController : UITableViewController <NSFetchedResultsControllerDelegate>
 
