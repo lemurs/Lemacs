@@ -60,6 +60,11 @@
     return [[NSAttributedStringMarkdownParser sharedParser] attributedStringFromMarkdownString:NonNil(self.plainBody, @"")];
 }
 
+- (NSString *)plainTitle;
+{
+    return [self currentValueForKey:kLETalkTitleKey];
+}
+
 - (NSAttributedString *)styledTitle;
 {
     if (![self respondsToSelector:@selector(user)])
