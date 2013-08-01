@@ -11,11 +11,15 @@
 @class GHIssue, GHUser;
 
 @interface GHComment : GHManagedObject
+
++ (instancetype)newCommentInContext:(NSManagedObjectContext *)context;
 + (instancetype)commentNumber:(NSInteger)commentNumber context:(NSManagedObjectContext *)context;
+
 @property (nonatomic, strong) NSDate *createdDate;
 @property (nonatomic, strong) NSString *body, *commentURL;
 @property (nonatomic, strong) GHIssue *issue;
 @property (nonatomic, strong) GHUser *user;
+
 @end
 
 extern NSString * const kGHCommentEntityName;

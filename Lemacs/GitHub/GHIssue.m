@@ -7,6 +7,8 @@
 //
 
 #import "GHIssue.h"
+
+#import "GHComment.h"
 #import "GHStore.h"
 #import "NSAttributedStringMarkdownParser+GHMarkdown.h"
 
@@ -106,11 +108,22 @@
 
 @dynamic body, comments, commentsCount, createdDate, issueURL, number, title, user;
 
+- (GHComment *)addComment;
+{
+    GHComment *comment = [GHComment newCommentInContext:self.managedObjectContext];
+    [[self mutableOrderedSetValueForKey:kGHIssueCommentsPropertyName] addObject:comment];
+    return comment;
+}
+
 @end
 
 NSString * const kGHIssueEntityName = @"GHIssue";
 
 NSString * const kGHIssueClosedGitHubKey = @"state";
 NSString * const kGHIssueClosedPropertyName = @"closed";
+
+NSString * const kGHIssueCommentsGitHubKey = @"comments";
+NSString * const kGHIssueCommentsPropertyName = @"comments";
+
 NSString * const kGHIssueNumberGitHubKey = @"number";
 NSString * const kGHIssueNumberPropertyName = @"number";

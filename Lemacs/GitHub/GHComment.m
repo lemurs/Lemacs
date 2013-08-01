@@ -7,8 +7,17 @@
 //
 
 #import "GHComment.h"
+#import "GHStore.h"
 
 @implementation GHComment
+
++ (instancetype)newCommentInContext:(NSManagedObjectContext *)context;
+{
+    GHComment *comment = [self commentNumber:NSIntegerMax context:context];
+    [[GHStore sharedStore] save];
+
+    return comment;
+}
 
 + (instancetype)commentNumber:(NSInteger)commentNumber context:(NSManagedObjectContext *)context;
 {

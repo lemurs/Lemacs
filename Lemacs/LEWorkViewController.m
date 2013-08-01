@@ -118,7 +118,6 @@
 
 - (IBAction)reply;
 {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
     GHIssue *issue;
     if ([self.talk isKindOfClass:[GHIssue class]])
         issue = (GHIssue *)self.talk;
@@ -127,8 +126,7 @@
     else
         assert(NO);
 
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), issue);
-    // Create a new comment for this issue (or comment's issue)
+    self.talk = [issue addComment];
 }
 
 - (IBAction)save;

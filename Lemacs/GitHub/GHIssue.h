@@ -8,7 +8,7 @@
 
 #import "GHManagedObject+LETalk.h"
 
-@class GHUser;
+@class GHComment, GHUser;
 
 @interface GHIssue : GHManagedObject
 
@@ -21,11 +21,17 @@
 @property (nonatomic, strong) NSString *body, *issueURL, *title;
 @property (nonatomic, strong) GHUser *user;
 
+- (GHComment *)addComment;
+
 @end
 
 extern NSString * const kGHIssueEntityName;
 
 extern NSString * const kGHIssueClosedGitHubKey;
 extern NSString * const kGHIssueClosedPropertyName;
+
+extern NSString * const kGHIssueCommentsGitHubKey;
+extern NSString * const kGHIssueCommentsPropertyName;
+
 extern NSString * const kGHIssueNumberGitHubKey;
 extern NSString * const kGHIssueNumberPropertyName;
