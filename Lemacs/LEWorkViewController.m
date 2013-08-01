@@ -114,6 +114,12 @@
     [self configureView];
 }
 
+- (IBAction)reply;
+{
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    // Create a new comment for this issue (or comment's issue)
+}
+
 - (IBAction)save;
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
@@ -134,9 +140,14 @@
         return; // This should only happen while the controller is still being set up
 
     // Default to editing mode if this is an uncommited talk
-    // TODO: Default to editing mode if talk has unsaved changes.
-    self.editing = IsEmpty([(NSObject *)self.talk valueForKey:kLETalkBodyKey]) || ((id <LETalk>)self.talk).hasChanges;
-    self.segmentedControl.selectedSegmentIndex = self.editing ? 1 : 0;
+    self.editing = IsEmpty([(NSObject *)self.talk valueForKey:kLETalkBodyKey]) || self.talk.hasChanges;
+    if (self.editing) {
+        self.segmentedControl.selectedSegmentIndex = 1;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
+    } else {
+        self.segmentedControl.selectedSegmentIndex = 0;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(reply)];
+    }
 }
 
 @end
