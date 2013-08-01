@@ -57,7 +57,7 @@
 
 - (NSAttributedString *)styledBody;
 {
-    return [[NSAttributedStringMarkdownParser sharedParser] attributedStringFromMarkdownString:self.plainBody];
+    return [[NSAttributedStringMarkdownParser sharedParser] attributedStringFromMarkdownString:NonNil(self.plainBody, @"")];
 }
 
 - (NSAttributedString *)styledTitle;
