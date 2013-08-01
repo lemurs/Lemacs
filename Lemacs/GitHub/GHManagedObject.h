@@ -39,6 +39,11 @@
 @end
 
 
+@interface GHManagedObject (Deletion)
+- (IBAction)die;
+@end
+
+
 extern const NSTimeInterval kGHStoreUpdateLimit;
 
 extern NSString * const kGHCreatedDatePropertyName;

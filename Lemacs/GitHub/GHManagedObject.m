@@ -459,6 +459,16 @@
 @end
 
 
+@implementation GHManagedObject (Deletion)
+
+- (IBAction)die;
+{
+    // Subclasses should override this to call the appropriate deletion method from the shared store
+    assert(NO);
+}
+
+@end
+
 
 const NSTimeInterval kGHStoreUpdateLimit = 60.0f;
 
