@@ -166,6 +166,61 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D810664B17AA706100623E33 /* Talk */ = {
+			isa = PBXGroup;
+			children = (
+				D810664C17AA70F800623E33 /* Models */,
+				D810664D17AA712F00623E33 /* Views */,
+				D810664E17AA717C00623E33 /* Controllers */,
+			);
+			name = Talk;
+			sourceTree = "<group>";
+		};
+		D810664C17AA70F800623E33 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D8B5EE86179D2C6C0007A5D8 /* LETalk.h */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		D810664D17AA712F00623E33 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D89DC2BA179C4CCC000770EC /* LETalkCell.h */,
+				D89DC2BB179C4CCC000770EC /* LETalkCell.m */,
+				D87B560F17A2B596006A32DA /* LETalkCell.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		D810664E17AA717C00623E33 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D83C35F217992BF20046D510 /* LETalkListController.h */,
+				D83C35F317992BF20046D510 /* LETalkListController.m */,
+				D83C35F417992BF20046D510 /* LETalkViewController.h */,
+				D83C35F517992BF20046D510 /* LETalkViewController.m */,
+				D8A8C41417982FDF009B1300 /* LEWorkViewController.h */,
+				D8A8C41517982FDF009B1300 /* LEWorkViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		D810664F17AA71D400623E33 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				D8A8C3FD17982FDE009B1300 /* Supporting Files */,
+				D8A8C40817982FDE009B1300 /* Main_iPhone.storyboard */,
+				D8A8C40B17982FDE009B1300 /* Main_iPad.storyboard */,
+				D8A8C41717982FDF009B1300 /* Images.xcassets */,
+				D8A8C40E17982FDF009B1300 /* Lemacs.xcdatamodeld */,
+				D8A8C40517982FDE009B1300 /* LEAppDelegate.h */,
+				D8A8C40617982FDE009B1300 /* LEAppDelegate.m */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
 		D861D9A217A420D40067A9D1 /* NSAttributedStringMarkdownParser */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,26 +342,11 @@
 		D8A8C3FC17982FDE009B1300 /* Lemacs */ = {
 			isa = PBXGroup;
 			children = (
-				D8A8C40517982FDE009B1300 /* LEAppDelegate.h */,
-				D8A8C40617982FDE009B1300 /* LEAppDelegate.m */,
-				D8A8C40817982FDE009B1300 /* Main_iPhone.storyboard */,
-				D8A8C40B17982FDE009B1300 /* Main_iPad.storyboard */,
-				D89DC2BA179C4CCC000770EC /* LETalkCell.h */,
-				D89DC2BB179C4CCC000770EC /* LETalkCell.m */,
-				D87B560F17A2B596006A32DA /* LETalkCell.xib */,
-				D8B5EE86179D2C6C0007A5D8 /* LETalk.h */,
-				D83C35F217992BF20046D510 /* LETalkListController.h */,
-				D83C35F317992BF20046D510 /* LETalkListController.m */,
-				D83C35F417992BF20046D510 /* LETalkViewController.h */,
-				D83C35F517992BF20046D510 /* LETalkViewController.m */,
-				D8A8C41417982FDF009B1300 /* LEWorkViewController.h */,
-				D8A8C41517982FDF009B1300 /* LEWorkViewController.m */,
-				D8A8C41717982FDF009B1300 /* Images.xcassets */,
-				D8A8C40E17982FDF009B1300 /* Lemacs.xcdatamodeld */,
+				D810664F17AA71D400623E33 /* Application */,
+				D810664B17AA706100623E33 /* Talk */,
 				D89DC2971799CE98000770EC /* GitHub */,
 				D861DE2B17A42F1A0067A9D1 /* Markdown */,
 				D89DC2AA1799E3BA000770EC /* Utilities */,
-				D8A8C3FD17982FDE009B1300 /* Supporting Files */,
 			);
 			path = Lemacs;
 			sourceTree = "<group>";
