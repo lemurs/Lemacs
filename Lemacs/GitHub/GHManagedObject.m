@@ -55,6 +55,8 @@
     // Create a new object
     managedObject = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:context];
     [managedObject setValue:indexPropertyValue forKey:indexPropertyName];
+    [managedObject setValue:[NSDate date] forKey:kGHCreatedDatePropertyName];
+    [managedObject setValue:[NSDate date] forKey:kGHModifiedDatePropertyName];
     [managedObject setValue:[NSDate distantPast] forKey:kGHUpdatedDatePropertyName];
 
     return managedObject;
