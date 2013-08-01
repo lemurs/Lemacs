@@ -98,6 +98,27 @@
         [super setValue:value forUndefinedKey:key];
 }
 
+- (NSDictionary *)dictionaryWithValuesForKeys:(NSArray *)keys;
+{
+    if (keys)
+        return [super dictionaryWithValuesForKeys:keys];
+
+    NSDictionary *GitHubKeysToPropertyNames = [[self class] GitHubKeysToPropertyNames];
+    NSArray *GitHubKeys = GitHubKeysToPropertyNames.allKeys;
+    __block NSMutableDictionary *GitHubKeysToCurrentValues = [NSMutableDictionary dictionaryWithCapacity:GitHubKeys.count];
+    GHManagedObject * __weak currentObject = self;
+    [GitHubKeys enumerateObjectsUsingBlock:^(NSString *GitHubKey, NSUInteger uselessIndex, BOOL *stop) {
+        if ([GitHubKey isEqualToString:[[currentObject class] indexGitHubKey]])
+            return;
+
+        NSString *propertyName = [[self class] GitHubKeysToPropertyNames][GitHubKey];
+        id propertyValue = [currentObject currentValueForKey:propertyName];
+        [GitHubKeysToCurrentValues setValue:propertyValue forKey:GitHubKey];
+    }];
+
+    return [GitHubKeysToCurrentValues copy];
+}
+
 - (void)setValuesForKeysWithDictionary:(NSDictionary *)keyedValues;
 {
     NSDate *modifiedDate = keyedValues[kGHModifiedDatePropertyName];
