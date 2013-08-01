@@ -16,11 +16,8 @@
 #import "UIFont+GHMarkdown.h"
 
 @interface LEWorkViewController ()
-
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
-
 - (void)configureView;
-
 @end
 
 @implementation LEWorkViewController
