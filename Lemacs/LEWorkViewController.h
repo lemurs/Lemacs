@@ -14,6 +14,8 @@
 @property (nonatomic, weak) IBOutlet UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) id <LETalk> talk;
 
+- (IBAction)cancel;
+- (IBAction)reply;
 - (IBAction)save;
 - (IBAction)togglePreview:(UISegmentedControl *)segmentedControl;
 

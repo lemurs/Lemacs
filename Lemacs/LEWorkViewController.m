@@ -80,6 +80,11 @@
     GHManagedObject *editedObject = (GHManagedObject *)self.talk;
     assert([editedObject isKindOfClass:[GHManagedObject class]]);
 
+    if (!self.talk.plainBody.length && textView.text.length)
+        self.navigationItem.leftBarButtonItem = nil;
+    else if (!textView.text.length && self.talk.plainBody.length)
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
+
     [editedObject setChangeValue:textView.text forPropertyNamed:kLETalkBodyKey];
 }
 
@@ -94,10 +99,18 @@
     self.textView.editable = editing;
     self.textView.font = [UIFont markdownParagraphFont]; // To clear style
 
-    if (editing)
+    if (editing) {
         self.textView.text = self.talk.plainBody;
-    else
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
+        if (!self.talk.hasChanges || (!self.talk.plainBody.length && !self.textView.text.length))
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
+        else
+            self.navigationItem.leftBarButtonItem = nil;
+    } else {
         self.textView.attributedText = self.talk.styledBody;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(reply)];
+        self.navigationItem.leftBarButtonItem = nil;
+    }
 
     super.editing = editing;
     [self.textView becomeFirstResponder];
@@ -111,6 +124,37 @@
     _talk = talk;
         
     [self configureView];
+}
+
+
+#pragma mark Actions
+
+- (IBAction)cancel;
+{
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+
+    self.textView.text = NSLocalizedString(@"I'm sorry Dave. I can't let you do that.", @"Placeholder for text that is about to be deleted.");
+
+    BOOL isNew = IsEmpty([(id)self.talk valueForKey:kLETalkBodyKey]);
+    BOOL isEmpty = IsEmpty(self.talk.plainBody);
+    BOOL delete = isEmpty && isNew;
+    BOOL revert = isEmpty && !isNew;
+
+    if (delete) { // Otherwise, you have to kill it from the list.
+        // In the future, we can
+        GHManagedObject *doomedObject = (GHManagedObject *)self.talk;
+        assert([doomedObject isKindOfClass:[GHManagedObject class]]);
+        self.talk = nil;
+        [doomedObject die];
+    }
+
+    if (revert) {
+        GHManagedObject *revertedObject = (GHManagedObject *)self.talk;
+        assert([revertedObject isKindOfClass:[GHManagedObject class]]);
+        revertedObject.changes = nil;
+    }
+
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)reply;
@@ -147,13 +191,7 @@
 
     // Default to editing mode if this is an uncommited talk
     self.editing = IsEmpty([(NSObject *)self.talk valueForKey:kLETalkBodyKey]) || self.talk.hasChanges;
-    if (self.editing) {
-        self.segmentedControl.selectedSegmentIndex = 1;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
-    } else {
-        self.segmentedControl.selectedSegmentIndex = 0;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(reply)];
-    }
+    self.segmentedControl.selectedSegmentIndex = self.editing ? 1 : 0;
 }
 
 @end
