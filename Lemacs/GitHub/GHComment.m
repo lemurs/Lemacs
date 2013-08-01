@@ -24,6 +24,7 @@
     return [self objectWithEntityName:kGHCommentEntityName inContext:context properties:@{[self indexGitHubKey] : @(commentNumber)}];
 }
 
+
 #pragma mark - GHManagedObject
 
 + (NSDictionary *)GitHubKeysToPropertyNames;
