@@ -8,6 +8,8 @@
 
 #import "LEWorkViewController.h"
 
+#import "GHComment.h"
+#import "GHIssue.h"
 #import "GHManagedObject+LETalk.h"
 #import "GHStore.h"
 #import "SETextView.h"
@@ -117,6 +119,15 @@
 - (IBAction)reply;
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
+    GHIssue *issue;
+    if ([self.talk isKindOfClass:[GHIssue class]])
+        issue = (GHIssue *)self.talk;
+    else if ([self.talk isKindOfClass:[GHComment class]])
+        issue = ((GHComment *)self.talk).issue;
+    else
+        assert(NO);
+
+    NSLog(@"%@ %@", NSStringFromSelector(_cmd), issue);
     // Create a new comment for this issue (or comment's issue)
 }
 
