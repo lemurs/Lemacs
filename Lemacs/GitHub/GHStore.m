@@ -220,19 +220,30 @@ NSString * const kLEGitHubUsernameKey = @"username";
 {// This should be the store's only external server API
     NSLog(@"%@", NSStringFromSelector(_cmd));
     // TODO: Implement syncing refs #29
-    /* Syncing between Lemacs and GitHub
-        1. Get changes from GitHub
-        2. Add new items
-        3. Update exiting items
-            3a. If changes, mark as conflicted, but do not update values
-        4. Push changes
-            4a. If conflicts, notify user and cancel sync
-            4a. If no changes, exit with success
-        5. Re-start sync
-     
-     Lemacs edits do not change the actual values, but are stored locally until they can be push to the truth server. The changes are applied in the next sync cycle, and possibly retained until they can be confirmed as redundant. The acutal values are updated only from the truth server, so the changes are not reflected in the local data until they are part of the truth.
-     If this is unnecessary caution and we can confirm the changes and apply them locally without getting them back from the server directly, we can skip this extra work.
-     */
+
+    // Get changes from GitHub
+    // Add new items
+    // Update exiting items
+
+        // If changes, mark as conflicted, but do not update values
+
+    // Push changes
+
+        // If conflicts, notify user and cancel sync
+
+        // If no changes, exit with success
+
+        // Push new issues
+
+        // Scrub placeholder data
+
+        // Push new comments
+
+        // Scrub placeholder data
+
+        // ???: Can we push issues with comments already included?
+
+    // Re-start sync
 }
 
 
