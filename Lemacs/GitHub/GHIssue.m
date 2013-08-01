@@ -117,6 +117,17 @@
 
 @end
 
+
+@implementation GHIssue (Deletion)
+
+- (IBAction)die;
+{ // ???: Can we do this? Should we do it after a delay? A request deletion method?
+    [[GHStore sharedStore] deleteIssue:self];
+}
+
+@end
+
+
 NSString * const kGHIssueEntityName = @"GHIssue";
 
 NSString * const kGHIssueClosedGitHubKey = @"state";
