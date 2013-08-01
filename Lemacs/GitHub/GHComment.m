@@ -44,7 +44,7 @@
 
 #pragma mark - API
 
-@dynamic body, commentURL, createdDate, user;
+@dynamic body, commentURL, createdDate, issue, user;
 
 @end
 
@@ -52,4 +52,8 @@ NSString * const kGHCommentEntityName = @"GHComment";
 
 NSString * const kGHCommentIDGitHubKey = @"id";
 NSString * const kGHCommentIDPropertyName = @"commentID";
+
 NSString * const kGHCommentIssuePropertyName = @"issue";
+
+NSString * const kGHCommentUserGitHubKey = @"user";
+NSString * const kGHCommentUserPropertyName = @"user";
