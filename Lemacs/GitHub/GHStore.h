@@ -19,6 +19,7 @@
 - (IBAction)refreshIssues;
 - (IBAction)save;
 - (IBAction)showLoginIfNeeded;
+- (IBAction)sync;
 
 - (void)logInWithUsername:(NSString *)username password:(NSString *)password;
 
