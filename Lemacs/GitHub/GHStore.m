@@ -249,6 +249,51 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
 #pragma mark Loading
 
+- (void)addIssue:(GHIssue *)issue;
+{
+    assert((IsEmpty(issue.body) && IsEmpty(issue.title))); // Otherwise defer to changeIssue:
+    if (IsEmpty(issue.plainBody) || IsEmpty(issue.plainTitle))
+        return; // Let the user know it's not ready yet or hide save button
+
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+
+    NSDictionary *valuesForGitHubKeys = [issue dictionaryWithValuesForKeys:nil];
+    [self.GitHub addIssueForRepository:self.repositoryPath withDictionary:valuesForGitHubKeys success:^(id results) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        assert([results isKindOfClass:[NSArray class]]);
+        NSDictionary *dictionary = [results lastObject];
+        assert([results isKindOfClass:[NSDictionary class]]);
+        [issue setValuesForKeysWithDictionary:dictionary];
+        [[GHStore sharedStore] save];
+    } failure:^(NSError *error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        NSLog(@"Failure %@", error.localizedDescription);
+    }];
+}
+
+- (void)deleteIssue:(GHIssue *)issue;
+{
+    if (IsEmpty(issue.body)) {
+        [issue.managedObjectContext deleteObject:issue];
+        [self save];
+        return ;
+    }
+
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+
+    [self.GitHub deleteIssue:issue.number inRepository:self.repositoryPath success:^(BOOL success) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        if (!success)
+            return; // ???: What does this state represent?
+
+        [issue.managedObjectContext deleteObject:issue];
+        [[GHStore sharedStore] save];
+    } failure:^(NSError *error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        NSLog(@"Failure %@", error.localizedDescription);
+    }];
+}
+
 - (void)loadIssues:(BOOL)freshStart;
 {
     if (freshStart)
@@ -268,12 +313,12 @@ NSString * const kLEGitHubUsernameKey = @"username";
                 [issue setValuesForKeysWithDictionary:dictionary];
             }
         }];
+        [[GHStore sharedStore] save];
     } failure:^(NSError *error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         NSLog(@"Failure %@", error.localizedDescription);
     }];
 
-    [self save];
 }
 
 - (void)loadCommentsForIssue:(GHIssue *)issue;
@@ -291,19 +336,20 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
     [self.GitHub commentsForIssue:issue.number forRepository:self.repositoryPath success:^(id results) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        assert([results isKindOfClass:[NSArray class]]);
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
             GHComment *comment = [NSEntityDescription insertNewObjectForEntityForName:kGHCommentEntityName inManagedObjectContext:issue.managedObjectContext];
             [comment setValuesForKeysWithDictionary:dictionary];
             [comment setValue:issue forKey:kGHCommentIssuePropertyName];
             [comments addObject:comment];
         }];
+        issue.comments = [NSOrderedSet orderedSetWithArray:comments];
+        [[GHStore sharedStore] save];
     } failure:^(NSError *error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         NSLog(@"%@ %@", NSStringFromSelector(_cmd), error.localizedDescription);
     }];
 
-    issue.comments = [NSOrderedSet orderedSetWithArray:comments];
-    [self save];
     //    [self.talkList reloadList];
 }
 
@@ -316,15 +362,47 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 
-    [self.GitHub user:user.userName success:^(id result) {
+    [self.GitHub user:user.userName success:^(id results) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        assert([result isKindOfClass:[NSArray class]]);
-        NSDictionary *dictionary = [result lastObject];
+        assert([results isKindOfClass:[NSArray class]]);
+        NSDictionary *dictionary = [results lastObject];
+        assert([results isKindOfClass:[NSDictionary class]]);
         [user setValuesForKeysWithDictionary:dictionary];
+        [[GHStore sharedStore] save];
     } failure:^(NSError *error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         NSLog(@"%@ %@", NSStringFromSelector(_cmd), error.localizedDescription);
     }];
+}
+
+
+#pragma mark Comments
+
+- (void)addComment:(GHComment *)comment toIssue:(GHIssue *)issue;
+{
+    // TODO: clean up placeholder data
+
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self.GitHub addComment:comment.body toIssue:issue.number forRepository:self.repositoryPath success:^(id results) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        assert([results isKindOfClass:[NSArray class]]);
+        NSLog(@"%@", results);
+        NSDictionary *dictionary = [results lastObject];
+        assert([results isKindOfClass:[NSDictionary class]]);
+        [comment setValuesForKeysWithDictionary:dictionary];
+        comment.changes = nil;
+        NSLog(@"%@", dictionary);
+        [[GHStore sharedStore] save];
+    } failure:^(NSError *error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        NSLog(@"%@ %@", NSStringFromSelector(_cmd), error.localizedDescription);
+    }];
+}
+
+- (void)deleteComment:(GHComment *)comment;
+{
+    // ???: Do we have to call validateForDelete: or is that involked automatically?
+    [self.managedObjectContext deleteObject:comment];
 }
 
 @end
