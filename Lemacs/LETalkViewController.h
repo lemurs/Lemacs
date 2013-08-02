@@ -12,4 +12,9 @@
 
 @property (strong, nonatomic) GHIssue *issue;
 
+- (IBAction)reloadList;
+- (IBAction)sortList:(UISegmentedControl *)sortControl;
+
 @end
+
+extern NSString * const kLETalkViewSortOrder;

@@ -23,6 +23,7 @@
 
 @property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) BOOL reverseSort;
 
 - (IBAction)insertNewObject;
 - (IBAction)saveContext;
@@ -33,6 +34,11 @@
 
 
 @implementation LETalkViewController
+
++ (void)initialize;
+{
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLETalkViewSortOrder : @(NO)}];
+}
 
 #pragma mark - NSObject (UINibLoadingAdditions)
 
@@ -53,6 +59,8 @@
     [super viewDidLoad];
 
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([LETalkCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([LETalkCell class])];
+
+    self.reverseSort = [[NSUserDefaults standardUserDefaults] integerForKey:kLETalkViewSortOrder];
 }
 
 - (void)didReceiveMemoryWarning;
@@ -125,17 +133,6 @@
 {
     [self.tableView endUpdates];
 }
-
-/*
- // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
-
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
- {
- // In the simplest, most efficient, case, reload the table view.
- [self.tableView reloadData];
- }
- */
-
 
 
 #pragma mark - UITableViewDataSource
@@ -224,38 +221,31 @@
     fetchRequest.entity = [NSEntityDescription entityForName:kGHCommentEntityName inManagedObjectContext:self.managedObjectContext];
     fetchRequest.fetchBatchSize = 20;
     fetchRequest.predicate = issuePredicate;
-    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kGHCreatedDatePropertyName ascending:NO]];
+    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kGHCreatedDatePropertyName ascending:self.reverseSort]];
 
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
     NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     fetchedResultsController.delegate = self;
+
     _fetchedResultsController = fetchedResultsController;
 
-    NSError *fetchError = nil;
-    if ([fetchedResultsController performFetch:&fetchError])
-        return fetchedResultsController; // Success
-
-    if (kLEUseNarrativeLogging) {
-        NSLog(@"Fetch Error: %@, %@", fetchError, fetchError.userInfo);
-
-        NSString *whyThisHappened = @"abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.";
-        NSLog(@"%@", whyThisHappened);
-
-        NSString *whatShouldHappen = @"Replace this implementation with code to handle the error appropriately.";
-        NSLog(@"%@", whatShouldHappen);
-    }
-
-    // TODO: Make this do what it's supposed to.
-
-    abort();
-
-    return nil;
+    return fetchedResultsController;
 }
 
 - (NSManagedObjectContext *)managedObjectContext;
 {
     return self.issue.managedObjectContext;
+}
+
+- (void)setReverseSort:(BOOL)reverseSort;
+{
+    if (_reverseSort == reverseSort)
+        return;
+
+    _reverseSort = reverseSort;
+    [self reloadList];
+    [[NSUserDefaults standardUserDefaults] integerForKey:kLETalkViewSortOrder];
 }
 
 - (IBAction)insertNewObject;
@@ -268,6 +258,23 @@
     [newManagedObject setValue:[NSDate distantPast] forKey:kGHUpdatedDatePropertyName];
 
     [self saveContext];
+}
+
+- (IBAction)reloadList;
+{
+    // If we switch from [^|v] to [v|^] change self.reverseSort to !self.reverseSort
+    self.fetchedResultsController.fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kGHCreatedDatePropertyName ascending:self.reverseSort]];
+
+    NSError *fetchError;
+    if (![self.fetchedResultsController performFetch:&fetchError]) {
+        NSLog(@"Sort Error: %@", fetchError.userInfo);
+        return;
+    }
+
+    if (self.fetchedResultsController.sections.count)
+        [self.tableView reloadData];
+    else
+        [[GHStore sharedStore] loadIssues:YES];
 }
 
 - (IBAction)saveContext;
@@ -295,6 +302,12 @@
     abort();
 }
 
+- (IBAction)sortList:(UISegmentedControl *)sortControl;
+{
+    if (self.reverseSort != sortControl.selectedSegmentIndex)
+        self.reverseSort = sortControl.selectedSegmentIndex;
+}
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     assert([cell isKindOfClass:[LETalkCell class]]);
@@ -309,3 +322,4 @@
 
 @end
 
+NSString * const kLETalkViewSortOrder = @"LETalkView-ReverseSort";

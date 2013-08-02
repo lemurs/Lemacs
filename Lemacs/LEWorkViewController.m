@@ -191,6 +191,7 @@
 
     // Default to editing mode if this is an uncommited talk
     self.editing = IsEmpty([(NSObject *)self.talk valueForKey:kLETalkBodyKey]) || self.talk.hasChanges;
+    self.navigationItem.prompt = self.talk.plainTitle;
     self.segmentedControl.selectedSegmentIndex = self.editing ? 1 : 0;
 }
 

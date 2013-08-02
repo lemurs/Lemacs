@@ -24,6 +24,7 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 @property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) BOOL reverseSort;
 @property (nonatomic) LETalkSize talkSize;
 
 - (IBAction)saveContext;
@@ -36,7 +37,7 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 + (void)initialize;
 {
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLETalkListTalkSize : @(kLETalkSizeRegular)}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLETalkListTalkSize : @(kLETalkSizeRegular), kLETalkListSortOrder : @(NO)}];
 }
 
 
@@ -68,7 +69,14 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
     self.talkViewController = (LETalkViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 
+    self.reverseSort = [[NSUserDefaults standardUserDefaults] integerForKey:kLETalkListSortOrder];
     self.talkSize = [[NSUserDefaults standardUserDefaults] integerForKey:kLETalkListTalkSize];
+}
+
+- (void)viewWillAppear:(BOOL)animated;
+{
+    [super viewWillAppear:animated];
+    [self reloadList];
 }
 
 - (void)didReceiveMemoryWarning;
@@ -103,6 +111,7 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
         assert([segue.destinationViewController isKindOfClass:[LETalkViewController class]]);
         LETalkViewController *talkViewController = (LETalkViewController *)segue.destinationViewController;
         talkViewController.issue = issue;
+        talkViewController.navigationItem.prompt = issue.plainTitle;
     } else if ([[segue identifier] isEqualToString:@"SelectTalk"]) {
         assert([segue.destinationViewController isKindOfClass:[LEWorkViewController class]]);
         [[segue destinationViewController] setTalk:issue];
@@ -113,63 +122,11 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 
 #pragma mark - NSFetchedResultsControllerDelegate
-/*
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller;
-{
-    [self.tableView beginUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type;
-{
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
-{
-    UITableView *tableView = self.tableView;
-
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.tableView endUpdates];
+    [self.tableView reloadData];
 }
-
-*/
- // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
-
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
- {
- // In the simplest, most efficient, case, reload the table view.
- [self.tableView reloadData];
- }
-// */
 
 
 
@@ -281,6 +238,8 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 #pragma mark - API
 
+#pragma mark Properties
+
 @synthesize fetchedResultsController = _fetchedResultsController, managedObjectContext = _managedObjectContext;
 
 - (NSFetchedResultsController *)fetchedResultsController;
@@ -291,37 +250,16 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     fetchRequest.entity = [NSEntityDescription entityForName:kGHIssueEntityName inManagedObjectContext:self.managedObjectContext];
     fetchRequest.fetchBatchSize = 20;
-    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kGHCreatedDatePropertyName ascending:NO]];
+    fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kGHCreatedDatePropertyName ascending:self.reverseSort]];
 
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
     NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     fetchedResultsController.delegate = self;
+
     _fetchedResultsController = fetchedResultsController;
 
-    NSError *fetchError;
-    if ([fetchedResultsController performFetch:&fetchError]) {
-        if (!self.fetchedResultsController.sections.count)
-            [[GHStore sharedStore] loadIssues:YES];
-
-        return fetchedResultsController; // Success
-    }
-
-    if (kLEUseNarrativeLogging) {
-        NSLog(@"Fetch Error: %@, %@", fetchError, fetchError.userInfo);
-
-        NSString *whyThisHappened = @"abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.";
-        NSLog(@"%@", whyThisHappened);
-
-        NSString *whatShouldHappen = @"Replace this implementation with code to handle the error appropriately.";
-        NSLog(@"%@", whatShouldHappen);
-    }
-
-    // TODO: Make this do what it's supposed to.
-
-    abort();
-    
-    return nil;
+    return fetchedResultsController;
 }
 
 - (NSManagedObjectContext *)managedObjectContext;
@@ -337,6 +275,29 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
     return _managedObjectContext;
 }
+
+- (void)setReverseSort:(BOOL)reverseSort;
+{
+    if (_reverseSort == reverseSort)
+        return;
+
+    _reverseSort = reverseSort;
+    [self reloadList];
+    [[NSUserDefaults standardUserDefaults] integerForKey:kLETalkListSortOrder];
+}
+
+- (void)setTalkSize:(LETalkSize)talkSize;
+{
+    if (_talkSize == talkSize)
+        return;
+
+    _talkSize = talkSize;
+    [self.tableView reloadData];
+    [[NSUserDefaults standardUserDefaults] setInteger:talkSize forKey:kLETalkListTalkSize];
+}
+
+
+#pragma mark Actions
 
 - (IBAction)saveContext;
 {
@@ -365,7 +326,19 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 - (IBAction)reloadList;
 {
-    [self.tableView reloadData];
+    // If we switch from [^|v] to [v|^] change self.reverseSort to !self.reverseSort
+    self.fetchedResultsController.fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:kGHCreatedDatePropertyName ascending:self.reverseSort]];
+
+    NSError *fetchError;
+    if (![self.fetchedResultsController performFetch:&fetchError]) {
+        NSLog(@"Sort Error: %@", fetchError.userInfo);
+        return;
+    }
+
+    if (self.fetchedResultsController.sections.count)
+        [self.tableView reloadData];
+    else
+        [[GHStore sharedStore] loadIssues:YES];
 }
 
 - (IBAction)resizeCells:(UIPinchGestureRecognizer *)pinch;
@@ -375,7 +348,7 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
     if (jumps) {
         self.talkSize = embiggens ? kLETalkSizeFull : kLETalkSizeFull;
-        [self reloadList];
+        [self.tableView reloadData];
         return;
     }
 
@@ -398,14 +371,10 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
     NSLog(@"TODO: Implement %@ refs #%d", NSStringFromSelector(_cmd), 25);
 }
 
-- (void)setTalkSize:(LETalkSize)talkSize;
+- (IBAction)sortList:(UISegmentedControl *)sortControl;
 {
-    if (_talkSize == talkSize)
-        return;
-
-    _talkSize = talkSize;
-    [self.tableView reloadData];
-    [[NSUserDefaults standardUserDefaults] setInteger:talkSize forKey:kLETalkListTalkSize];
+    if (self.reverseSort != sortControl.selectedSegmentIndex)
+        self.reverseSort = sortControl.selectedSegmentIndex;
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -431,4 +400,5 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 @end
 
+NSString * const kLETalkListSortOrder = @"LETalkList-ReverseSort";
 NSString * const kLETalkListTalkSize = @"LETalkList-TalkSize";

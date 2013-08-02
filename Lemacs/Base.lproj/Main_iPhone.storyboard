@@ -115,11 +115,23 @@
                             <outlet property="delegate" destination="57H-Xs-xKD" id="Y6J-Mq-Dz2"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Conversation" id="3ym-f3-qQ8">
-                        <barButtonItem key="backBarButtonItem" title="Conversation" id="CZU-tb-fIF"/>
+                    <navigationItem key="navigationItem" id="3ym-f3-qQ8">
+                        <nil key="title"/>
+                        <barButtonItem key="backBarButtonItem" title="Conversation" id="GMX-c5-L22"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="0QJ-m1-OCC">
+                            <rect key="frame" x="96" y="7" width="128" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="▲"/>
+                                <segment title="▼"/>
+                            </segments>
+                            <connections>
+                                <action selector="sortList:" destination="57H-Xs-xKD" eventType="valueChanged" id="CIE-U4-Vk2"/>
+                            </connections>
+                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" systemItem="reply" id="JEu-iT-NYm">
                             <connections>
-                                <action selector="insertNewObject" destination="57H-Xs-xKD" id="sYg-6B-c1O"/>
+                                <segue destination="LeK-Cl-Emu" kind="push" identifier="CreateComment" id="nbc-YU-5Aq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -158,13 +170,25 @@
                             <outletCollection property="gestureRecognizers" destination="8e5-I2-msd" appends="YES" id="Bil-My-y17"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Topics" id="tQt-TN-PWz">
+                    <navigationItem key="navigationItem" id="tQt-TN-PWz">
+                        <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title="Timeline" id="DAv-8u-OVY"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="cbn-6F-DwN">
                             <connections>
                                 <action selector="showOptions:" destination="pGg-6v-bdr" id="2e8-Rs-mzA"/>
                             </connections>
                         </barButtonItem>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="GJH-ze-Ir5">
+                            <rect key="frame" x="96" y="7" width="128" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="▲"/>
+                                <segment title="▼"/>
+                            </segments>
+                            <connections>
+                                <action selector="sortList:" destination="pGg-6v-bdr" eventType="valueChanged" id="fTP-t0-a0z"/>
+                            </connections>
+                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="dCN-Ij-qBL">
                             <connections>
                                 <segue destination="LeK-Cl-Emu" kind="push" identifier="CreateIssue" id="8Hs-Zv-FOc"/>
@@ -188,6 +212,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Zab-zb-DbW"/>
+        <segue reference="nbc-YU-5Aq"/>
     </inferredMetricsTieBreakers>
 </document>

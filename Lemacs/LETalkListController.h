@@ -16,7 +16,9 @@
 - (IBAction)reloadList;
 - (IBAction)resizeCells:(UIPinchGestureRecognizer *)pinch;
 - (IBAction)showOptions:(UIBarButtonItem *)barButton;
+- (IBAction)sortList:(UISegmentedControl *)sortControl;
 
 @end
 
+extern NSString * const kLETalkListSortOrder;
 extern NSString * const kLETalkListTalkSize;
