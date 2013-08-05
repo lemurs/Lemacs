@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4471.1" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4488.1" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3697.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3715.3"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,19 +10,23 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Li-z6-kCe" id="v9Z-YJ-3Fz">
-                <rect key="frame" x="0.0" y="0.0" width="322" height="149"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Jq-hM-WmS" userLabel="Talk Bubble">
+                        <rect key="frame" x="48" y="18" width="272" height="131"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bow-Ra-ILf" userLabel="Avatar">
-                        <rect key="frame" x="0.0" y="0.0" width="42" height="42"/>
+                        <rect key="frame" x="0.0" y="8" width="48" height="48"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="42" id="HRx-J9-DQ3"/>
-                            <constraint firstAttribute="height" constant="42" id="OZk-vc-Cwg"/>
+                            <constraint firstAttribute="width" constant="48" id="HRx-J9-DQ3"/>
+                            <constraint firstAttribute="height" constant="48" id="OZk-vc-Cwg"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJv-bL-7RJ" userLabel="Title Label">
-                        <rect key="frame" x="50" y="0.0" width="192" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJv-bL-7RJ" userLabel="Title Label">
+                        <rect key="frame" x="65" y="0.0" width="217" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="V5b-3h-eAp"/>
@@ -32,14 +36,14 @@
                                 <attributes>
                                     <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <font key="NSFont" size="12" name="HelveticaNeue"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural"/>
                                 </attributes>
                             </fragment>
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaQ-ni-X56" userLabel="Time Label">
-                        <rect key="frame" x="295" y="0.0" width="25" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaQ-ni-X56" userLabel="Time Label">
+                        <rect key="frame" x="290" y="0.0" width="25" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="3tT-tI-Bma"/>
@@ -49,7 +53,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VRp-v3-Arv" customClass="SETextView">
-                        <rect key="frame" x="50" y="21" width="264" height="120"/>
+                        <rect key="frame" x="65" y="23" width="251" height="121"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <attributedString key="attributedText">
@@ -65,26 +69,29 @@
                     </textView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="bow-Ra-ILf" firstAttribute="top" secondItem="v9Z-YJ-3Fz" secondAttribute="top" id="1E4-aL-cdr"/>
-                    <constraint firstItem="VRp-v3-Arv" firstAttribute="top" secondItem="eaQ-ni-X56" secondAttribute="bottom" id="1st-lz-5zU"/>
-                    <constraint firstAttribute="trailing" secondItem="CJv-bL-7RJ" secondAttribute="trailing" constant="80" id="6tc-zd-7bZ"/>
+                    <constraint firstItem="VRp-v3-Arv" firstAttribute="top" secondItem="eaQ-ni-X56" secondAttribute="bottom" constant="2" id="1st-lz-5zU"/>
+                    <constraint firstAttribute="bottom" secondItem="3Jq-hM-WmS" secondAttribute="bottom" id="3Df-Lz-hj8"/>
                     <constraint firstItem="bow-Ra-ILf" firstAttribute="leading" secondItem="v9Z-YJ-3Fz" secondAttribute="leading" id="781-zH-Mfi"/>
-                    <constraint firstAttribute="right" secondItem="VRp-v3-Arv" secondAttribute="right" constant="8" id="7jl-Ws-qsK"/>
-                    <constraint firstAttribute="trailing" secondItem="eaQ-ni-X56" secondAttribute="trailing" constant="2" id="9zq-Nl-RxE"/>
-                    <constraint firstItem="bow-Ra-ILf" firstAttribute="leading" secondItem="v9Z-YJ-3Fz" secondAttribute="leading" id="HOq-gn-BP9"/>
-                    <constraint firstItem="bow-Ra-ILf" firstAttribute="top" secondItem="v9Z-YJ-3Fz" secondAttribute="top" id="RQl-ol-LDf"/>
-                    <constraint firstItem="VRp-v3-Arv" firstAttribute="leading" secondItem="bow-Ra-ILf" secondAttribute="trailing" constant="8" symbolic="YES" id="bsT-x3-bBy"/>
+                    <constraint firstAttribute="right" secondItem="VRp-v3-Arv" secondAttribute="right" constant="4" id="7jl-Ws-qsK"/>
+                    <constraint firstAttribute="trailing" secondItem="eaQ-ni-X56" secondAttribute="trailing" constant="5" id="9zq-Nl-RxE"/>
+                    <constraint firstItem="bow-Ra-ILf" firstAttribute="top" secondItem="v9Z-YJ-3Fz" secondAttribute="top" constant="8" id="RQl-ol-LDf"/>
+                    <constraint firstAttribute="trailing" secondItem="3Jq-hM-WmS" secondAttribute="trailing" id="UyO-eS-d7o"/>
+                    <constraint firstItem="3Jq-hM-WmS" firstAttribute="leading" secondItem="bow-Ra-ILf" secondAttribute="trailing" id="Vi3-qI-ohC"/>
+                    <constraint firstItem="VRp-v3-Arv" firstAttribute="leading" secondItem="bow-Ra-ILf" secondAttribute="trailing" constant="17" id="bsT-x3-bBy"/>
+                    <constraint firstItem="eaQ-ni-X56" firstAttribute="leading" secondItem="CJv-bL-7RJ" secondAttribute="trailing" constant="8" id="cWt-x8-z6z"/>
                     <constraint firstItem="eaQ-ni-X56" firstAttribute="top" secondItem="v9Z-YJ-3Fz" secondAttribute="top" id="clz-46-yjW"/>
                     <constraint firstItem="CJv-bL-7RJ" firstAttribute="top" secondItem="v9Z-YJ-3Fz" secondAttribute="top" id="f6y-CM-5Yi"/>
-                    <constraint firstItem="VRp-v3-Arv" firstAttribute="bottom" secondItem="v9Z-YJ-3Fz" secondAttribute="bottom" constant="-8" id="qN1-Jo-awI"/>
-                    <constraint firstItem="CJv-bL-7RJ" firstAttribute="leading" secondItem="bow-Ra-ILf" secondAttribute="trailing" constant="8" id="uYf-Dp-eKb"/>
+                    <constraint firstItem="VRp-v3-Arv" firstAttribute="bottom" secondItem="v9Z-YJ-3Fz" secondAttribute="bottom" constant="-5" id="qN1-Jo-awI"/>
+                    <constraint firstItem="CJv-bL-7RJ" firstAttribute="leading" secondItem="bow-Ra-ILf" secondAttribute="trailing" constant="17" id="uYf-Dp-eKb"/>
+                    <constraint firstItem="3Jq-hM-WmS" firstAttribute="top" secondItem="v9Z-YJ-3Fz" secondAttribute="top" constant="18" id="zzi-Ds-BAy"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.69452172517776489" green="0.89304971694946289" blue="0.99937492609024048" alpha="1" colorSpace="calibratedRGB"/>
             <gestureRecognizers/>
             <connections>
                 <outlet property="avatarView" destination="bow-Ra-ILf" id="Ril-GF-lad"/>
                 <outlet property="markdownView" destination="VRp-v3-Arv" id="ugu-bD-u7P"/>
+                <outlet property="talkBubble" destination="3Jq-hM-WmS" id="91T-wX-Bph"/>
                 <outlet property="timeLabel" destination="eaQ-ni-X56" id="yVL-Xi-tOE"/>
                 <outlet property="titleLabel" destination="CJv-bL-7RJ" id="BGM-Ev-bjM"/>
             </connections>

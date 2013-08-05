@@ -16,6 +16,7 @@
 - (void)configureCellWithTalk:(id <LETalk>)talk;
 {
     self.avatarView.image = talk.avatar;
+    self.talkBubble.image = [[UIImage imageNamed:@"TalkBubble"] stretchableImageWithLeftCapWidth:35 topCapHeight:35];
     self.timeLabel.text = talk.displayedTime;
     self.titleLabel.attributedText = talk.styledTitle;
     self.markdownView.attributedText = talk.styledBody;

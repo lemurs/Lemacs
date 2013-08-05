@@ -12,7 +12,7 @@
 
 @interface LETalkCell : UITableViewCell <UIWebViewDelegate>
 
-@property (nonatomic, weak) IBOutlet UIImageView *avatarView;
+@property (nonatomic, weak) IBOutlet UIImageView *avatarView, *talkBubble;
 @property (nonatomic, weak) IBOutlet UILabel *timeLabel, *titleLabel;
 @property (nonatomic, weak) IBOutlet SETextView *markdownView;
 
