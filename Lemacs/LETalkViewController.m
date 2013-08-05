@@ -26,6 +26,7 @@
 @property (nonatomic) BOOL reverseSort;
 
 - (IBAction)insertNewObject;
+- (IBAction)reloadList;
 - (IBAction)saveContext;
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -39,6 +40,7 @@
 {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{kLETalkViewSortOrder : @(NO)}];
 }
+
 
 #pragma mark - NSObject (UINibLoadingAdditions)
 
@@ -59,8 +61,15 @@
     [super viewDidLoad];
 
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([LETalkCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([LETalkCell class])];
+}
 
+- (void)viewWillAppear:(BOOL)animated;
+{
     self.reverseSort = [[NSUserDefaults standardUserDefaults] integerForKey:kLETalkViewSortOrder];
+
+    [self reloadList];
+
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning;
@@ -74,13 +83,19 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 {
+    id <LETalk> talk;
+
     if ([[segue identifier] isEqualToString:@"SelectTalk"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        id <LETalk> talk = (indexPath.section < self.fetchedResultsController.sections.count) ? [self.fetchedResultsController objectAtIndexPath:indexPath] : self.issue;
+        talk = (indexPath.section < self.fetchedResultsController.sections.count) ? [self.fetchedResultsController objectAtIndexPath:indexPath] : self.issue;
         assert([talk conformsToProtocol:@protocol(LETalk)]);
-        assert([segue.destinationViewController isKindOfClass:[LEWorkViewController class]]);
-        [[segue destinationViewController] setTalk:talk];
-    }
+    } else if ([[segue identifier] isEqualToString:@"CreateComment"])
+        talk = [self.issue addComment];
+    else
+        assert(NO);
+
+    assert([segue.destinationViewController isKindOfClass:[LEWorkViewController class]]);
+    [[segue destinationViewController] setTalk:talk];
 }
 
 

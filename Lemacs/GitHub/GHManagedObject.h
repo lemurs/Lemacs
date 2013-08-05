@@ -19,6 +19,8 @@
 @property (nonatomic, readonly) BOOL needsUpdating;
 @property (nonatomic, strong) NSDate *lastUpdated;
 
+- (NSDictionary *)dictionaryWithValuesForGitHubKeys:(NSArray *)keys;
+
 @end
 
 

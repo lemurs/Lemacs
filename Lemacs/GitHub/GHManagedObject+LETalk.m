@@ -60,11 +60,6 @@
     return [[NSAttributedStringMarkdownParser sharedParser] attributedStringFromMarkdownString:NonNil(self.plainBody, @"")];
 }
 
-- (NSString *)plainTitle;
-{
-    return [self currentValueForKey:kLETalkTitleKey];
-}
-
 - (NSAttributedString *)styledTitle;
 {
     if (![self respondsToSelector:@selector(user)])
@@ -87,5 +82,10 @@
     return styledTitle;
 }
 
+- (NSString *)topic;
+{
+    assert(NO); // Subclasses should override this
+    return [self currentValueForKey:kLETalkTitleKey];
+}
 
 @end

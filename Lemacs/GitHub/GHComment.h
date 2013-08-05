@@ -15,6 +15,7 @@
 + (instancetype)newCommentInContext:(NSManagedObjectContext *)context;
 + (instancetype)commentNumber:(NSInteger)commentNumber context:(NSManagedObjectContext *)context;
 
+@property (nonatomic) NSInteger commentID;
 @property (nonatomic, strong) NSDate *createdDate;
 @property (nonatomic, strong) NSString *body, *commentURL;
 @property (nonatomic, strong) GHIssue *issue;

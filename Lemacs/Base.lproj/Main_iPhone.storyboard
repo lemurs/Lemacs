@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="42" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="doA-xL-YLh">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="42" contentMode="scaleToFill" misplaced="YES" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="doA-xL-YLh">
+                                <rect key="frame" x="0.0" y="30" width="320" height="474"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <attributedString key="attributedText">
@@ -35,11 +35,23 @@
                                     <outlet property="delegate" destination="LeK-Cl-Emu" id="pao-9o-keO"/>
                                 </connections>
                             </textView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Topic (required)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JmJ-I8-eTC">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes"/>
+                                <connections>
+                                    <outlet property="delegate" destination="LeK-Cl-Emu" id="d8S-hS-Jrx"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="doA-xL-YLh" firstAttribute="top" secondItem="BGJ-tf-hpn" secondAttribute="bottom" id="5Cq-c9-1b9"/>
+                            <constraint firstItem="doA-xL-YLh" firstAttribute="top" secondItem="JmJ-I8-eTC" secondAttribute="bottom" id="1Y8-fk-dDh"/>
+                            <constraint firstItem="JmJ-I8-eTC" firstAttribute="leading" secondItem="A8b-Tl-I0D" secondAttribute="leading" id="ABW-iu-wiB"/>
                             <constraint firstItem="doA-xL-YLh" firstAttribute="leading" secondItem="A8b-Tl-I0D" secondAttribute="leading" id="D5a-u5-TS7"/>
+                            <constraint firstAttribute="trailing" secondItem="JmJ-I8-eTC" secondAttribute="trailing" id="Ebt-hL-bh0"/>
+                            <constraint firstItem="JmJ-I8-eTC" firstAttribute="top" secondItem="BGJ-tf-hpn" secondAttribute="bottom" id="K2B-p5-wDU"/>
                             <constraint firstAttribute="bottom" secondItem="doA-xL-YLh" secondAttribute="bottom" id="VQ1-cs-e3Y"/>
                             <constraint firstItem="doA-xL-YLh" firstAttribute="trailing" secondItem="A8b-Tl-I0D" secondAttribute="trailing" id="uxi-1H-gW1"/>
                         </constraints>
@@ -67,6 +79,7 @@
                     <connections>
                         <outlet property="segmentedControl" destination="ZTE-GQ-cUX" id="zGS-do-eHe"/>
                         <outlet property="textView" destination="doA-xL-YLh" id="QJC-Fs-5FY"/>
+                        <outlet property="topicField" destination="JmJ-I8-eTC" id="yud-d0-zZU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sa5-wg-BJq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -79,6 +92,8 @@
                 <navigationController id="rS3-R9-Ivy" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.6945217252" green="0.89304971690000001" blue="0.99937492610000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="pGg-6v-bdr" kind="relationship" relationship="rootViewController" id="RxB-wf-QIq"/>
@@ -92,16 +107,16 @@
         <scene sceneID="lLx-8y-duJ">
             <objects>
                 <tableViewController title="Master" id="57H-Xs-xKD" userLabel="Talk View Controller - Master" customClass="LETalkViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="150" sectionHeaderHeight="150" sectionFooterHeight="22" id="aIc-pf-KqX">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="150" sectionHeaderHeight="150" sectionFooterHeight="22" id="aIc-pf-KqX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.6945217252" green="0.89304971690000001" blue="0.99937492610000001" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="jN8-T7-eV3">
                                 <rect key="frame" x="0.0" y="214" width="320" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jN8-T7-eV3" id="16V-xG-3cH">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
@@ -144,17 +159,17 @@
         <scene sceneID="VgW-fR-Quf">
             <objects>
                 <tableViewController title="Master" id="pGg-6v-bdr" userLabel="Talk List Controller - Master" customClass="LETalkListController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="100" sectionHeaderHeight="100" sectionFooterHeight="22" id="mLL-gJ-YKr">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="100" sectionFooterHeight="22" id="mLL-gJ-YKr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.6945217252" green="0.89304971690000001" blue="0.99937492610000001" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="d8I-k5-K19">
                                 <rect key="frame" x="0.0" y="164" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d8I-k5-K19" id="PSy-4i-Rat">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
@@ -212,6 +227,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="nbc-YU-5Aq"/>
+        <segue reference="s9d-Vw-wBC"/>
     </inferredMetricsTieBreakers>
 </document>

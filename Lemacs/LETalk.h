@@ -9,7 +9,7 @@
 @protocol LETalk <NSObject>
 @property (nonatomic, readonly) BOOL hasChanges;
 @property (nonatomic, readonly) NSAttributedString *styledBody, *styledTitle;
-@property (nonatomic, readonly) NSString *bodyHTML, *displayedTime, *plainBody, *plainTitle;
+@property (nonatomic, readonly) NSString *bodyHTML, *displayedTime, *plainBody, *topic;
 @property (nonatomic, readonly) NSURL *baseURL;
 @property (nonatomic, readonly) UIImage *avatar;
 @end

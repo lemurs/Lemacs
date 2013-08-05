@@ -92,7 +92,6 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 {
     GHIssue *issue;
     if ([[segue identifier] isEqualToString:@"CreateIssue"]) {
-        // Create issue
         issue = [GHIssue newIssueInContext:self.managedObjectContext];
         assert([segue.destinationViewController isKindOfClass:[LEWorkViewController class]]);
         [[segue destinationViewController] setTalk:issue];
@@ -111,7 +110,7 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
         assert([segue.destinationViewController isKindOfClass:[LETalkViewController class]]);
         LETalkViewController *talkViewController = (LETalkViewController *)segue.destinationViewController;
         talkViewController.issue = issue;
-        talkViewController.navigationItem.prompt = issue.plainTitle;
+        talkViewController.navigationItem.prompt = issue.topic;
     } else if ([[segue identifier] isEqualToString:@"SelectTalk"]) {
         assert([segue.destinationViewController isKindOfClass:[LEWorkViewController class]]);
         [[segue destinationViewController] setTalk:issue];
@@ -393,8 +392,10 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
     NSInteger commentsCount = issue.commentsCount;
     if (commentsCount) {
         talkCell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        talkCell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TalkDisclosure"]];
     } else {
-        talkCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        talkCell.accessoryType = UITableViewCellAccessoryNone;
+        talkCell.accessoryView = nil;
     }
 }
 

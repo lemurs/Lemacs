@@ -10,6 +10,7 @@
 
 #import "GHComment.h"
 #import "GHStore.h"
+#import "GHUser.h"
 #import "NSAttributedStringMarkdownParser+GHMarkdown.h"
 
 @implementation GHIssue
@@ -123,6 +124,40 @@
 - (IBAction)die;
 { // ???: Can we do this? Should we do it after a delay? A request deletion method?
     [[GHStore sharedStore] deleteIssue:self];
+}
+
+@end
+
+
+@implementation GHIssue (LETalk)
+
+- (NSAttributedString *)styledTitle;
+{ // RealName (username) replied in|started topic
+    if (![self respondsToSelector:@selector(user)])
+        return nil;
+
+    GHUser *user = [self valueForKey:@"user"];
+
+    NSDictionary *boldBlackStyle = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:10.0f],
+                                     NSForegroundColorAttributeName : [UIColor blackColor]};
+    NSDictionary *lightGrayStyle = @{NSFontAttributeName : [UIFont systemFontOfSize:10.0f],
+                                     NSForegroundColorAttributeName : [UIColor lightGrayColor]};
+
+    NSString *name = IsEmpty(user.displayName) ? user.userName : user.displayName;
+    if (!name)
+        name = NSLocalizedString(@"You", @"Second person pronoun");
+
+    NSMutableAttributedString *styledTitle = [[NSMutableAttributedString alloc] initWithString:name attributes:boldBlackStyle];
+
+    NSString *verb = [self isKindOfClass:[GHComment class]] ? NSLocalizedString(@" replied to ", @"reply verb") : NSLocalizedString(@" started ", @"initiate verb");
+    [styledTitle appendAttributedString:[[NSAttributedString alloc] initWithString:verb attributes:lightGrayStyle]];
+
+    return styledTitle;
+}
+
+- (NSString *)topic;
+{
+    return [self currentValueForKey:kLETalkTitleKey];
 }
 
 @end

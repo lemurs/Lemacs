@@ -24,14 +24,14 @@
 - (void)logInWithUsername:(NSString *)username password:(NSString *)password;
 
 // Issues
-- (void)addIssue:(GHIssue *)issue;
-- (void)deleteIssue:(GHIssue *)issue;
 - (void)loadIssues:(BOOL)freshStart;
 - (void)loadCommentsForIssue:(GHIssue *)issue;
 - (void)loadUser:(GHUser *)user;
 
-// Comments
-- (void)addComment:(GHComment *)comment toIssue:(GHIssue *)issue;
+// Saving
 - (void)deleteComment:(GHComment *)comment;
+- (void)deleteIssue:(GHIssue *)issue;
+- (void)saveComment:(GHComment *)comment;
+- (void)saveIssue:(GHIssue *)issue;
 
 @end

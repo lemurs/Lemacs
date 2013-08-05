@@ -7,6 +7,7 @@
 //
 
 #import "GHComment.h"
+#import "GHIssue.h"
 #import "GHStore.h"
 
 @implementation GHComment
@@ -54,9 +55,30 @@
 
 #pragma mark - API
 
-@dynamic body, commentURL, createdDate, issue, user;
+@dynamic body, commentID, commentURL, createdDate, issue, user;
 
 @end
+
+
+@implementation GHComment (Deletion)
+
+- (IBAction)die;
+{ // ???: Can we do this? Should we do it after a delay? A request deletion method?
+    [[GHStore sharedStore] deleteComment:self];
+}
+
+@end
+
+
+@implementation GHComment (LETalk)
+
+- (NSString *)topic;
+{
+    return [self.issue currentValueForKey:kLETalkTitleKey];
+}
+
+@end
+
 
 NSString * const kGHCommentEntityName = @"GHComment";
 
