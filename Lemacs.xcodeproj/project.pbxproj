@@ -18,6 +18,10 @@
 		D861DE2717A424810067A9D1 /* fmemopen.c in Sources */ = {isa = PBXBuildFile; fileRef = D861DE2517A424810067A9D1 /* fmemopen.c */; };
 		D861DE2E17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = D861DE2D17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.m */; };
 		D861DE3117A42FE30067A9D1 /* UIFont+GHMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = D861DE3017A42FE30067A9D1 /* UIFont+GHMarkdown.m */; };
+		D8673EEA17AFB70B0026B089 /* TalkBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = D8673EE817AFB70B0026B089 /* TalkBubble.png */; };
+		D8673EEB17AFB70B0026B089 /* TalkBubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8673EE917AFB70B0026B089 /* TalkBubble@2x.png */; };
+		D8673EEE17AFC2740026B089 /* TalkDisclosure.png in Resources */ = {isa = PBXBuildFile; fileRef = D8673EEC17AFC2740026B089 /* TalkDisclosure.png */; };
+		D8673EEF17AFC2740026B089 /* TalkDisclosure@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8673EED17AFC2740026B089 /* TalkDisclosure@2x.png */; };
 		D87B561017A2B596006A32DA /* LETalkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87B560F17A2B596006A32DA /* LETalkCell.xib */; };
 		D89DC2A11799DCE7000770EC /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC2A01799DCE7000770EC /* GHUser.m */; };
 		D89DC2A21799DCEB000770EC /* GHPullRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D89DC29E1799DBD2000770EC /* GHPullRequest.m */; };
@@ -85,6 +89,10 @@
 		D861DE2D17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedStringMarkdownParser+GHMarkdown.m"; sourceTree = "<group>"; };
 		D861DE2F17A42FE30067A9D1 /* UIFont+GHMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+GHMarkdown.h"; sourceTree = "<group>"; };
 		D861DE3017A42FE30067A9D1 /* UIFont+GHMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+GHMarkdown.m"; sourceTree = "<group>"; };
+		D8673EE817AFB70B0026B089 /* TalkBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TalkBubble.png; sourceTree = "<group>"; };
+		D8673EE917AFB70B0026B089 /* TalkBubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TalkBubble@2x.png"; sourceTree = "<group>"; };
+		D8673EEC17AFC2740026B089 /* TalkDisclosure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TalkDisclosure.png; sourceTree = "<group>"; };
+		D8673EED17AFC2740026B089 /* TalkDisclosure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TalkDisclosure@2x.png"; sourceTree = "<group>"; };
 		D87B560F17A2B596006A32DA /* LETalkCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LETalkCell.xib; sourceTree = "<group>"; };
 		D89DC29B1799D006000770EC /* GHIssue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHIssue.h; sourceTree = "<group>"; };
 		D89DC29C1799D006000770EC /* GHIssue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHIssue.m; sourceTree = "<group>"; };
@@ -172,6 +180,7 @@
 				D810664C17AA70F800623E33 /* Models */,
 				D810664D17AA712F00623E33 /* Views */,
 				D810664E17AA717C00623E33 /* Controllers */,
+				D8673EE717AFB70B0026B089 /* Images */,
 			);
 			name = Talk;
 			sourceTree = "<group>";
@@ -261,6 +270,18 @@
 				D861DE3017A42FE30067A9D1 /* UIFont+GHMarkdown.m */,
 			);
 			path = Markdown;
+			sourceTree = "<group>";
+		};
+		D8673EE717AFB70B0026B089 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D8673EE817AFB70B0026B089 /* TalkBubble.png */,
+				D8673EE917AFB70B0026B089 /* TalkBubble@2x.png */,
+				D8673EEC17AFC2740026B089 /* TalkDisclosure.png */,
+				D8673EED17AFC2740026B089 /* TalkDisclosure@2x.png */,
+			);
+			name = Images;
+			path = Talk/Images;
 			sourceTree = "<group>";
 		};
 		D89DC2971799CE98000770EC /* GitHub */ = {
@@ -463,10 +484,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D87B561017A2B596006A32DA /* LETalkCell.xib in Resources */,
+				D8673EEE17AFC2740026B089 /* TalkDisclosure.png in Resources */,
 				D8A8C40D17982FDE009B1300 /* Main_iPad.storyboard in Resources */,
 				D8A8C41817982FDF009B1300 /* Images.xcassets in Resources */,
+				D8673EEA17AFB70B0026B089 /* TalkBubble.png in Resources */,
+				D8673EEF17AFC2740026B089 /* TalkDisclosure@2x.png in Resources */,
 				D8A8C40A17982FDE009B1300 /* Main_iPhone.storyboard in Resources */,
 				D861DC5417A420D70067A9D1 /* LICENSE in Resources */,
+				D8673EEB17AFB70B0026B089 /* TalkBubble@2x.png in Resources */,
 				D8A8C40117982FDE009B1300 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
