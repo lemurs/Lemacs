@@ -15,6 +15,7 @@
 #import "LETalk.h"
 #import "LETalkCell.h"
 #import "LEWorkViewController.h"
+#import "NSError+LEPresenting.h"
 #import "SETextView.h"
 #import "UAGitHubEngine.h"
 #import <sundown/SundownWrapper.h>
@@ -97,7 +98,6 @@
     assert([segue.destinationViewController isKindOfClass:[LEWorkViewController class]]);
     [[segue destinationViewController] setTalk:talk];
 }
-
 
 
 #pragma mark - NSFetchedResultsControllerDelegate
@@ -282,7 +282,7 @@
 
     NSError *fetchError;
     if (![self.fetchedResultsController performFetch:&fetchError]) {
-        NSLog(@"Sort Error: %@", fetchError.userInfo);
+        [fetchError present];
         return;
     }
 
@@ -302,15 +302,7 @@
     if ([managedObjectContext save:&contextSavingError])
         return; // Success
 
-    if (kLEUseNarrativeLogging) {
-        NSLog(@"Context Saving Error: %@, %@", contextSavingError, [contextSavingError userInfo]);
-
-        NSString *whyThisHappened = @"abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.";
-        NSLog(@"%@", whyThisHappened);
-
-        NSString *whatShouldHappen = @"Replace this implementation with code to handle the error appropriately.";
-        NSLog(@"%@", whatShouldHappen);
-    }
+    [contextSavingError present];
 
     // TODO: Make this do what it's supposed to.
 

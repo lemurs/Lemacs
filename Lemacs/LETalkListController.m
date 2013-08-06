@@ -16,6 +16,7 @@
 #import "LETalkViewController.h"
 #import "LEWorkViewController.h"
 #import "SETextView.h"
+#import "NSError+LEPresenting.h"
 #import "UIGestureRecognizer+LEDebugging.h"
 
 typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSizeFull, kLETalkSizeCount} LETalkSize;
@@ -308,15 +309,7 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
     if ([managedObjectContext save:&contextSavingError])
         return; // Success
 
-    if (kLEUseNarrativeLogging) {
-        NSLog(@"Context Saving Error: %@, %@", contextSavingError, [contextSavingError userInfo]);
-
-        NSString *whyThisHappened = @"abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.";
-        NSLog(@"%@", whyThisHappened);
-
-        NSString *whatShouldHappen = @"Replace this implementation with code to handle the error appropriately.";
-        NSLog(@"%@", whatShouldHappen);
-    }
+    [contextSavingError present];
 
     // TODO: Make this do what it's supposed to.
     
@@ -330,7 +323,7 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
     NSError *fetchError;
     if (![self.fetchedResultsController performFetch:&fetchError]) {
-        NSLog(@"Sort Error: %@", fetchError.userInfo);
+        [fetchError present];
         return;
     }
 

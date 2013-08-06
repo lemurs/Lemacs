@@ -8,6 +8,7 @@
 
 #import "GHUser.h"
 #import "GHStore.h"
+#import "NSError+LEPresenting.h"
 
 @implementation GHUser
 
@@ -89,7 +90,7 @@
     NSError *imageLoadingError;
     NSData *imageData = [NSData dataWithContentsOfURL:imageURL options:NSDataReadingUncached error:&imageLoadingError];
     if (!imageData)
-        NSLog(@"Image Loading Error: %@", imageLoadingError.localizedDescription);
+        [imageLoadingError present];
 
     return (_avatar = [UIImage imageWithData:imageData]);
 }

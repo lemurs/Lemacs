@@ -46,7 +46,7 @@
         else if (!*value)
             *value = [NSNumber numberWithBool:NO];
         else if (![*value isKindOfClass:[NSString class]])
-            return NO;
+            return NO; // TODO: Set the error
         else if ([*value isEqualToString:@"closed"])
             *value = [NSNumber numberWithBool:YES];
         else

@@ -11,6 +11,7 @@
 #import "GHStore.h"
 #import "LEChange.h"
 #import "NSDate+GitHub.h"
+#import "NSError+LEPresenting.h"
 
 
 @interface GHManagedObject ()
@@ -46,7 +47,7 @@
     NSArray *fetchResults;
     NSError *fetchError;
     if (!(fetchResults = [context executeFetchRequest:fetchRequest error:&fetchError]))
-        NSLog(@"Fetch Error: %@ %@", NSStringFromSelector(_cmd), fetchError.localizedDescription);
+        [fetchError present];
 
     id managedObject = fetchResults.lastObject;
     if (managedObject) // Existing object found!
@@ -86,7 +87,7 @@
     if ([self validateValue:&value forKey:key error:&validationError])
         [super setValue:value forKey:key];
     else
-        NSLog(@"%@ %@", NSStringFromSelector(_cmd), validationError.localizedDescription);
+        [validationError present];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key;
@@ -107,7 +108,7 @@
 
         NSError *validationError;
         if (![self validateValue:&modifiedDate forKey:kGHModifiedDatePropertyName error:&validationError])
-            NSLog(@"%@ %@", NSStringFromSelector(_cmd), validationError.localizedDescription);
+            [validationError present];
 
         if ([currentValue isEqualToDate:modifiedDate])
             return; // No changes expected
@@ -144,7 +145,7 @@
             else if (!*value)
                 *value = [NSNumber numberWithInteger:0];
             else
-                return NO;
+                return NO; // TODO: Set error
 
             return YES;
 
@@ -329,7 +330,7 @@
         return YES;
 
     if (![*value isKindOfClass:[NSDictionary class]])
-        return NO;
+        return NO; // TODO: Set error
 
     NSDictionary *properties = *value;
     *value = [GHManagedObject objectWithEntityName:relationship.destinationEntity.name inContext:self.managedObjectContext properties:properties];
@@ -344,7 +345,7 @@
     else if (!relationship.isOrdered && [*values isKindOfClass:[NSSet class]])
         return YES;
     else if (![*values isKindOfClass:[NSArray class]])
-        return NO;
+        return NO; // TODO: Set error
 
     NSMutableArray *objects = [NSMutableArray arrayWithCapacity:[*values count]];
     [*values enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
@@ -396,7 +397,7 @@
     NSArray *fetchResults;
     NSError *fetchError;
     if (!(fetchResults = [self.managedObjectContext executeFetchRequest:fetchRequest error:&fetchError]))
-        NSLog(@"Fetch Error: %@ %@", NSStringFromSelector(_cmd), fetchError.localizedDescription);
+        [fetchError present];
 
     return fetchResults.lastObject;
 }
@@ -421,7 +422,7 @@
     id changeValue = change.stringValue;
     NSError *validationError;
     if (![self validateValue:&changeValue forKey:propertyName error:&validationError]) {
-        NSLog(@"Could not validate change value %@ for key %@ due to error %@", changeValue, propertyName, validationError.localizedDescription);
+        [validationError present];
         assert(NO);
     }
 

@@ -11,6 +11,7 @@
 #import "GHComment.h"
 #import "GHIssue.h"
 #import "GHUser.h"
+#import "NSError+LEPresenting.h"
 
 #import <UAGithubEngine/UAGithubEngine.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
@@ -141,7 +142,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
          Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
 
          */
-        NSLog(@"Dumping store due to error %@, %@", storeLoadingError, storeLoadingError.userInfo);
+        [storeLoadingError present];
         [self removeContext];
         abort();
     }
@@ -167,7 +168,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
     NSError *storeDeletingError = nil;
     if (![[NSFileManager defaultManager] removeItemAtURL:storeURL error:&storeDeletingError])
-        NSLog(@"Store Deleting Error: %@, %@", storeDeletingError, storeDeletingError.userInfo);
+        [storeDeletingError present];
 }
 
 - (IBAction)save;
@@ -180,16 +181,8 @@ NSString * const kLEGitHubUsernameKey = @"username";
     if ([managedObjectContext save:&contextSavingError])
         return; // Success
 
-    if (kLEUseNarrativeLogging) {
-        NSLog(@"Context Saving Error: %@, %@", contextSavingError, [contextSavingError userInfo]);
+    [contextSavingError present];
 
-        NSString *whyThisHappened = @"abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.";
-        NSLog(@"%@", whyThisHappened);
-
-        NSString *whatShouldHappen = @"Replace this implementation with code to handle the error appropriately.";
-        NSLog(@"%@", whatShouldHappen);
-    }
-    
     // TODO: Make this do what it's supposed to.
 
     abort();
@@ -269,7 +262,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
         [[GHStore sharedStore] save];
     } failure:^(NSError *error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        NSLog(@"Failure %@", error.localizedDescription);
+        [error present];
     }];
 
 }
@@ -300,7 +293,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
         [[GHStore sharedStore] save];
     } failure:^(NSError *error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        NSLog(@"%@ %@", NSStringFromSelector(_cmd), error.localizedDescription);
+        [error present];
     }];
 }
 
@@ -322,7 +315,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
         [[GHStore sharedStore] save];
     } failure:^(NSError *error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        NSLog(@"%@ %@", NSStringFromSelector(_cmd), error.localizedDescription);
+        [error present];
     }];
 }
 
@@ -358,31 +351,27 @@ NSString * const kLEGitHubUsernameKey = @"username";
         [self.GitHub addComment:comment.plainBody toIssue:comment.issue.number forRepository:self.repositoryPath success:^(id results) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             assert([results isKindOfClass:[NSArray class]]);
-            NSLog(@"%@", results);
             NSDictionary *dictionary = [results lastObject];
             assert([dictionary isKindOfClass:[NSDictionary class]]);
             [comment setValuesForKeysWithDictionary:dictionary];
             comment.changes = nil;
-            NSLog(@"%@", dictionary);
             [[GHStore sharedStore] save];
         } failure:^(NSError *error) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            NSLog(@"%@ %@", NSStringFromSelector(_cmd), error.localizedDescription);
+            [error present];
         }];
     else if (!IsEmpty(comment.body) && !IsEmpty(comment.plainBody)) // Edit
         [self.GitHub editComment:comment.commentID forRepository:self.repositoryPath withBody:comment.plainBody success:^(id results) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             assert([results isKindOfClass:[NSArray class]]);
-            NSLog(@"%@", results);
             NSDictionary *dictionary = [results lastObject];
             assert([dictionary isKindOfClass:[NSDictionary class]]);
             [comment setValuesForKeysWithDictionary:dictionary];
             comment.changes = nil;
-            NSLog(@"%@", dictionary);
             [[GHStore sharedStore] save];
         } failure:^(NSError *error) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            NSLog(@"%@ %@", NSStringFromSelector(_cmd), error.localizedDescription);
+            [error present];
         }];
     else if (!IsEmpty(comment.body) && IsEmpty(comment.plainBody)) // Delete
         [self.GitHub deleteComment:comment.commentID forRepository:self.repositoryPath success:^(BOOL buhweeted) {
@@ -393,7 +382,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
             [[GHStore sharedStore] save];
         } failure:^(NSError *error) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            NSLog(@"%@ %@", NSStringFromSelector(_cmd), error.localizedDescription);
+            [error present];
         }];
     else // Unhandled states
         assert(NO);
@@ -410,7 +399,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
             [[GHStore sharedStore] save];
         } failure:^(NSError *error) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            NSLog(@"Failure %@", error.localizedDescription);
+            [error present];
         }];
         return;
     }
@@ -428,7 +417,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
             [[GHStore sharedStore] save];
         } failure:^(NSError *error) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            NSLog(@"Failure %@", error.localizedDescription);
+            [error present];
         }];
     else if (!IsEmpty(issue.body) && !IsEmpty(issue.plainBody)) // Edit
         [self.GitHub editIssue:issue.number inRepository:self.repositoryPath withDictionary:valuesForGitHubKeys success:^(id results) {
@@ -441,7 +430,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
             [[GHStore sharedStore] save];
         } failure:^(NSError *error) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            NSLog(@"Failure %@", error.localizedDescription);
+            [error present];
         }];
     else // Unhandled states
         assert(NO);
