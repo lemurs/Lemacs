@@ -14,9 +14,9 @@
 
 // NSAttributedStringMarkdownParser
 #define COCOAPODS_POD_AVAILABLE_NSAttributedStringMarkdownParser
-#define COCOAPODS_VERSION_MAJOR_NSAttributedStringMarkdownParser 1
+#define COCOAPODS_VERSION_MAJOR_NSAttributedStringMarkdownParser 0
 #define COCOAPODS_VERSION_MINOR_NSAttributedStringMarkdownParser 0
-#define COCOAPODS_VERSION_PATCH_NSAttributedStringMarkdownParser 0
+#define COCOAPODS_VERSION_PATCH_NSAttributedStringMarkdownParser 1
 
 // SECoreTextView
 #define COCOAPODS_POD_AVAILABLE_SECoreTextView
@@ -35,12 +35,6 @@
 #define COCOAPODS_VERSION_MAJOR_UICKeyChainStore 1
 #define COCOAPODS_VERSION_MINOR_UICKeyChainStore 0
 #define COCOAPODS_VERSION_PATCH_UICKeyChainStore 2
-
-// fmemopen
-#define COCOAPODS_POD_AVAILABLE_fmemopen
-#define COCOAPODS_VERSION_MAJOR_fmemopen 1
-#define COCOAPODS_VERSION_MINOR_fmemopen 0
-#define COCOAPODS_VERSION_PATCH_fmemopen 0
 
 // sundown
 #define COCOAPODS_POD_AVAILABLE_sundown

@@ -1,14 +1,12 @@
 PODS:
-  - fmemopen (1.0.0)
   - HockeySDK (3.0.0)
-  - NSAttributedStringMarkdownParser (1.0.0)
+  - NSAttributedStringMarkdownParser (0.0.1)
   - SECoreTextView (1.0.0)
   - sundown (0.1.0)
   - UAGithubEngine (2.3)
   - UICKeyChainStore (1.0.2)
 
 DEPENDENCIES:
-  - fmemopen (from `https://github.com/lemurs/fmemopen.git`)
   - HockeySDK
   - NSAttributedStringMarkdownParser (from `https://github.com/lemurs/NSAttributedStringMarkdownParser.git`)
   - SECoreTextView (from `https://github.com/kishikawakatsumi/SECoreTextView.git`)
@@ -17,20 +15,17 @@ DEPENDENCIES:
   - UICKeyChainStore
 
 EXTERNAL SOURCES:
-  fmemopen:
-    :git: https://github.com/lemurs/fmemopen.git
   NSAttributedStringMarkdownParser:
     :git: https://github.com/lemurs/NSAttributedStringMarkdownParser.git
   SECoreTextView:
     :git: https://github.com/kishikawakatsumi/SECoreTextView.git
 
 SPEC CHECKSUMS:
-  fmemopen: dc34b4147cd6e6a3fb029b9e3a93deba81d26163
   HockeySDK: 286d86c6e89a35de7f3e4f3c2879a07185ee0918
-  NSAttributedStringMarkdownParser: de2a105f9d0b841c8684338caa2ffc7025e1d4df
+  NSAttributedStringMarkdownParser: 172c13bcdeda13cdbe74303f33c595a47e685267
   SECoreTextView: f87af11c421bb0e220c422474c27e4205c7d4ee8
   sundown: f0b86bd08ee36f84e9e6a6332d3cbd0309889dfa
   UAGithubEngine: 931cbfaaec42ee192dfecf9aeaa75bd4e1afc595
   UICKeyChainStore: 6f207688b1310e9b9d879c1ee702f5b0eb9484f8
 
-COCOAPODS: 0.22.2
+COCOAPODS: 0.22.3
