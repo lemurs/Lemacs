@@ -119,7 +119,7 @@
                                 </connections>
                             </textView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Topic (required)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xpx-ln-tJW">
-                                <rect key="frame" x="8" y="0.0" width="320" height="30"/>
+                                <rect key="frame" x="8" y="0.0" width="695" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>

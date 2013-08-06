@@ -268,8 +268,6 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
     UITableViewHeaderFooterView *headerView = (UITableViewHeaderFooterView *)view;
     headerView.contentView.backgroundColor = tableView.backgroundColor;
     headerView.textLabel.font = [UIFont boldSystemFontOfSize:16.0f];
-    headerView.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    headerView.textLabel.numberOfLines = 1;
 }
 
 #pragma mark - API
