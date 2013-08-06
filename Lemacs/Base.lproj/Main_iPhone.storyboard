@@ -103,10 +103,10 @@
             </objects>
             <point key="canvasLocation" x="-323" y="42"/>
         </scene>
-        <!--Talk View Controller - Master-->
+        <!--Talk View Controller-->
         <scene sceneID="lLx-8y-duJ">
             <objects>
-                <tableViewController title="Master" id="57H-Xs-xKD" userLabel="Talk View Controller - Master" customClass="LETalkViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LETalkViewController" title="Master" useStoryboardIdentifierAsRestorationIdentifier="YES" id="57H-Xs-xKD" userLabel="Talk View Controller" customClass="LETalkViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="150" sectionHeaderHeight="150" sectionFooterHeight="22" id="aIc-pf-KqX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -155,10 +155,10 @@
             </objects>
             <point key="canvasLocation" x="567" y="370"/>
         </scene>
-        <!--Talk List Controller - Master-->
+        <!--Talk List Controller -->
         <scene sceneID="VgW-fR-Quf">
             <objects>
-                <tableViewController title="Master" id="pGg-6v-bdr" userLabel="Talk List Controller - Master" customClass="LETalkListController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LETalkListController" title="Master" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pGg-6v-bdr" userLabel="Talk List Controller " customClass="LETalkListController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="100" sectionFooterHeight="22" id="mLL-gJ-YKr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -227,6 +227,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="s9d-Vw-wBC"/>
+        <segue reference="nbc-YU-5Aq"/>
     </inferredMetricsTieBreakers>
 </document>

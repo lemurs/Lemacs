@@ -106,15 +106,19 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
     issue = (GHIssue *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
     assert([issue isKindOfClass:[GHIssue class]]);
 
-    if ([[segue identifier] isEqualToString:@"SelectIssue"]) {
+    UIViewController *destinationViewController = segue.destinationViewController;
+    if ([destinationViewController isKindOfClass:[UINavigationController class]])
+        destinationViewController = ((UINavigationController *)destinationViewController).topViewController;
+
+    if ([segue.identifier isEqualToString:@"SelectIssue"]) {
         [[GHStore sharedStore] loadCommentsForIssue:issue];
-        assert([segue.destinationViewController isKindOfClass:[LETalkViewController class]]);
-        LETalkViewController *talkViewController = (LETalkViewController *)segue.destinationViewController;
+        assert([destinationViewController isKindOfClass:[LETalkViewController class]]);
+        LETalkViewController *talkViewController = (LETalkViewController *)destinationViewController;
         talkViewController.issue = issue;
         talkViewController.navigationItem.prompt = issue.topic;
-    } else if ([[segue identifier] isEqualToString:@"SelectTalk"]) {
-        assert([segue.destinationViewController isKindOfClass:[LEWorkViewController class]]);
-        [[segue destinationViewController] setTalk:issue];
+    } else if ([segue.identifier isEqualToString:@"SelectTalk"]) {
+        assert([destinationViewController isKindOfClass:[LEWorkViewController class]]);
+        ((LEWorkViewController *)destinationViewController).talk = issue;
     }
 
 }
@@ -193,16 +197,6 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
         [self performSegueWithIdentifier:@"SelectIssue" sender:cell];
     else
         [self performSegueWithIdentifier:@"SelectTalk" sender:cell];
-
-
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        if ([object isKindOfClass:[GHIssue class]]) {
-            GHIssue *issue = (GHIssue *)object;
-            [[GHStore sharedStore] loadCommentsForIssue:issue];
-            self.talkViewController.issue = issue;
-        }
-    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;

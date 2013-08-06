@@ -95,8 +95,12 @@
     else
         assert(NO);
 
-    assert([segue.destinationViewController isKindOfClass:[LEWorkViewController class]]);
-    [[segue destinationViewController] setTalk:talk];
+    UIViewController *destinationViewController = segue.destinationViewController;
+    if ([destinationViewController isKindOfClass:[UINavigationController class]])
+        destinationViewController = ((UINavigationController *)destinationViewController).topViewController;
+
+    assert([destinationViewController isKindOfClass:[LEWorkViewController class]]);
+    ((LEWorkViewController *)destinationViewController).talk = talk;
 }
 
 
