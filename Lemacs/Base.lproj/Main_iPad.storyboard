@@ -131,6 +131,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="segmentedControl" destination="Row-ID-Vk0" id="bxg-g3-Fw7"/>
+                        <outlet property="textView" destination="Jnt-cq-8dQ" id="rms-fJ-Aco"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>

@@ -11,6 +11,7 @@
 #import "GHIssue.h"
 #import "GHStore.h"
 #import "GHUser.h"
+#import "LEOptionsViewController.h"
 #import "LETalk.h"
 #import "LETalkCell.h"
 #import "LETalkViewController.h"
@@ -25,6 +26,7 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 @property (nonatomic, strong, readonly) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) UIPopoverController *popover;
 @property (nonatomic) BOOL reverseSort;
 @property (nonatomic) LETalkSize talkSize;
 
@@ -91,11 +93,15 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender;
 {
+    UIViewController *destinationViewController = segue.destinationViewController;
+    if ([destinationViewController isKindOfClass:[UINavigationController class]])
+        destinationViewController = ((UINavigationController *)destinationViewController).topViewController;
+
     GHIssue *issue;
-    if ([[segue identifier] isEqualToString:@"CreateIssue"]) {
+    if ([segue.identifier isEqualToString:@"CreateIssue"]) {
         issue = [GHIssue newIssueInContext:self.managedObjectContext];
-        assert([segue.destinationViewController isKindOfClass:[LEWorkViewController class]]);
-        [[segue destinationViewController] setTalk:issue];
+        assert([destinationViewController isKindOfClass:[LEWorkViewController class]]);
+        ((LEWorkViewController *)destinationViewController).talk = issue;
         return;
     }
 
@@ -105,10 +111,6 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     issue = (GHIssue *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
     assert([issue isKindOfClass:[GHIssue class]]);
-
-    UIViewController *destinationViewController = segue.destinationViewController;
-    if ([destinationViewController isKindOfClass:[UINavigationController class]])
-        destinationViewController = ((UINavigationController *)destinationViewController).topViewController;
 
     if ([segue.identifier isEqualToString:@"SelectIssue"]) {
         [[GHStore sharedStore] loadCommentsForIssue:issue];
@@ -355,6 +357,11 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 {
     // TODO: Implement the options menu, refs #25
     NSLog(@"TODO: Implement %@ refs #%d", NSStringFromSelector(_cmd), 25);
+
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:[LEOptionsViewController optionsController]];
+        [self.popover presentPopoverFromBarButtonItem:barButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
 }
 
 - (IBAction)sortList:(UISegmentedControl *)sortControl;
