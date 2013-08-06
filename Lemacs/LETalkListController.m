@@ -252,7 +252,10 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
 {
-    return 30.0f;
+    NSString *title = [self tableView:tableView titleForHeaderInSection:section];
+    CGSize estimatedSize = [title sizeWithAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:16.0f]}];
+
+    return (estimatedSize.width / 300.0f + 1) * 30.0f;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section;
