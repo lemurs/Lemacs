@@ -91,13 +91,10 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView;
 {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), textView.text);
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView;
 {
-    NSLog(@"%@ %@", NSStringFromSelector(_cmd), textView.text);
-
     [[GHStore sharedStore] save];
 }
 
@@ -127,16 +124,6 @@
     self.textView.editable = editing;
     self.textView.font = [UIFont markdownParagraphFont]; // To clear style
     super.editing = editing;
-
-    if ([self.talk isKindOfClass:[GHIssue class]] && editing) {
-        self.navigationItem.prompt = nil;
-        self.topicField.hidden = NO;
-        self.topicField.text = self.talk.topic;
-    } else {
-        self.navigationItem.prompt = self.talk.topic;
-        self.topicField.hidden = YES;
-        self.topicField.text = nil;
-    }
 
     if (editing) {
         self.segmentedControl.selectedSegmentIndex = 1;
@@ -254,6 +241,7 @@
     // Default to editing mode if this is an uncommited talk
     self.editing = IsEmpty([(NSObject *)self.talk valueForKey:kLETalkBodyKey]) || self.talk.hasChanges;
     self.segmentedControl.selectedSegmentIndex = self.editing ? 1 : 0;
+    self.topicField.text = self.talk.topic;
 }
 
 @end

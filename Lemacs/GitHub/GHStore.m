@@ -16,6 +16,30 @@
 #import <UAGithubEngine/UAGithubEngine.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
 
+void (^handleError)(NSError *) = ^(NSError *error){
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
+    if ([error.domain isEqualToString:@"HTTP"]) {
+        switch (error.code) {
+            case 405: // FIXME: Happens when trying to save when GitHub is down. Changes should be saved locally and synced next time.
+            case 502:
+            case 503:
+                [[NSNotificationCenter defaultCenter] postNotificationName:kGitHubDownStatusNotification object:error userInfo:error.userInfo];
+                return NSLog(@"GitHub is down. Show a confused Octocat.");
+        }
+    }
+
+    if ([error.domain isEqualToString:@"NSURLErrorDomain"]) {
+        switch (error.code) {
+            case -1001:
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNetworkSlowStatusNotification object:error userInfo:error.userInfo];
+                return NSLog(@"Network is slow. Show an old Octocat.");
+        }
+    }
+
+    [error present];
+};
+
 
 @interface GHStore ()
 
@@ -260,10 +284,7 @@ NSString * const kLEGitHubUsernameKey = @"username";
             }
         }];
         [[GHStore sharedStore] save];
-    } failure:^(NSError *error) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [error present];
-    }];
+    } failure:handleError];
 
 }
 
@@ -277,24 +298,24 @@ NSString * const kLEGitHubUsernameKey = @"username";
     if (!issue.commentsCount)
         return;
 
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    NSMutableArray *comments = [NSMutableArray arrayWithCapacity:issue.commentsCount];
+    __block NSMutableArray *comments = [NSMutableArray arrayWithCapacity:issue.commentsCount];
 
-    [self.GitHub commentsForIssue:issue.number forRepository:self.repositoryPath success:^(id results) {
+    void (^updateIssues)(NSArray *) = ^(NSArray *results){
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         assert([results isKindOfClass:[NSArray class]]);
         [results enumerateObjectsUsingBlock:^(NSDictionary *dictionary, NSUInteger index, BOOL *stop) {
-            GHComment *comment = [NSEntityDescription insertNewObjectForEntityForName:kGHCommentEntityName inManagedObjectContext:issue.managedObjectContext];
+            GHComment *comment = [GHComment commentNumber:[dictionary[@"number"] integerValue] context:issue.managedObjectContext];
             [comment setValuesForKeysWithDictionary:dictionary];
             [comment setValue:issue forKey:kGHCommentIssuePropertyName];
             [comments addObject:comment];
         }];
         issue.comments = [NSOrderedSet orderedSetWithArray:comments];
         [[GHStore sharedStore] save];
-    } failure:^(NSError *error) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [error present];
-    }];
+    };
+
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+
+    [self.GitHub commentsForIssue:issue.number forRepository:self.repositoryPath success:updateIssues failure:handleError];
 }
 
 - (void)loadUser:(GHUser *)user;
@@ -304,19 +325,17 @@ NSString * const kLEGitHubUsernameKey = @"username";
     else
         user.lastUpdated = [NSDate date];
 
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-
-    [self.GitHub user:user.userName success:^(id results) {
+    void (^updateUser)(NSArray *) = ^(NSArray *results){
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         assert([results isKindOfClass:[NSArray class]]);
         NSDictionary *dictionary = [results lastObject];
         assert([dictionary isKindOfClass:[NSDictionary class]]);
         [user setValuesForKeysWithDictionary:dictionary];
         [[GHStore sharedStore] save];
-    } failure:^(NSError *error) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [error present];
-    }];
+    };
+
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self.GitHub user:user.userName success:updateUser failure:handleError];
 }
 
 
@@ -346,96 +365,69 @@ NSString * const kLEGitHubUsernameKey = @"username";
 
 - (void)saveComment:(GHComment *)comment;
 {
+    void (^deleteComment)(BOOL) = ^(BOOL deleted){
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        if (deleted)
+            [comment.managedObjectContext deleteObject:comment];
+
+        [[GHStore sharedStore] save];
+    };
+
+    void (^updateComment)(NSArray *) = ^(NSArray *results){
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        assert([results isKindOfClass:[NSArray class]]);
+        NSDictionary *dictionary = [results lastObject];
+        assert([dictionary isKindOfClass:[NSDictionary class]]);
+        [comment setValuesForKeysWithDictionary:dictionary];
+        comment.changes = nil;
+        [[GHStore sharedStore] save];
+    };
+
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     if (IsEmpty(comment.body) && !IsEmpty(comment.plainBody)) // Add
-        [self.GitHub addComment:comment.plainBody toIssue:comment.issue.number forRepository:self.repositoryPath success:^(id results) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            assert([results isKindOfClass:[NSArray class]]);
-            NSDictionary *dictionary = [results lastObject];
-            assert([dictionary isKindOfClass:[NSDictionary class]]);
-            [comment setValuesForKeysWithDictionary:dictionary];
-            comment.changes = nil;
-            [[GHStore sharedStore] save];
-        } failure:^(NSError *error) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            [error present];
-        }];
+        [self.GitHub addComment:comment.plainBody toIssue:comment.issue.number forRepository:self.repositoryPath success:updateComment failure:handleError];
     else if (!IsEmpty(comment.body) && !IsEmpty(comment.plainBody)) // Edit
-        [self.GitHub editComment:comment.commentID forRepository:self.repositoryPath withBody:comment.plainBody success:^(id results) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            assert([results isKindOfClass:[NSArray class]]);
-            NSDictionary *dictionary = [results lastObject];
-            assert([dictionary isKindOfClass:[NSDictionary class]]);
-            [comment setValuesForKeysWithDictionary:dictionary];
-            comment.changes = nil;
-            [[GHStore sharedStore] save];
-        } failure:^(NSError *error) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            [error present];
-        }];
+        [self.GitHub editComment:comment.commentID forRepository:self.repositoryPath withBody:comment.plainBody success:updateComment failure:handleError];
     else if (!IsEmpty(comment.body) && IsEmpty(comment.plainBody)) // Delete
-        [self.GitHub deleteComment:comment.commentID forRepository:self.repositoryPath success:^(BOOL buhweeted) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            if (buhweeted)
-                [comment.managedObjectContext deleteObject:comment];
-
-            [[GHStore sharedStore] save];
-        } failure:^(NSError *error) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            [error present];
-        }];
+        [self.GitHub deleteComment:comment.commentID forRepository:self.repositoryPath success:deleteComment failure:handleError];
     else // Unhandled states
         assert(NO);
 }
 
 - (void)saveIssue:(GHIssue *)issue;
 {
-    if (IsEmpty(issue.topic)) { // Delete
-        [self.GitHub deleteIssue:issue.number inRepository:self.repositoryPath success:^(BOOL success) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            if (success)
-                [issue.managedObjectContext deleteObject:issue];
+    void (^deleteIssue)(BOOL) = ^(BOOL deleted){
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        if (deleted)
+            [issue.managedObjectContext deleteObject:issue];
 
-            [[GHStore sharedStore] save];
-        } failure:^(NSError *error) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            [error present];
-        }];
-        return;
-    }
+        [[GHStore sharedStore] save];
+    };
+
+    void (^updateIssue)(NSArray *) = ^(NSArray *results){
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        assert([results isKindOfClass:[NSArray class]]);
+        NSDictionary *dictionary = [results lastObject];
+        assert([dictionary isKindOfClass:[NSDictionary class]]);
+        [issue setValuesForKeysWithDictionary:dictionary];
+        issue.changes = nil;
+        [[GHStore sharedStore] save];
+    };
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    if (IsEmpty(issue.topic)) // Delete
+        return [self.GitHub deleteIssue:issue.number inRepository:self.repositoryPath success:deleteIssue failure:handleError];
+
     NSDictionary *valuesForGitHubKeys = [issue dictionaryWithValuesForGitHubKeys:@[kLETalkTitleKey, kLETalkBodyKey]];
     if (IsEmpty(issue.title) && !IsEmpty(issue.plainBody)) // Add
-        [self.GitHub addIssueForRepository:self.repositoryPath withDictionary:valuesForGitHubKeys success:^(id results) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            assert([results isKindOfClass:[NSArray class]]);
-            NSDictionary *dictionary = [results lastObject];
-            assert([dictionary isKindOfClass:[NSDictionary class]]);
-            [issue setValuesForKeysWithDictionary:dictionary];
-            issue.changes = nil;
-            [[GHStore sharedStore] save];
-        } failure:^(NSError *error) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            [error present];
-        }];
+        [self.GitHub addIssueForRepository:self.repositoryPath withDictionary:valuesForGitHubKeys success:updateIssue failure:handleError];
     else if (!IsEmpty(issue.body) && !IsEmpty(issue.plainBody)) // Edit
-        [self.GitHub editIssue:issue.number inRepository:self.repositoryPath withDictionary:valuesForGitHubKeys success:^(id results) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            assert([results isKindOfClass:[NSArray class]]);
-            NSDictionary *dictionary = [results lastObject];
-            assert([dictionary isKindOfClass:[NSDictionary class]]);
-            [issue setValuesForKeysWithDictionary:dictionary];
-            issue.changes = nil;
-            [[GHStore sharedStore] save];
-        } failure:^(NSError *error) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            [error present];
-        }];
+        [self.GitHub editIssue:issue.number inRepository:self.repositoryPath withDictionary:valuesForGitHubKeys success:updateIssue failure:handleError];
     else // Unhandled states
         assert(NO);
 }
 
 @end
 
-
+NSString * const kGitHubDownStatusNotification = @"GitHub is down! (HTTP status 502)";
+NSString * const kNetworkSlowStatusNotification = @"Network timed out (NSURLErrorDomain code -1001)";

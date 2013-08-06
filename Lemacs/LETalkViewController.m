@@ -48,7 +48,6 @@
 - (void)awakeFromNib;
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.clearsSelectionOnViewWillAppear = NO;
         self.preferredContentSize = CGSizeMake(320.0, 600.0);
     }
     [super awakeFromNib];
@@ -66,11 +65,14 @@
 
 - (void)viewWillAppear:(BOOL)animated;
 {
+    [super viewWillAppear:animated];
+
     self.reverseSort = [[NSUserDefaults standardUserDefaults] integerForKey:kLETalkViewSortOrder];
 
     [self reloadList];
 
-    [super viewWillAppear:animated];
+    if (self.tableView.numberOfSections && [self.tableView numberOfRowsInSection:0])
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
 }
 
 - (void)didReceiveMemoryWarning;
@@ -178,6 +180,14 @@
     return cell;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+{
+    if (section == 0) {
+        return self.issue.topic;
+    } else
+        return nil;
+}
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     return NO;
@@ -211,9 +221,17 @@
 
 #pragma mark UITableViewDelegate
 
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    [self performSegueWithIdentifier:@"SelectTalk" sender:[tableView cellForRowAtIndexPath:indexPath]];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+    [self performSegueWithIdentifier:@"SelectTalk" sender:cell];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -221,7 +239,32 @@
     id <LETalk> talk = (indexPath.section < self.fetchedResultsController.sections.count) ? [self.fetchedResultsController objectAtIndexPath:indexPath] : self.issue;
     assert([talk conformsToProtocol:@protocol(LETalk)]);
 
-    return CGRectGetHeight([SETextView frameRectWithAttributtedString:talk.styledBody constraintSize:CGSizeMake(264.0f, 1024.0f)]) + 29.0f; // 21.0f for the label plus 8 for the padding
+    return MAX(64.0f, CGRectGetHeight([SETextView frameRectWithAttributtedString:talk.styledBody constraintSize:CGSizeMake(264.0f, 1024.0f)]) + 29.0f); // 21.0f for the label plus 8 for the padding
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section;
+{
+    return section ? 12.0f : 0.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
+{
+    return section ? 0.0f : 30.0f;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section;
+{
+    assert([view isKindOfClass:[UITableViewHeaderFooterView class]]);
+    UITableViewHeaderFooterView *footerView = (UITableViewHeaderFooterView *)view;
+    footerView.contentView.backgroundColor = tableView.backgroundColor;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section;
+{
+    assert([view isKindOfClass:[UITableViewHeaderFooterView class]]);
+    UITableViewHeaderFooterView *headerView = (UITableViewHeaderFooterView *)view;
+    headerView.contentView.backgroundColor = tableView.backgroundColor;
+    headerView.textLabel.font = [UIFont boldSystemFontOfSize:16.0f];
 }
 
 
@@ -294,6 +337,8 @@
         [self.tableView reloadData];
     else
         [[GHStore sharedStore] loadIssues:YES];
+
+    [self.refreshControl endRefreshing];
 }
 
 - (IBAction)saveContext;
@@ -328,7 +373,7 @@
     assert([talk conformsToProtocol:@protocol(LETalk)]);
 
     [talkCell configureCellWithTalk:talk];
-    talkCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    talkCell.accessoryType = UITableViewCellAccessoryNone;
 }
 
 @end

@@ -117,7 +117,6 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
         assert([destinationViewController isKindOfClass:[LETalkViewController class]]);
         LETalkViewController *talkViewController = (LETalkViewController *)destinationViewController;
         talkViewController.issue = issue;
-        talkViewController.navigationItem.prompt = issue.topic;
     } else if ([segue.identifier isEqualToString:@"SelectTalk"]) {
         assert([destinationViewController isKindOfClass:[LEWorkViewController class]]);
         ((LEWorkViewController *)destinationViewController).talk = issue;
@@ -157,6 +156,15 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
     return cell;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section;
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+    id <LETalk> talk = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    assert([talk conformsToProtocol:@protocol(LETalk)]);
+
+    return talk.topic;
+}
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     return NO;
@@ -186,10 +194,14 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
 #pragma mark UITableViewDelegate
 
-
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath;
 {
     [self performSegueWithIdentifier:@"SelectTalk" sender:[tableView cellForRowAtIndexPath:indexPath]];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -199,6 +211,8 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
         [self performSegueWithIdentifier:@"SelectIssue" sender:cell];
     else
         [self performSegueWithIdentifier:@"SelectTalk" sender:cell];
+
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -206,7 +220,7 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
     id <LETalk> talk = [self.fetchedResultsController objectAtIndexPath:indexPath];
     assert([talk conformsToProtocol:@protocol(LETalk)]);
 
-    static const CGFloat heightMin = 42.0; // Height of the avatar
+    static const CGFloat heightMin = 64.0;
     CGFloat heightMax = heightMin;
     switch (self.talkSize) {
         case kLETalkSizeMini:
@@ -231,6 +245,32 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
     return MIN(MAX(CGRectGetHeight([SETextView frameRectWithAttributtedString:talk.styledBody constraintSize:CGSizeMake(264.0f, heightMax)]), heightMin), heightMax) + 29.0f; // 21.0f for the label plus 8 for the padding
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section;
+{
+    return 12.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
+{
+    return 30.0f;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section;
+{
+    assert([view isKindOfClass:[UITableViewHeaderFooterView class]]);
+    UITableViewHeaderFooterView *footerView = (UITableViewHeaderFooterView *)view;
+    footerView.contentView.backgroundColor = tableView.backgroundColor;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section;
+{
+    assert([view isKindOfClass:[UITableViewHeaderFooterView class]]);
+    UITableViewHeaderFooterView *headerView = (UITableViewHeaderFooterView *)view;
+    headerView.contentView.backgroundColor = tableView.backgroundColor;
+    headerView.textLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+    headerView.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    headerView.textLabel.numberOfLines = 1;
+}
 
 #pragma mark - API
 
@@ -250,7 +290,7 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
 
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"topic" cacheName:nil];
     fetchedResultsController.delegate = self;
 
     _fetchedResultsController = fetchedResultsController;
@@ -327,6 +367,8 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
         [self.tableView reloadData];
     else
         [[GHStore sharedStore] loadIssues:YES];
+
+    [self.refreshControl endRefreshing];
 }
 
 - (IBAction)resizeCells:(UIPinchGestureRecognizer *)pinch;
@@ -348,9 +390,6 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
         self.talkSize = kLETalkSizeLarge;
     else
         self.talkSize = kLETalkSizeRegular;
-
-//    NSLog(@"Scale: %f, Velocity: %f", pinch.scale, pinch.velocity);
-//    NSLog(@"State: %@", pinch.stateName);
 }
 
 - (IBAction)showOptions:(UIBarButtonItem *)barButton;

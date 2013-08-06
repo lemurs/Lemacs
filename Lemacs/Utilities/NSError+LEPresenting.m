@@ -23,7 +23,7 @@
 - (IBAction)present;
 {
     if (kLEUseNarrativeLogging) {
-        NSLog(@"Error!");
+        NSLog(@"Error! %@", self);
 
         // Should always exist
         NSLog(@"Description: %@", self.localizedDescription);

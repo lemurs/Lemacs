@@ -35,3 +35,6 @@
 - (void)saveIssue:(GHIssue *)issue;
 
 @end
+
+extern NSString * const kGitHubDownStatusNotification;
+extern NSString * const kNetworkSlowStatusNotification;
