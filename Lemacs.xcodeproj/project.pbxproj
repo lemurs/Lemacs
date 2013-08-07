@@ -10,8 +10,6 @@
 		4A128966179C5F290024C066 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A128965179C5F290024C066 /* CoreText.framework */; };
 		D80A5F0117A6775600468ACA /* LEChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D80A5F0017A6775600468ACA /* LEChange.m */; };
 		D83890F317B0CAB0001473CA /* NSError+LEPresenting.m in Sources */ = {isa = PBXBuildFile; fileRef = D83890F217B0CAB0001473CA /* NSError+LEPresenting.m */; };
-		D83890F717B0D2B4001473CA /* LEOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83890F517B0D2B4001473CA /* LEOptionsViewController.m */; };
-		D83890F817B0D2B4001473CA /* LEOptionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83890F617B0D2B4001473CA /* LEOptionsViewController.xib */; };
 		D83C35F617992BF20046D510 /* LETalkListController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C35F317992BF20046D510 /* LETalkListController.m */; };
 		D83C35F717992BF20046D510 /* LETalkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C35F517992BF20046D510 /* LETalkViewController.m */; };
 		D861DE2E17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = D861DE2D17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.m */; };
@@ -73,9 +71,6 @@
 		D80A5F0017A6775600468ACA /* LEChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEChange.m; sourceTree = "<group>"; };
 		D83890F117B0CAAF001473CA /* NSError+LEPresenting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+LEPresenting.h"; sourceTree = "<group>"; };
 		D83890F217B0CAB0001473CA /* NSError+LEPresenting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+LEPresenting.m"; sourceTree = "<group>"; };
-		D83890F417B0D2B4001473CA /* LEOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LEOptionsViewController.h; path = Talk/Controllers/LEOptionsViewController.h; sourceTree = "<group>"; };
-		D83890F517B0D2B4001473CA /* LEOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LEOptionsViewController.m; path = Talk/Controllers/LEOptionsViewController.m; sourceTree = "<group>"; };
-		D83890F617B0D2B4001473CA /* LEOptionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LEOptionsViewController.xib; path = Talk/Controllers/LEOptionsViewController.xib; sourceTree = "<group>"; };
 		D83C35F217992BF20046D510 /* LETalkListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LETalkListController.h; sourceTree = "<group>"; };
 		D83C35F317992BF20046D510 /* LETalkListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LETalkListController.m; sourceTree = "<group>"; };
 		D83C35F417992BF20046D510 /* LETalkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LETalkViewController.h; sourceTree = "<group>"; };
@@ -201,9 +196,6 @@
 		D810664E17AA717C00623E33 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D83890F417B0D2B4001473CA /* LEOptionsViewController.h */,
-				D83890F517B0D2B4001473CA /* LEOptionsViewController.m */,
-				D83890F617B0D2B4001473CA /* LEOptionsViewController.xib */,
 				D83C35F217992BF20046D510 /* LETalkListController.h */,
 				D83C35F317992BF20046D510 /* LETalkListController.m */,
 				D83C35F417992BF20046D510 /* LETalkViewController.h */,
@@ -460,7 +452,6 @@
 				D8A8C40A17982FDE009B1300 /* Main_iPhone.storyboard in Resources */,
 				D8673EEB17AFB70B0026B089 /* TalkBubble@2x.png in Resources */,
 				D8A8C40117982FDE009B1300 /* InfoPlist.strings in Resources */,
-				D83890F817B0D2B4001473CA /* LEOptionsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,7 +507,6 @@
 				D861DE2E17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.m in Sources */,
 				D89DC2B3179BEF64000770EC /* GHStore.m in Sources */,
 				D8B5EE90179D81470007A5D8 /* UIColor+HexCodes.m in Sources */,
-				D83890F717B0D2B4001473CA /* LEOptionsViewController.m in Sources */,
 				D89DC2A61799DF11000770EC /* GHLabel.m in Sources */,
 				D8A8C41617982FDF009B1300 /* LEWorkViewController.m in Sources */,
 				D8E1DDE217A4693B00F1D442 /* UIGestureRecognizer+LEDebugging.m in Sources */,

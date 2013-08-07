@@ -11,7 +11,6 @@
 #import "GHIssue.h"
 #import "GHStore.h"
 #import "GHUser.h"
-#import "LEOptionsViewController.h"
 #import "LETalk.h"
 #import "LETalkCell.h"
 #import "LETalkViewController.h"
@@ -391,17 +390,6 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
         self.talkSize = kLETalkSizeLarge;
     else
         self.talkSize = kLETalkSizeRegular;
-}
-
-- (IBAction)showOptions:(UIBarButtonItem *)barButton;
-{
-    // TODO: Implement the options menu, refs #25
-    NSLog(@"TODO: Implement %@ refs #%d", NSStringFromSelector(_cmd), 25);
-
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-        self.popover = [[UIPopoverController alloc] initWithContentViewController:[LEOptionsViewController optionsController]];
-        [self.popover presentPopoverFromBarButtonItem:barButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    }
 }
 
 - (IBAction)sortList:(UISegmentedControl *)sortControl;

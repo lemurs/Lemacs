@@ -10,7 +10,6 @@
 
 @interface LEAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) LETalkListController *talkList;
 @property (strong, nonatomic) UIWindow *window;
 
 @end

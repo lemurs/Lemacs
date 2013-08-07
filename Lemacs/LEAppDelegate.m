@@ -12,7 +12,11 @@
 #import "GHStore.h"
 #import "LETalkListController.h"
 
-#ifdef HOCKEYAPP_IDENTIFIER#import <HockeySDK/HockeySDK.h>@interface LEAppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate>@end#endif
+#ifdef HOCKEYAPP_IDENTIFIER
+#import <HockeySDK/HockeySDK.h>
+@interface LEAppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate>
+@end
+#endif
 
 @implementation LEAppDelegate
 
@@ -34,10 +38,11 @@
         splitViewController.delegate = (id)navigationController.topViewController;
         
         UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
-        self.talkList = (LETalkListController *)masterNavigationController.topViewController;
+        UINavigationController *detailNavigationController = splitViewController.viewControllers[1];
+        [masterNavigationController.topViewController performSegueWithIdentifier:@"GoTalk" sender:self];
     } else {
         UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-        self.talkList = (LETalkListController *)navigationController.topViewController;
+//        [navigationController.topViewController performSegueWithIdentifier:@"GoTalk" sender:self];
     }
 
     return YES;
@@ -117,5 +122,14 @@
     [[GHStore sharedStore] save];
 }
 
-#ifdef HOCKEYAPP_IDENTIFIER- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {#ifndef CONFIGURATION_AppStore    if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])        return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];#endif    return nil;}#endif
+#ifdef HOCKEYAPP_IDENTIFIER
+- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
+#ifndef CONFIGURATION_AppStore
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
+        return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+#endif
+    return nil;
+}
+#endif
+
 @end
