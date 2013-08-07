@@ -16,11 +16,30 @@
 #import <UAGithubEngine/UAGithubEngine.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
 
+@interface GHStore ()
+
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
+
+@property (nonatomic, strong, readonly) NSURL *applicationDocumentsDirectory;
+@property (nonatomic, strong, readonly) NSString *repositoryPath;
+
+- (IBAction)removeContext;
+- (IBAction)showLogin;
+
+@end
+
+
 void (^handleError)(NSError *) = ^(NSError *error){
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
     if ([error.domain isEqualToString:@"HTTP"]) {
         switch (error.code) {
+            case 403: // Happens when your password is wrong
+                error = [NSError errorWithDomain:error.domain code:error.code userInfo:@{NSLocalizedDescriptionKey :  NSLocalizedString(@"GitHub refuses to speak to you. Check your login credentials.", @"Incorrect password description")}];
+                [[GHStore sharedStore] showLogin];
+                return;
+
             case 405: // FIXME: Happens when trying to save when GitHub is down. Changes should be saved locally and synced next time.
             case 502:
             case 503:
@@ -39,19 +58,6 @@ void (^handleError)(NSError *) = ^(NSError *error){
 
     [error present];
 };
-
-
-@interface GHStore ()
-
-@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
-
-@property (nonatomic, strong, readonly) NSURL *applicationDocumentsDirectory;
-@property (nonatomic, strong, readonly) NSString *repositoryPath;
-
-- (IBAction)removeContext;
-
-@end
 
 
 @implementation GHStore
