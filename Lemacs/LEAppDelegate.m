@@ -42,7 +42,7 @@
         [masterNavigationController.topViewController performSegueWithIdentifier:@"GoTalk" sender:self];
     } else {
         UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-//        [navigationController.topViewController performSegueWithIdentifier:@"GoTalk" sender:self];
+        [navigationController.topViewController performSegueWithIdentifier:@"GoTalk" sender:self];
     }
 
     return YES;
