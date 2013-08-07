@@ -10,14 +10,6 @@
 
 @implementation NSError (LEPresenting)
 
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
-{
-
-}
-
-
 #pragma mark - API
 
 - (IBAction)present;
@@ -41,7 +33,7 @@
 
     NSString *localizedCancelButtonTitle = NSLocalizedString(@"OK", @"Generic error button title");
 
-    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:localizedTitle message:localizedMessage delegate:self cancelButtonTitle:localizedCancelButtonTitle otherButtonTitles:nil];
+    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:localizedTitle message:localizedMessage delegate:nil cancelButtonTitle:localizedCancelButtonTitle otherButtonTitles:nil];
     [errorAlert show];
 }
 

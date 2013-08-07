@@ -7,6 +7,6 @@
 //
 //  This convenient method simply presents an alert displaying the localized error.
 
-@interface NSError (LEPresenting) <UIAlertViewDelegate>
+@interface NSError (LEPresenting)
 - (IBAction)present;
 @end
