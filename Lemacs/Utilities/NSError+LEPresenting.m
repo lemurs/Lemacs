@@ -34,6 +34,7 @@
     NSString *localizedCancelButtonTitle = NSLocalizedString(@"OK", @"Generic error button title");
 
     UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:localizedTitle message:localizedMessage delegate:nil cancelButtonTitle:localizedCancelButtonTitle otherButtonTitles:nil];
+
     [errorAlert show];
 }
 
