@@ -281,10 +281,6 @@
         [object setValuesForKeysWithDictionary:value];
 
     [super setValue:object forKey:key];
-
-//    NSString *inverseKey = relationship.inverseRelationship.name;
-//    if (inverseKey)
-//        [object setValue:self forKey:inverseKey];
 }
 
 - (void)setUpToManyRelationship:(NSRelationshipDescription *)relationship withValue:(NSArray *)values forKey:(NSString *)key;
@@ -302,11 +298,6 @@
             [object setValuesForKeysWithDictionary:(NSDictionary *)dictionary];
 
         [objects addObject:object];
-
-//        NSString *inverseKey = relationship.inverseRelationship.name;
-//        if (inverseKey)
-//            [object setValue:self forKey:inverseKey];
-
     }];
 
     id value = relationship.isOrdered ? [NSOrderedSet orderedSetWithArray:objects] : [NSSet setWithArray:objects];
@@ -355,11 +346,6 @@
         GHManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:relationship.destinationEntity.name inManagedObjectContext:self.managedObjectContext];
         [object setValuesForKeysWithDictionary:(NSDictionary *)dictionary];
         [objects addObject:object];
-
-//        NSString *inverseKey = relationship.inverseRelationship.name;
-//        if (inverseKey)
-//            [object setValue:self forKey:inverseKey];
-
     }];
 
     *values = objects;
