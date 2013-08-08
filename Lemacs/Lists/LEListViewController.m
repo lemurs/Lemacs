@@ -267,9 +267,6 @@
     GHLabel *label = [self.fetchResults objectAtIndexPath:indexPath];
     assert([label isKindOfClass:[GHLabel class]]);
 
-    NSLog(@"%@", [CIColor colorWithHexCode:label.colorCode]);
-    NSLog(@"%@", [[CIImage imageWithColor:[CIColor colorWithHexCode:label.colorCode]] imageByCroppingToRect:CGRectMake(0.0f, 0.0f, 1.0f, 1.0f)]);
-    NSLog(@"%@", [UIImage imageWithCIImage:[[CIImage imageWithColor:[CIColor colorWithHexCode:label.colorCode]] imageByCroppingToRect:CGRectMake(0.0f, 0.0f, 1.0f, 1.0f)]]);
     cell.imageView.image = [UIImage imageWithCIImage:[[CIImage imageWithColor:[CIColor colorWithHexCode:label.colorCode]] imageByCroppingToRect:CGRectMake(0.0f, 0.0f, 42.0f, 42.0f)]];
     cell.textLabel.text = [[self.fetchResults objectAtIndexPath:indexPath] valueForKey:@"name"];
 }
