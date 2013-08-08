@@ -272,6 +272,7 @@ typedef enum {kLETalkSizeMini, kLETalkSizeRegular, kLETalkSizeLarge, kLETalkSize
     headerView.textLabel.font = [UIFont boldSystemFontOfSize:16.0f];
 }
 
+
 #pragma mark - API
 
 #pragma mark Properties
