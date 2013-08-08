@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		4A128966179C5F290024C066 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A128965179C5F290024C066 /* CoreText.framework */; };
 		D80A5F0117A6775600468ACA /* LEChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D80A5F0017A6775600468ACA /* LEChange.m */; };
+		D8153CA517B3B4B900C8849D /* LEListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8153CA417B3B4B900C8849D /* LEListViewController.m */; };
+		D8153CA817B3C5F900C8849D /* NSCharacterSet+HexCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = D8153CA717B3C5F900C8849D /* NSCharacterSet+HexCodes.m */; };
+		D8153CAB17B3C65900C8849D /* CIColor+HexCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = D8153CAA17B3C65900C8849D /* CIColor+HexCodes.m */; };
 		D83890F317B0CAB0001473CA /* NSError+LEPresenting.m in Sources */ = {isa = PBXBuildFile; fileRef = D83890F217B0CAB0001473CA /* NSError+LEPresenting.m */; };
 		D83C35F617992BF20046D510 /* LETalkListController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C35F317992BF20046D510 /* LETalkListController.m */; };
 		D83C35F717992BF20046D510 /* LETalkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C35F517992BF20046D510 /* LETalkViewController.m */; };
@@ -69,6 +72,12 @@
 		9CD899536E4C41519333F9DA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		D80A5EFF17A6775600468ACA /* LEChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEChange.h; sourceTree = "<group>"; };
 		D80A5F0017A6775600468ACA /* LEChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEChange.m; sourceTree = "<group>"; };
+		D8153CA317B3B4B900C8849D /* LEListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEListViewController.h; sourceTree = "<group>"; };
+		D8153CA417B3B4B900C8849D /* LEListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEListViewController.m; sourceTree = "<group>"; };
+		D8153CA617B3C5F900C8849D /* NSCharacterSet+HexCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+HexCodes.h"; sourceTree = "<group>"; };
+		D8153CA717B3C5F900C8849D /* NSCharacterSet+HexCodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+HexCodes.m"; sourceTree = "<group>"; };
+		D8153CA917B3C65900C8849D /* CIColor+HexCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CIColor+HexCodes.h"; sourceTree = "<group>"; };
+		D8153CAA17B3C65900C8849D /* CIColor+HexCodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CIColor+HexCodes.m"; sourceTree = "<group>"; };
 		D83890F117B0CAAF001473CA /* NSError+LEPresenting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+LEPresenting.h"; sourceTree = "<group>"; };
 		D83890F217B0CAB0001473CA /* NSError+LEPresenting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+LEPresenting.m"; sourceTree = "<group>"; };
 		D83C35F217992BF20046D510 /* LETalkListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LETalkListController.h; sourceTree = "<group>"; };
@@ -220,6 +229,15 @@
 			name = Application;
 			sourceTree = "<group>";
 		};
+		D8153CA217B3B45500C8849D /* Lists */ = {
+			isa = PBXGroup;
+			children = (
+				D8153CA317B3B4B900C8849D /* LEListViewController.h */,
+				D8153CA417B3B4B900C8849D /* LEListViewController.m */,
+			);
+			path = Lists;
+			sourceTree = "<group>";
+		};
 		D861DE2B17A42F1A0067A9D1 /* Markdown */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,8 +296,12 @@
 				D89DC2AC1799E3D7000770EC /* NSDate+GitHub.m */,
 				D83890F117B0CAAF001473CA /* NSError+LEPresenting.h */,
 				D83890F217B0CAB0001473CA /* NSError+LEPresenting.m */,
+				D8153CA917B3C65900C8849D /* CIColor+HexCodes.h */,
+				D8153CAA17B3C65900C8849D /* CIColor+HexCodes.m */,
 				D8B5EE8E179D81470007A5D8 /* UIColor+HexCodes.h */,
 				D8B5EE8F179D81470007A5D8 /* UIColor+HexCodes.m */,
+				D8153CA617B3C5F900C8849D /* NSCharacterSet+HexCodes.h */,
+				D8153CA717B3C5F900C8849D /* NSCharacterSet+HexCodes.m */,
 				D8E1DDE017A4693B00F1D442 /* UIGestureRecognizer+LEDebugging.h */,
 				D8E1DDE117A4693B00F1D442 /* UIGestureRecognizer+LEDebugging.m */,
 			);
@@ -324,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				D810664F17AA71D400623E33 /* Application */,
+				D8153CA217B3B45500C8849D /* Lists */,
 				D810664B17AA706100623E33 /* Talk */,
 				D89DC2971799CE98000770EC /* GitHub */,
 				D861DE2B17A42F1A0067A9D1 /* Markdown */,
@@ -505,10 +528,12 @@
 			files = (
 				D8A8C41017982FDF009B1300 /* Lemacs.xcdatamodeld in Sources */,
 				D861DE2E17A42F1A0067A9D1 /* NSAttributedStringMarkdownParser+GHMarkdown.m in Sources */,
+				D8153CAB17B3C65900C8849D /* CIColor+HexCodes.m in Sources */,
 				D89DC2B3179BEF64000770EC /* GHStore.m in Sources */,
 				D8B5EE90179D81470007A5D8 /* UIColor+HexCodes.m in Sources */,
 				D89DC2A61799DF11000770EC /* GHLabel.m in Sources */,
 				D8A8C41617982FDF009B1300 /* LEWorkViewController.m in Sources */,
+				D8153CA817B3C5F900C8849D /* NSCharacterSet+HexCodes.m in Sources */,
 				D8E1DDE217A4693B00F1D442 /* UIGestureRecognizer+LEDebugging.m in Sources */,
 				D89DC2BC179C4DE9000770EC /* LETalkCell.m in Sources */,
 				D89DC2AD1799E3D7000770EC /* NSDate+GitHub.m in Sources */,
@@ -516,6 +541,7 @@
 				D83C35F717992BF20046D510 /* LETalkViewController.m in Sources */,
 				D8A8C40317982FDE009B1300 /* main.m in Sources */,
 				D80A5F0117A6775600468ACA /* LEChange.m in Sources */,
+				D8153CA517B3B4B900C8849D /* LEListViewController.m in Sources */,
 				D83890F317B0CAB0001473CA /* NSError+LEPresenting.m in Sources */,
 				D89DC2A91799E234000770EC /* GHManagedObject.m in Sources */,
 				D8B5EE8D179D434B0007A5D8 /* GHManagedObject+LETalk.m in Sources */,

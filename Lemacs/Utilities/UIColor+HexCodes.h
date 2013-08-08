@@ -7,5 +7,5 @@
 //
 
 @interface UIColor (HexCodes)
-+ (UIColor *)colorWithHexCode:(NSString *)hexCode;
++ (instancetype)colorWithHexCode:(NSString *)hexCode;
 @end

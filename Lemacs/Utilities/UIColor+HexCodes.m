@@ -7,26 +7,12 @@
 //
 
 #import "UIColor+HexCodes.h"
+#import "NSCharacterSet+HexCodes.h"
 
-
-@interface NSCharacterSet (HexCodes)
-+ (NSCharacterSet *)hexadecimalCharacterSet;
-@end
-
-@implementation NSCharacterSet (HexCodes)
-
-+ (NSCharacterSet *)hexadecimalCharacterSet;
-{
-    static NSCharacterSet *hexadecimalCharacterSet = nil;
-    return hexadecimalCharacterSet ? : (hexadecimalCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEF"]);
-
-}
-
-@end
 
 @implementation UIColor (HexCodes)
 
-+ (UIColor *)colorWithHexCode:(NSString *)hexCode;
++ (instancetype)colorWithHexCode:(NSString *)hexCode;
 {
     static const NSUInteger kUIColorHexCodeLength = 6;
     static const NSUInteger kUIColorHexCodeSegmentLength = 2;
