@@ -8,6 +8,8 @@
 
 #import <XCTest/XCTest.h>
 
+#import "NSDate+GitHub.h"
+
 @interface LemacsTests : XCTestCase
 
 @end
@@ -28,9 +30,11 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testGitHubDateFormat
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    NSDate * date = [NSDate dateWithTimeIntervalSinceReferenceDate:0.0];
+    NSString * gitDate = [NSDate GitHubDateStringWithDate: date];
+    XCTAssertEqualObjects(@"2001-01-01T00:00:00Z", gitDate);
 }
 
 @end
